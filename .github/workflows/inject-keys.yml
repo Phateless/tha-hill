@@ -1,0 +1,45 @@
+name: Inject API keys & deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Inject API keys into config file
+        run: |
+          mkdir -p data
+          cat > data/config.js << EOF
+          window.FLIGHTAWARE_API_KEY = '${{ secrets.FLIGHTAWARE_API_KEY }}';
+          window.TROVE_API_KEY = '${{ secrets.TROVE_API_KEY }}';
+          EOF
+          echo "Config written (keys not logged)"
+
+      - name: Verify config was written
+        run: |
+          if [ -f data/config.js ]; then
+            echo "config.js exists"
+            wc -c data/config.js
+          else
+            echo "ERROR: config.js missing"
+            exit 1
+          fi
+
+      - name: Commit config (gitignored content only)
+        run: |
+          git config user.name "Tha Hill Bot"
+          git config user.email "bot@thahill.com.au"
+          git add data/config.js
+          git diff --staged --quiet || git commit -m "Inject runtime config [skip ci]"
+          git push

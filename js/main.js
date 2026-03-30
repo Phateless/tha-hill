@@ -23,6 +23,7 @@ const SECTION_TITLES = {
   water:     ['City & Region', 'Water & Energy'],
   otd:       ['Community', 'On This Day'],
   dust:      ['City & Region', 'Dust & Air Quality'],
+  adsb:      ['Aviation', 'ADS-B & Aviation'],
 };
 
 // ── NAVIGATION ───────────────────────────────────────────────
@@ -387,6 +388,7 @@ function initCharts(sectionId) {
   if (sectionId === 'realestate') { if (!drawn.has('re'))         { drawPriceChart();              drawn.add('re'); } }
   if (sectionId === 'weather')    { if (!drawn.has('weather'))    { drawWeatherChart();             drawn.add('weather'); } }
   if (sectionId === 'dust')       { if (!drawn.has('dust'))       { drawAQIChart();                 drawn.add('dust'); } }
+  if (sectionId === 'adsb')       { if (window.initADSB) window.initADSB(); }
 }
 
 window.addEventListener('resize', () => {

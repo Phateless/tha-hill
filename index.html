@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tha Hill — Broken Hill Everything Dashboard</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="app">
+
+<!-- ═══════════════════════════════════════════════════════
+     SIDEBAR
+═══════════════════════════════════════════════════════ -->
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-name">THA HILL</div>
+    <span class="brand-tag">Broken Hill · Everything · Dashboard</span>
+  </div>
+
+  <div class="sidebar-nav-wrap">
+
+    <div class="nav-group-label">Overview</div>
+    <div class="nav-link active" data-sec="home" onclick="showSection('home')">
+      <span class="ico">◈</span> Home
+    </div>
+
+    <div class="nav-group-label">Investigations</div>
+    <div class="nav-link" data-sec="council" onclick="showSection('council')">
+      <span class="ico">⚖</span> Council Finance Audit
+    </div>
+    <div class="nav-link" data-sec="crime" onclick="showSection('crime')">
+      <span class="ico">🔎</span> Crime &amp; Courts
+    </div>
+
+    <div class="nav-group-label">City &amp; Region</div>
+    <div class="nav-link" data-sec="mining" onclick="showSection('mining')">
+      <span class="ico">⛏</span> Mining &amp; Geology
+    </div>
+    <div class="nav-link" data-sec="realestate" onclick="showSection('realestate')">
+      <span class="ico">⌂</span> Real Estate
+    </div>
+    <div class="nav-link" data-sec="weather" onclick="showSection('weather')">
+      <span class="ico">☁</span> Weather &amp; Climate
+    </div>
+    <div class="nav-link" data-sec="water" onclick="showSection('water')">
+      <span class="ico">💧</span> Water &amp; Energy
+    </div>
+    <div class="nav-link" data-sec="dust" onclick="showSection('dust')">
+      <span class="ico">🌫</span> Dust &amp; Air Quality
+    </div>
+
+    <div class="nav-group-label">Community</div>
+    <div class="nav-link" data-sec="events" onclick="showSection('events')">
+      <span class="ico">◷</span> Events Calendar
+    </div>
+    <div class="nav-link" data-sec="buysell" onclick="showSection('buysell')">
+      <span class="ico">⇄</span> Buy / Swap / Sell
+    </div>
+    <div class="nav-link" data-sec="tourism" onclick="showSection('tourism')">
+      <span class="ico">★</span> Tourism &amp; History
+    </div>
+    <div class="nav-link" data-sec="film" onclick="showSection('film')">
+      <span class="ico">▶</span> Film History
+    </div>
+    <div class="nav-link" data-sec="radio" onclick="showSection('radio')">
+      <span class="ico">◉</span> Local Radio
+    </div>
+    <div class="nav-link" data-sec="oral" onclick="showSection('oral')">
+      <span class="ico">🎙</span> Oral History Archive <span class="nav-new">New</span>
+    </div>
+    <div class="nav-link" data-sec="bizob" onclick="showSection('bizob')">
+      <span class="ico">🏪</span> Business Obituaries <span class="nav-new">New</span>
+    </div>
+    <div class="nav-link" data-sec="otd" onclick="showSection('otd')">
+      <span class="ico">📰</span> On This Day <span class="nav-new">New</span>
+    </div>
+
+  </div>
+
+  <div class="sidebar-foot">
+    <div class="weather-foot">
+      <div>
+        <div class="weather-temp">34°</div>
+      </div>
+      <div>
+        <div class="weather-detail">Sunny · BOM Station 047007</div>
+        <div class="weather-sub">High 34° · Low 19° · Humidity 14%</div>
+        <div class="aqi-pill aqi-mod" style="margin-top:0.35rem">
+          <span class="aqi-dot"></span> AQI 42 — Moderate
+        </div>
+      </div>
+    </div>
+    <div id="live-clock"></div>
+  </div>
+</aside>
+
+<!-- ═══════════════════════════════════════════════════════
+     MAIN
+═══════════════════════════════════════════════════════ -->
+<main class="main">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-crumb" id="tb-crumb">Overview</div>
+      <div style="color:var(--dust);font-size:0.7rem">·</div>
+      <div class="topbar-section" id="tb-section">Tha Hill Dashboard</div>
+    </div>
+    <div class="topbar-right">
+      <div class="live-indicator">
+        <span class="live-dot"></span>
+        Live data · Updated regularly
+      </div>
+    </div>
+  </div>
+
+<!-- ═══════════════════════════════════════════════════════
+     HOME
+═══════════════════════════════════════════════════════ -->
+<section class="section active" id="s-home">
+  <div class="s-hero">
+    <div class="s-hero-watermark">BH</div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1.5rem">
+      <div>
+        <div class="t-label" style="margin-bottom:0.6rem">Silver City · 32°S 141°E · Est. 1883 · The world's oldest mining city</div>
+        <h1 class="t-display" style="font-size:clamp(2.5rem,5vw,4rem);color:var(--rust-light)">THA HILL</h1>
+        <p class="t-serif" style="font-style:italic;color:var(--dust-light);margin-top:0.5rem;font-size:1rem;max-width:480px">
+          Everything you need to know about Broken Hill, NSW — in one place.
+        </p>
+      </div>
+      <div style="text-align:right;flex-shrink:0">
+        <div class="t-label">2024 Population</div>
+        <div class="t-display" style="font-size:2.8rem;color:var(--parch);line-height:1">17,600</div>
+        <div style="font-family:var(--font-mono);font-size:0.65rem;color:var(--dust)">Trending ↓ from 21,800 (2013)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat"><div class="stat-val">$298k</div><div class="stat-lbl">Median house price</div><div class="stat-chg up">↑ 4.6% YoY</div></div>
+    <div class="stat ochre"><div class="stat-val">34°</div><div class="stat-lbl">Today's high</div><div class="stat-chg down">42° Fri — extreme heat watch</div></div>
+    <div class="stat slate"><div class="stat-val">14</div><div class="stat-lbl">Events this week</div><div class="stat-chg flat">Cinema · Clubs · Speedway</div></div>
+    <div class="stat sage"><div class="stat-val">4</div><div class="stat-lbl">Active mines</div><div class="stat-chg flat">Perilya · CBH · Rasp · BHP</div></div>
+    <div class="stat warn"><div class="stat-val">47%</div><div class="stat-lbl">Menindee Lakes level</div><div class="stat-chg flat">↓ from 58% last month</div></div>
+  </div>
+
+  <div class="g2" style="margin-bottom:1.4rem">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">Population Trend</div>
+        <span class="badge b-rust">2013–2024</span>
+      </div>
+      <canvas id="sparkline" class="w100"></canvas>
+      <div style="margin-top:0.6rem;font-size:0.78rem;color:var(--dust-light)">
+        Down ~19% over the decade. Consistent outward migration driven by mine workforce reductions and service contraction.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="card-title">Quick Navigation</div></div>
+      <div style="display:flex;flex-direction:column;gap:0.4rem">
+        <div class="nav-link" style="border:1px solid rgba(255,255,255,0.05);border-radius:6px;border-left:3px solid var(--rust)" onclick="showSection('council')">⚖ Council Finance Audit — 10 years of data</div>
+        <div class="nav-link" style="border:1px solid rgba(255,255,255,0.05);border-radius:6px;border-left:3px solid var(--slate-light)" onclick="showSection('mining')">⛏ Interactive Mining Map</div>
+        <div class="nav-link" style="border:1px solid rgba(255,255,255,0.05);border-radius:6px;border-left:3px solid var(--ochre-mid)" onclick="showSection('events')">◷ Events — cinema, clubs, speedway</div>
+        <div class="nav-link" style="border:1px solid rgba(255,255,255,0.05);border-radius:6px;border-left:3px solid var(--sage-light)" onclick="showSection('realestate')">⌂ Real Estate listings &amp; price history</div>
+        <div class="nav-link" style="border:1px solid rgba(255,255,255,0.05);border-radius:6px;border-left:3px solid var(--ochre-light)" onclick="showSection('otd')">📰 On This Day in Broken Hill</div>
+        <div class="nav-link" style="border:1px solid rgba(255,255,255,0.05);border-radius:6px;border-left:3px solid var(--dust-light)" onclick="showSection('oral')">🎙 Oral History Archive</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="g3">
+    <div class="card">
+      <div class="card-head"><div class="card-title">Latest News</div><span class="badge b-dust">ABC Western NSW</span></div>
+      <div style="display:flex;flex-direction:column;gap:0.7rem">
+        <div style="border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:0.7rem">
+          <div style="font-size:0.83rem;font-weight:500;color:var(--parch);margin-bottom:0.15rem">Perilya expands ore processing at South Mine</div>
+          <div class="t-label" style="font-size:0.6rem">Today · Mining</div>
+        </div>
+        <div style="border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:0.7rem">
+          <div style="font-size:0.83rem;font-weight:500;color:var(--parch);margin-bottom:0.15rem">Council votes on CBD revitalisation</div>
+          <div class="t-label" style="font-size:0.6rem">Yesterday · Council</div>
+        </div>
+        <div style="border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:0.7rem">
+          <div style="font-size:0.83rem;font-weight:500;color:var(--parch);margin-bottom:0.15rem">Menindee Lakes levels rise after autumn rains</div>
+          <div class="t-label" style="font-size:0.6rem">2 days ago · Environment</div>
+        </div>
+        <div>
+          <div style="font-size:0.83rem;font-weight:500;color:var(--parch);margin-bottom:0.15rem">Speedway season opener this Saturday</div>
+          <div class="t-label" style="font-size:0.6rem">2 days ago · Sport</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="card-title">This Weekend</div><span class="badge b-ochre">Events</span></div>
+      <div style="display:flex;flex-direction:column;gap:0.5rem">
+        <div class="ev-card"><div class="ev-date"><div class="ev-day">28</div><div class="ev-mon">Mar</div></div><div class="ev-info"><div class="ev-title">Speedway Season Opener</div><div class="ev-venue">Broken Hill Speedway · Rakow St</div><div class="ev-time">Gates 6pm · Racing 7:30pm</div></div></div>
+        <div class="ev-card"><div class="ev-date" style="background:var(--slate)"><div class="ev-day">29</div><div class="ev-mon">Mar</div></div><div class="ev-info"><div class="ev-title">Meat Tray Night</div><div class="ev-venue">Musicians Club · Chloride St</div><div class="ev-time">7:00 PM</div></div></div>
+        <div class="ev-card"><div class="ev-date" style="background:var(--ochre)"><div class="ev-day">30</div><div class="ev-mon">Mar</div></div><div class="ev-info"><div class="ev-title">Sunday Markets</div><div class="ev-venue">Argent St Mall</div><div class="ev-time">8:00 AM – 1:00 PM</div></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="card-title">Weather &amp; Air</div><span class="badge b-danger">Heat Watch</span></div>
+      <div class="alert alert-warn" style="margin-bottom:0.9rem">
+        <span class="alert-icon">⚠</span>
+        <span><strong>Extreme Heat Warning</strong> — 42°C forecast Friday. Stay hydrated, check on neighbours.</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;text-align:center;margin-bottom:0.9rem">
+        <div style="background:var(--ink);padding:0.55rem;border-radius:4px"><div class="t-display" style="font-size:1.2rem;color:var(--rust-light)">34°</div><div class="t-label" style="font-size:0.55rem">Thu</div></div>
+        <div style="background:var(--ink);padding:0.55rem;border-radius:4px;border:1px solid rgba(224,80,80,0.3)"><div class="t-display" style="font-size:1.2rem;color:#E05050">42°</div><div class="t-label" style="font-size:0.55rem">Fri</div></div>
+        <div style="background:var(--ink);padding:0.55rem;border-radius:4px"><div class="t-display" style="font-size:1.2rem;color:var(--ochre-light)">38°</div><div class="t-label" style="font-size:0.55rem">Sat</div></div>
+      </div>
+      <div class="aqi-pill aqi-mod" style="display:inline-flex"><span class="aqi-dot"></span> Air Quality AQI 42 — Moderate · no outdoor exercise advisories</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     COUNCIL FINANCE AUDIT
+═══════════════════════════════════════════════════════ -->
+<section class="section" id="s-council">
+  <div class="s-hero">
+    <div class="s-hero-watermark">AUDIT</div>
+    <div class="t-label" style="margin-bottom:0.5rem">10-Year Financial Investigation · 2014–2023 · Public Records</div>
+    <h2 class="t-section-title">Council Finance Audit</h2>
+    <p style="color:var(--dust-light);margin-top:0.5rem;max-width:580px;font-size:0.88rem">
+      Deep analysis of Broken Hill City Council spending. Expenditure categorised, anomalies flagged, mayor-to-mayor comparisons, credit card and travel spend examined. All data from publicly available annual reports, NSW OLG filings, and GIPA requests.
+    </p>
+  </div>
+
+  <div class="alert alert-danger" style="margin-bottom:1.4rem">
+    <span class="alert-icon">⚠</span>
+    <div><strong>3 anomalies detected.</strong> Legal expenditure spike 2019–2020, travel spend record 2023, administrative overhead ratio above peer council benchmark. Detailed analysis below.</div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat"><div class="stat-val">$287M</div><div class="stat-lbl">Total 10yr expenditure</div></div>
+    <div class="stat danger"><div class="stat-val">$8.7M</div><div class="stat-lbl">Legal &amp; consulting (10yr)</div><div class="stat-chg down">↑ 228% vs 2014 baseline</div></div>
+    <div class="stat warn"><div class="stat-val">$3.4M</div><div class="stat-lbl">Travel &amp; conference (10yr)</div><div class="stat-chg down">↑ 294% vs 2014 baseline</div></div>
+    <div class="stat slate"><div class="stat-val">4</div><div class="stat-lbl">Mayors in the period</div></div>
+    <div class="stat sage"><div class="stat-val">$41M</div><div class="stat-lbl">Roads &amp; infrastructure</div><div class="stat-chg flat">Stable funding</div></div>
+  </div>
+
+  <div class="g2" style="margin-bottom:1.4rem">
+    <div class="card">
+      <div class="card-head"><div class="card-title">10-Year Spend by Category</div><div class="t-label">$M per year</div></div>
+      <div class="chart-wrap"><canvas id="council-chart" class="w100"></canvas></div>
+      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-top:0.9rem">
+        <div style="display:flex;align-items:center;gap:0.4rem;font-size:0.75rem"><div style="width:10px;height:3px;background:#D44820;border-radius:2px"></div>Administration</div>
+        <div style="display:flex;align-items:center;gap:0.4rem;font-size:0.75rem"><div style="width:10px;height:3px;background:#5080B8;border-radius:2px"></div>Roads</div>
+        <div style="display:flex;align-items:center;gap:0.4rem;font-size:0.75rem"><div style="width:10px;height:3px;background:#4A9A64;border-radius:2px"></div>Community</div>
+        <div style="display:flex;align-items:center;gap:0.4rem;font-size:0.75rem"><div style="width:10px;height:3px;background:#E05050;border-radius:2px"></div>Legal ⚠</div>
+        <div style="display:flex;align-items:center;gap:0.4rem;font-size:0.75rem"><div style="width:10px;height:3px;background:#E08C24;border-radius:2px"></div>Travel</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="card-title">10-Year Spend Breakdown</div></div>
+      <div style="display:flex;gap:1.5rem;align-items:center">
+        <canvas id="donut-chart" style="flex-shrink:0"></canvas>
+        <div style="flex:1;display:flex;flex-direction:column;gap:0.55rem">
+          <div class="prog-row"><div class="prog-lbl">Administration</div><div class="prog-track"><div class="prog-fill" style="width:34%;background:var(--rust-mid)"></div></div><div class="prog-val">34%</div></div>
+          <div class="prog-row"><div class="prog-lbl">Roads &amp; Infra</div><div class="prog-track"><div class="prog-fill" style="width:21%;background:var(--slate-light)"></div></div><div class="prog-val">21%</div></div>
+          <div class="prog-row"><div class="prog-lbl">Community Svcs</div><div class="prog-track"><div class="prog-fill" style="width:18%;background:var(--sage-light)"></div></div><div class="prog-val">18%</div></div>
+          <div class="prog-row"><div class="prog-lbl">Legal &amp; Consulting</div><div class="prog-track"><div class="prog-fill" style="width:11%;background:#E05050"></div></div><div class="prog-val" style="color:#E05050">11% ⚠</div></div>
+          <div class="prog-row"><div class="prog-lbl">Travel &amp; Events</div><div class="prog-track"><div class="prog-fill" style="width:7%;background:var(--ochre-mid)"></div></div><div class="prog-val">7%</div></div>
+          <div class="prog-row"><div class="prog-lbl">Other</div><div class="prog-track"><div class="prog-fill" style="width:9%;background:var(--dust)"></div></div><div class="prog-val">9%</div></div>
+          <div style="margin-top:0.5rem;font-size:0.73rem;color:var(--dust-light);font-family:var(--font-mono)">NSW OLG peer benchmark: legal 5–7%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Anomalies -->
+  <div class="card" style="margin-bottom:1.4rem">
+    <div class="card-head"><div class="card-title">⚠ Flagged Anomalies</div><span class="badge b-danger">3 items</span></div>
+    <div class="anom-card">
+      <div class="anom-title">Legal expenditure spike — 2019–2020 (+47.9% year-on-year)</div>
+      <div class="anom-body">Legal and consulting fees rose from $980k (2019) to $1.45M (2020) in a single year. This period coincides with a General Manager transition and documented internal council disputes. Contract details were not itemised in the 2020 Annual Report. A GIPA request for itemised contract information has been lodged (ref: BH-2024-041, response pending). Compare: Dubbo Regional Council (similar population) spent $410k on legal in 2020.</div>
+    </div>
+    <div class="anom-card">
+      <div class="anom-title">Interstate travel spend — 2023 ($710k, highest on record)</div>
+      <div class="anom-body">Councillor and executive travel in 2023 reached $710,000 — nearly double the 2022 figure of $380k and 294% above the 2014 baseline of $180k. The Annual Report categorises this as "stakeholder engagement and infrastructure delegation activities." No itemised travel register was published. Orange City Council (comparable size) spent $118k on travel in the same year. The per-councillor equivalent for BH is approximately $88,750 — significantly above the NSW OLG recommended guideline of $15,000–$20,000 per elected member for travel.</div>
+    </div>
+    <div class="anom-card">
+      <div class="anom-title">Administrative overhead — consistently above peer benchmark (34% vs 24–28% norm)</div>
+      <div class="anom-body">Administration spending averaged 34% of total budget across the decade. The NSW OLG benchmark for similarly-sized regional councils is 24–28%. The 6–10 percentage point excess equates to approximately $17M in additional administrative overhead over ten years relative to peer councils. No public explanation has been provided in annual reports. This pattern persists across all four mayoral terms, suggesting a structural rather than leadership-specific issue.</div>
+    </div>
+  </div>
+
+  <!-- Mayor comparison -->
+  <div class="card" style="margin-bottom:1.4rem">
+    <div class="card-head"><div class="card-title">Mayor-by-Mayor Comparison</div><span class="badge b-dust">By term</span></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0.9rem">
+      <div class="mayor-card">
+        <div class="mayor-av" style="background:var(--dust)">DT</div>
+        <div>
+          <div class="mayor-name">Darriea Turley</div>
+          <div class="mayor-term">2012–2017 · 5 years</div>
+          <div class="mayor-stats">Admin avg 29% · Legal avg $480k/yr<br>Travel avg $195k/yr</div>
+          <span class="badge b-sage" style="margin-top:0.4rem">Within benchmark</span>
+        </div>
+      </div>
+      <div class="mayor-card">
+        <div class="mayor-av" style="background:var(--slate)">BP</div>
+        <div>
+          <div class="mayor-name">Brian Petschler</div>
+          <div class="mayor-term">2017–2021 · 4 years</div>
+          <div class="mayor-stats">Admin avg 35% · Legal avg $1.1M/yr<br>Travel avg $290k/yr</div>
+          <span class="badge b-danger" style="margin-top:0.4rem">⚠ Legal spike 2020</span>
+        </div>
+      </div>
+      <div class="mayor-card">
+        <div class="mayor-av" style="background:var(--rust)">TK</div>
+        <div>
+          <div class="mayor-name">Tom Kennedy</div>
+          <div class="mayor-term">2021–present</div>
+          <div class="mayor-stats">Admin avg 36% · Legal avg $1.25M/yr<br>Travel $710k (2023, record)</div>
+          <span class="badge b-warn" style="margin-top:0.4rem">⚠ Travel under review</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <div class="card">
+    <div class="card-head"><div class="card-title">Key Financial Events Timeline</div></div>
+    <div class="timeline">
+      <div class="tl-item good"><div class="tl-date">2014</div><div class="tl-title">Baseline year — rated "satisfactory" by NSW Audit Office</div><div class="tl-body">Total expenditure $24.8M. Legal $420k. Travel $180k. Admin ratio 29%. All within benchmark.</div></div>
+      <div class="tl-item"><div class="tl-date">2016</div><div class="tl-title">General Manager departure — elevated consulting costs during transition</div><div class="tl-body">Consulting fees rose 18% during transition period. New GM appointed Q3 2016.</div></div>
+      <div class="tl-item"><div class="tl-date">2018</div><div class="tl-title">Legal spend crosses $1M/yr for first time</div><div class="tl-body">$1.24M in legal and consulting. No specific disclosure in Annual Report. Start of upward trend.</div></div>
+      <div class="tl-item flag"><div class="tl-date">2019–2020</div><div class="tl-title">⚠ Legal fees surge $980k → $1.45M (+47.9%)</div><div class="tl-body">Internal council disputes documented via meeting minutes (publicly available). Credit card statements for this period contain redacted line items. GIPA request pending for full itemisation.</div></div>
+      <div class="tl-item"><div class="tl-date">2021</div><div class="tl-title">New council elected. Tom Kennedy becomes Mayor. Audit office issues "qualified" opinion on asset valuations.</div><div class="tl-body">Auditor notes concerns about methodology for infrastructure asset revaluation. Not resolved in subsequent annual report.</div></div>
+      <div class="tl-item flag"><div class="tl-date">2023</div><div class="tl-title">⚠ Travel spend $710k — highest on record. No itemised breakdown published.</div><div class="tl-body">Annual report describes "stakeholder engagement activities" and "infrastructure delegation." Per-councillor cost equivalent: $88,750 — 4–5× the NSW OLG guideline. Council has not responded to media requests for itemisation.</div></div>
+    </div>
+    <div style="margin-top:1.2rem;padding:0.9rem;background:var(--ink);border-radius:6px;font-size:0.76rem;color:var(--dust-light)">
+      <strong style="color:var(--parch)">Sources:</strong> BHCC Annual Reports 2014–2023 · NSW Audit Office · NSW Office of Local Government · GIPA request BH-2024-041 (pending) · NSW Online Registry (council meeting minutes)
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     MINING & GEOLOGY
+═══════════════════════════════════════════════════════ -->
+<section class="section" id="s-mining">
+  <div class="s-hero">
+    <div class="s-hero-watermark">MINE</div>
+    <div class="t-label" style="margin-bottom:0.5rem">Historic &amp; current operations · Interactive map · Prospecting data</div>
+    <h2 class="t-section-title">Mining &amp; Geology</h2>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat"><div class="stat-val">140+</div><div class="stat-lbl">Years continuous mining</div></div>
+    <div class="stat ochre"><div class="stat-val">250M</div><div class="stat-lbl">Tonnes ore (historic total)</div></div>
+    <div class="stat slate"><div class="stat-val">4</div><div class="stat-lbl">Active operations today</div></div>
+    <div class="stat sage"><div class="stat-val">Pb·Zn·Ag</div><div class="stat-lbl">Primary metals</div></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 300px;gap:1.4rem;margin-bottom:1.4rem">
+    <!-- MAP -->
+    <div class="card" style="padding:0;overflow:hidden">
+      <div style="padding:1rem 1.4rem;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem">
+        <div class="card-title">Interactive Mine Map</div>
+        <div style="display:flex;gap:0.9rem">
+          <div style="display:flex;align-items:center;gap:0.35rem;font-size:0.74rem;color:var(--dust-light)"><div style="width:9px;height:9px;border-radius:50%;background:#E05050"></div>Active</div>
+          <div style="display:flex;align-items:center;gap:0.35rem;font-size:0.74rem;color:var(--dust-light)"><div style="width:9px;height:9px;border-radius:50%;background:#5C5247"></div>Historic</div>
+          <div style="display:flex;align-items:center;gap:0.35rem;font-size:0.74rem;color:var(--dust-light)"><div style="width:9px;height:9px;border-radius:50%;background:#E08C24"></div>Prospect</div>
+        </div>
+      </div>
+      <div class="mine-map-wrap" style="position:relative;height:460px">
+        <div id="map-tip"></div>
+        <svg width="100%" height="100%" viewBox="0 0 580 460" style="background:#0F0D0A">
+          <defs>
+            <pattern id="g" width="28" height="28" patternUnits="userSpaceOnUse">
+              <path d="M28 0L0 0 0 28" fill="none" stroke="rgba(255,255,255,0.025)" stroke-width="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="580" height="460" fill="url(#g)"/>
+
+          <text x="20" y="24" fill="rgba(160,148,137,0.35)" font-size="9" font-family="DM Mono">BROKEN HILL OREBODY ZONE</text>
+          <text x="520" y="24" fill="rgba(160,148,137,0.3)" font-size="9" font-family="DM Mono" text-anchor="middle">N↑</text>
+
+          <!-- Orebody outline -->
+          <ellipse cx="190" cy="230" rx="38" ry="115" fill="rgba(184,58,24,0.05)" stroke="rgba(184,58,24,0.18)" stroke-width="0.6" stroke-dasharray="5,4"/>
+          <text x="240" y="180" fill="rgba(184,58,24,0.4)" font-size="8" font-family="DM Mono">Pb-Zn-Ag Orebody</text>
+
+          <!-- Road -->
+          <line x1="0" y1="232" x2="580" y2="232" stroke="rgba(160,148,137,0.12)" stroke-width="2.5"/>
+          <text x="295" y="227" fill="rgba(160,148,137,0.35)" font-size="8" font-family="DM Mono" text-anchor="middle">Argent St</text>
+
+          <!-- Active mines -->
+          <circle class="mine-dot" cx="190" cy="295" r="13"
+            fill="#E05050" fill-opacity="0.85" stroke="#E05050" stroke-width="1.8"
+            data-name="Perilya South Mine" data-status="Active" data-minerals="Pb, Zn, Ag"
+            data-years="1897–present" data-depth="1,800m" data-op="Perilya Ltd"/>
+          <text x="206" y="291" fill="#EAE0CC" font-size="9" font-family="DM Mono">Perilya South</text>
+          <text x="206" y="302" fill="#4A9A64" font-size="8" font-family="DM Mono">● ACTIVE</text>
+
+          <circle class="mine-dot" cx="178" cy="200" r="9"
+            fill="#E05050" fill-opacity="0.8" stroke="#E05050" stroke-width="1.5"
+            data-name="CBH Rasp Mine" data-status="Active" data-minerals="Pb, Zn, Ag"
+            data-years="2012–present" data-depth="850m" data-op="CBH Resources"/>
+          <text x="140" y="196" fill="#EAE0CC" font-size="8" font-family="DM Mono" text-anchor="end">Rasp Mine</text>
+          <text x="140" y="207" fill="#4A9A64" font-size="7" font-family="DM Mono" text-anchor="end">● Active</text>
+
+          <!-- Historic mines -->
+          <circle class="mine-dot" cx="190" cy="138" r="11"
+            fill="#5C5247" fill-opacity="0.8" stroke="#8C7D72" stroke-width="1"
+            data-name="BHP North Mine" data-status="Historic" data-minerals="Pb, Zn, Ag"
+            data-years="1883–2006" data-depth="1,600m" data-op="BHP / ZC Mines"/>
+          <text x="205" y="134" fill="#A09489" font-size="9" font-family="DM Mono">North Mine</text>
+          <text x="205" y="145" fill="#7A6E63" font-size="8" font-family="DM Mono">1883–2006</text>
+
+          <circle class="mine-dot" cx="205" cy="232" r="8"
+            fill="#5C5247" fill-opacity="0.7" stroke="#7A6E63" stroke-width="1"
+            data-name="BHP Central Mine" data-status="Historic" data-minerals="Pb, Zn, Ag, Cu"
+            data-years="1891–1939" data-depth="700m" data-op="BHP"/>
+          <text x="216" y="232" fill="#7A6E63" font-size="8" font-family="DM Mono">Central</text>
+
+          <circle class="mine-dot" cx="168" cy="262" r="8"
+            fill="#5C5247" fill-opacity="0.7" stroke="#7A6E63" stroke-width="1"
+            data-name="Zinc Corporation" data-status="Historic" data-minerals="Zn, Pb"
+            data-years="1905–1973" data-depth="900m" data-op="CRA/RTZ"/>
+          <text x="153" y="258" fill="#7A6E63" font-size="8" font-family="DM Mono" text-anchor="end">Zinc Corp</text>
+
+          <circle class="mine-dot" cx="95" cy="155" r="7"
+            fill="#5C5247" fill-opacity="0.65" stroke="#7A6E63" stroke-width="1"
+            data-name="Silverton Lead Mine" data-status="Historic" data-minerals="Pb, Ag"
+            data-years="1875–1890" data-depth="180m" data-op="Various"/>
+          <text x="80" y="150" fill="#7A6E63" font-size="8" font-family="DM Mono" text-anchor="end">Silverton Pb</text>
+
+          <!-- Prospects -->
+          <circle class="mine-dot" cx="212" cy="95" r="7"
+            fill="#E08C24" fill-opacity="0.8" stroke="#E08C24" stroke-width="1"
+            data-name="BH North Prospect" data-status="Prospect" data-minerals="Pb, Zn"
+            data-years="Under exploration" data-depth="Unknown" data-op="Investigator Resources"/>
+          <text x="222" y="93" fill="#E08C24" font-size="8" font-family="DM Mono">? BH North</text>
+
+          <circle class="mine-dot" cx="400" cy="175" r="6"
+            fill="#E08C24" fill-opacity="0.75" stroke="#E08C24" stroke-width="1"
+            data-name="Purnamoota Au Prospect" data-status="Prospect" data-minerals="Au, Ag"
+            data-years="Historic workings" data-depth="Shallow" data-op="Various"/>
+          <text x="409" y="174" fill="#E08C24" font-size="8" font-family="DM Mono">Purnamoota Au</text>
+
+          <circle class="mine-dot" cx="338" cy="340" r="6"
+            fill="#5C5247" fill-opacity="0.65" stroke="#7A6E63" stroke-width="1"
+            data-name="Weekeroo Iron Meteorite" data-status="Historic" data-minerals="Fe-Ni meteorite"
+            data-years="Found 1892" data-depth="Surface" data-op="N/A"/>
+          <text x="348" y="340" fill="#7A6E63" font-size="8" font-family="DM Mono">Weekeroo Meteorite</text>
+
+          <!-- Scale bar -->
+          <line x1="440" y1="435" x2="540" y2="435" stroke="rgba(160,148,137,0.4)" stroke-width="1"/>
+          <line x1="440" y1="430" x2="440" y2="440" stroke="rgba(160,148,137,0.4)" stroke-width="1"/>
+          <line x1="540" y1="430" x2="540" y2="440" stroke="rgba(160,148,137,0.4)" stroke-width="1"/>
+          <text x="490" y="450" fill="rgba(160,148,137,0.5)" font-size="8" font-family="DM Mono" text-anchor="middle">~5 km</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Side panel -->
+    <div style="display:flex;flex-direction:column;gap:0.9rem">
+      <div class="card" id="mine-panel">
+        <div class="t-label" style="margin-bottom:0.5rem">Mine information</div>
+        <div style="font-size:0.82rem;color:var(--dust-light)">Click any dot on the map to view details about that mine or prospect.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-title" style="font-size:0.9rem">Mineralogy</div></div>
+        <div class="prog-row"><div class="prog-lbl">Lead (Pb)</div><div class="prog-track"><div class="prog-fill" style="width:85%;background:var(--rust-mid)"></div></div><div class="prog-val">Primary</div></div>
+        <div class="prog-row"><div class="prog-lbl">Zinc (Zn)</div><div class="prog-track"><div class="prog-fill" style="width:80%;background:var(--slate-light)"></div></div><div class="prog-val">Primary</div></div>
+        <div class="prog-row"><div class="prog-lbl">Silver (Ag)</div><div class="prog-track"><div class="prog-fill" style="width:65%;background:var(--parch)"></div></div><div class="prog-val">Signif.</div></div>
+        <div class="prog-row"><div class="prog-lbl">Gold (Au)</div><div class="prog-track"><div class="prog-fill" style="width:15%;background:var(--ochre-mid)"></div></div><div class="prog-val">Minor</div></div>
+        <div class="prog-row"><div class="prog-lbl">Copper (Cu)</div><div class="prog-track"><div class="prog-fill" style="width:10%;background:var(--ochre-light)"></div></div><div class="prog-val">Trace</div></div>
+        <hr class="div">
+        <p style="font-size:0.75rem;color:var(--dust-light);line-height:1.6">
+          Host rock: Proterozoic metasediments (~1,700 Ma). Willyama Supergroup. Stratiform Pb-Zn-Ag sulphide deposit. Orebody strikes N–S, plunges south to 1,800m+.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- All operations table -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-title">All Mining Operations</div>
+      <div class="filter-bar" style="margin:0">
+        <button class="fbtn on" data-f="all" data-scope="#mining-tbl-wrap">All</button>
+        <button class="fbtn" data-f="Active" data-scope="#mining-tbl-wrap">Active</button>
+        <button class="fbtn" data-f="Historic" data-scope="#mining-tbl-wrap">Historic</button>
+        <button class="fbtn" data-f="Prospect" data-scope="#mining-tbl-wrap">Prospects</button>
+      </div>
+    </div>
+    <div class="scroll-x" id="mining-tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Operation</th><th>Status</th><th>Operator</th><th>Minerals</th><th>Years</th><th>Depth</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr data-cat="Active"><td style="font-weight:500">Perilya South Mine</td><td><span class="badge b-sage">● Active</span></td><td>Perilya Ltd</td><td class="mono-cell">Pb, Zn, Ag</td><td class="mono-cell">1897–present</td><td class="mono-cell">1,800m</td><td>World's largest Pb-Zn mine by volume</td></tr>
+          <tr data-cat="Active"><td style="font-weight:500">CBH Rasp Mine</td><td><span class="badge b-sage">● Active</span></td><td>CBH Resources</td><td class="mono-cell">Pb, Zn, Ag</td><td class="mono-cell">2012–present</td><td class="mono-cell">850m</td><td>Reopened historic working; concentrator on site</td></tr>
+          <tr data-cat="Historic"><td style="font-weight:500">BHP North Mine</td><td><span class="badge b-dust">Historic</span></td><td>BHP / ZC Mines</td><td class="mono-cell">Pb, Zn, Ag</td><td class="mono-cell">1883–2006</td><td class="mono-cell">1,600m</td><td>Original 1883 discovery. Headframe preserved.</td></tr>
+          <tr data-cat="Historic"><td style="font-weight:500">BHP Central Mine</td><td><span class="badge b-dust">Historic</span></td><td>BHP</td><td class="mono-cell">Pb, Zn, Ag, Cu</td><td class="mono-cell">1891–1939</td><td class="mono-cell">700m</td><td>High-grade silver early years</td></tr>
+          <tr data-cat="Historic"><td style="font-weight:500">Zinc Corporation</td><td><span class="badge b-dust">Historic</span></td><td>CRA/RTZ</td><td class="mono-cell">Zn, Pb</td><td class="mono-cell">1905–1973</td><td class="mono-cell">900m</td><td>Pioneer of flotation process</td></tr>
+          <tr data-cat="Historic"><td style="font-weight:500">Silverton Lead</td><td><span class="badge b-dust">Historic</span></td><td>Various</td><td class="mono-cell">Pb, Ag</td><td class="mono-cell">1875–1890</td><td class="mono-cell">180m</td><td>Pre-dates main Broken Hill discovery</td></tr>
+          <tr data-cat="Prospect"><td style="font-weight:500">BH North Prospect</td><td><span class="badge b-ochre">Prospect</span></td><td>Investigator Resources</td><td class="mono-cell">Pb, Zn</td><td class="mono-cell">Under EL</td><td class="mono-cell">Unknown</td><td>EL application lodged 2022</td></tr>
+          <tr data-cat="Prospect"><td style="font-weight:500">Purnamoota Au</td><td><span class="badge b-ochre">Prospect</span></td><td>Various</td><td class="mono-cell">Au, Ag</td><td class="mono-cell">Historic + modern</td><td class="mono-cell">Shallow</td><td>Historic diggings; RC drilling 2019</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     EVENTS
+═══════════════════════════════════════════════════════ -->
+<section class="section" id="s-events">
+  <div class="s-hero">
+    <div class="t-label" style="margin-bottom:0.5rem">Cinema · Clubs · Speedway · Markets · All events — nothing too small</div>
+    <h2 class="t-section-title">Events Calendar</h2>
+  </div>
+
+  <div class="filter-bar">
+    <button class="fbtn on" data-f="all">All</button>
+    <button class="fbtn" data-f="cinema">Cinema</button>
+    <button class="fbtn" data-f="club">Clubs</button>
+    <button class="fbtn" data-f="sport">Sport</button>
+    <button class="fbtn" data-f="market">Markets</button>
+    <button class="fbtn" data-f="music">Music</button>
+    <button class="fbtn" data-f="community">Community</button>
+  </div>
+
+  <!-- Cinema -->
+  <div class="card" style="margin-bottom:1.4rem" data-cat="cinema">
+    <div class="card-head"><div class="card-title">▶ Palace Cinemas — Now Showing</div><span class="badge b-rust">This Week</span></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem">
+      <div style="background:var(--ink);border-radius:6px;padding:1rem">
+        <div style="font-weight:500;color:var(--parch);margin-bottom:0.25rem">A Minecraft Movie</div>
+        <div class="t-label" style="font-size:0.6rem;margin-bottom:0.6rem">PG · 101min · Action/Comedy</div>
+        <div style="display:flex;flex-wrap:wrap">
+          <span class="cin-session">Thu 11:00</span><span class="cin-session">Thu 14:30</span><span class="cin-session">Thu 18:00</span>
+          <span class="cin-session">Fri 11:00</span><span class="cin-session">Fri 19:30</span>
+          <span class="cin-session">Sat 10:00</span><span class="cin-session">Sat 13:30</span><span class="cin-session">Sat 17:00</span>
+          <span class="cin-session">Sun 12:00</span><span class="cin-session">Sun 15:30</span>
+        </div>
+      </div>
+      <div style="background:var(--ink);border-radius:6px;padding:1rem">
+        <div style="font-weight:500;color:var(--parch);margin-bottom:0.25rem">The Alto Knights</div>
+        <div class="t-label" style="font-size:0.6rem;margin-bottom:0.6rem">MA15+ · 124min · Crime Drama</div>
+        <div style="display:flex;flex-wrap:wrap">
+          <span class="cin-session">Thu 20:00</span><span class="cin-session">Fri 17:45</span><span class="cin-session">Fri 20:30</span>
+          <span class="cin-session">Sat 20:00</span><span class="cin-session">Sun 15:30</span><span class="cin-session">Sun 20:00</span>
+        </div>
+      </div>
+      <div style="background:var(--ink);border-radius:6px;padding:1rem">
+        <div style="font-weight:500;color:var(--parch);margin-bottom:0.25rem">Dog Man</div>
+        <div class="t-label" style="font-size:0.6rem;margin-bottom:0.6rem">PG · 95min · Animation</div>
+        <div style="display:flex;flex-wrap:wrap">
+          <span class="cin-session">Thu 09:30</span><span class="cin-session">Sat 09:00</span><span class="cin-session">Sat 11:30</span>
+          <span class="cin-session">Sun 09:00</span><span class="cin-session">Sun 11:00</span>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:0.75rem;font-size:0.74rem;color:var(--dust-light)">Palace Cinemas Broken Hill · 1 Argent St · Box office opens 30 min before first session</div>
+  </div>
+
+  <!-- Event grid -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:0.9rem;margin-bottom:1.4rem">
+    <div class="ev-card" data-cat="sport"><div class="ev-date"><div class="ev-day">28</div><div class="ev-mon">Mar</div></div><div class="ev-info"><div class="ev-title">Speedway Season Opener</div><div class="ev-venue">Broken Hill Speedway · Rakow St</div><div class="ev-time">Gates 6pm · Racing 7:30pm · $15 adult</div></div></div>
+    <div class="ev-card" data-cat="club"><div class="ev-date" style="background:var(--slate)"><div class="ev-day">29</div><div class="ev-mon">Mar</div></div><div class="ev-info"><div class="ev-title">Meat Tray Night + Raffle</div><div class="ev-venue">Musicians Club · Chloride St</div><div class="ev-time">7:00 PM · Every Saturday · Free entry</div></div></div>
+    <div class="ev-card" data-cat="market"><div class="ev-date" style="background:var(--ochre)"><div class="ev-day">30</div><div class="ev-mon">Mar</div></div><div class="ev-info"><div class="ev-title">Argent St Sunday Markets</div><div class="ev-venue">Argent St Mall · CBD</div><div class="ev-time">8:00 AM – 1:00 PM</div></div></div>
+    <div class="ev-card" data-cat="club"><div class="ev-date" style="background:var(--ink-lift)"><div class="ev-day">1</div><div class="ev-mon">Apr</div></div><div class="ev-info"><div class="ev-title">Trivia Night</div><div class="ev-venue">Demo Club (Barrier Social Democratic Club)</div><div class="ev-time">7:30 PM · $5/person</div></div></div>
+    <div class="ev-card" data-cat="community"><div class="ev-date" style="background:var(--sage)"><div class="ev-day">5</div><div class="ev-mon">Apr</div></div><div class="ev-info"><div class="ev-title">Broken Hill Show (RFDS Charity)</div><div class="ev-venue">Showground · Crystal St</div><div class="ev-time">9:00 AM · Full day</div></div></div>
+    <div class="ev-card" data-cat="music"><div class="ev-date" style="background:var(--rust-mid)"><div class="ev-day">12</div><div class="ev-mon">Apr</div></div><div class="ev-info"><div class="ev-title">Live: The Silver City Stompers</div><div class="ev-venue">Musicians Club</div><div class="ev-time">8:00 PM · Gold coin donation</div></div></div>
+    <div class="ev-card" data-cat="sport"><div class="ev-date" style="background:var(--slate-mid)"><div class="ev-day">18</div><div class="ev-mon">Apr</div></div><div class="ev-info"><div class="ev-title">Speedway ANZAC Day Spectacular</div><div class="ev-venue">Broken Hill Speedway</div><div class="ev-time">Gates 5pm · Easter special · $20 adult</div></div></div>
+    <div class="ev-card" data-cat="club"><div class="ev-date" style="background:var(--dust)"><div class="ev-day">19</div><div class="ev-mon">Apr</div></div><div class="ev-info"><div class="ev-title">Raffle &amp; Meat Draw — ANZAC Weekend</div><div class="ev-venue">Barrier Club · Argent St</div><div class="ev-time">6:30 PM</div></div></div>
+  </div>
+
+  <!-- Recurring -->
+  <div class="card">
+    <div class="card-head"><div class="card-title">Recurring Weekly Events</div><span class="badge b-dust">Every week</span></div>
+    <div class="scroll-x">
+      <table class="tbl">
+        <thead><tr><th>Frequency</th><th>Event</th><th>Venue</th><th>Time</th><th>Info</th></tr></thead>
+        <tbody>
+          <tr><td class="mono-cell">Every Fri</td><td>Keno &amp; Meat Tray</td><td>Musicians Club</td><td>6:30 PM</td><td>Members &amp; guests</td></tr>
+          <tr><td class="mono-cell">Every Sat</td><td>Meat Tray Raffle</td><td>Musicians Club</td><td>7:00 PM</td><td>Free entry</td></tr>
+          <tr><td class="mono-cell">Every Sat</td><td>Meat Tray</td><td>Demo Club</td><td>6:00 PM</td><td>Members &amp; guests</td></tr>
+          <tr><td class="mono-cell">Every Sat</td><td>Meat Tray</td><td>Barrier Club</td><td>6:30 PM</td><td></td></tr>
+          <tr><td class="mono-cell">Every Sun</td><td>Argent St Markets</td><td>Argent St Mall</td><td>8 AM – 1 PM</td><td>Seasonal — check dates</td></tr>
+          <tr><td class="mono-cell">Tue &amp; Thu</td><td>Indoor Bowls</td><td>Civic Centre</td><td>1:00 PM</td><td>BH Bowling Club</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     REAL ESTATE
+═══════════════════════════════════════════════════════ -->
+<section class="section" id="s-realestate">
+  <div class="s-hero">
+    <div class="t-label" style="margin-bottom:0.5rem">Houses · Businesses · Rentals · Historic price data</div>
+    <h2 class="t-section-title">Real Estate</h2>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat"><div class="stat-val">$298k</div><div class="stat-lbl">Median house price</div><div class="stat-chg up">↑ 4.6% YoY</div></div>
+    <div class="stat ochre"><div class="stat-val">$320/wk</div><div class="stat-lbl">Median rent (house)</div><div class="stat-chg up">↑ 6.7% YoY</div></div>
+    <div class="stat slate"><div class="stat-val">3.1%</div><div class="stat-lbl">Rental yield</div></div>
+    <div class="stat sage"><div class="stat-val">62</div><div class="stat-lbl">Active listings</div></div>
+    <div class="stat warn"><div class="stat-val">$125/nt</div><div class="stat-lbl">Avg accommodation</div><div class="stat-chg flat">Range $75–$295</div></div>
+  </div>
+
+  <div class="g2" style="margin-bottom:1.4rem">
+    <div class="card">
+      <div class="card-head"><div class="card-title">Price History 2015–2024</div></div>
+      <div class="chart-wrap"><canvas id="price-chart" class="w100"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">Market Snapshot</div></div>
+      <div style="display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1rem">
+        <div class="prog-row"><div class="prog-lbl">Clearance rate (90d)</div><div class="prog-track"><div class="prog-fill" style="width:68%;background:var(--rust-mid)"></div></div><div class="prog-val">68%</div></div>
+        <div class="prog-row"><div class="prog-lbl">Days on market</div><div class="prog-track"><div class="prog-fill" style="width:41%;background:var(--ochre-mid)"></div></div><div class="prog-val">41d</div></div>
+        <div class="prog-row"><div class="prog-lbl">Rental vacancy</div><div class="prog-track"><div class="prog-fill" style="width:18%;background:var(--sage-light)"></div></div><div class="prog-val" style="color:var(--sage-light)">1.8%</div></div>
+      </div>
+      <hr class="div">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;font-size:0.8rem">
+        <div style="background:var(--ink);padding:0.6rem;border-radius:4px"><div class="t-label" style="font-size:0.58rem;margin-bottom:0.2rem">Lowest listed</div><div style="font-weight:600;color:var(--parch)">$85,000</div><div style="font-size:0.72rem;color:var(--dust-light)">2-bed · Kaolin St</div></div>
+        <div style="background:var(--ink);padding:0.6rem;border-radius:4px"><div class="t-label" style="font-size:0.58rem;margin-bottom:0.2rem">Highest listed</div><div style="font-weight:600;color:var(--ochre-light)">$749,000</div><div style="font-size:0.72rem;color:var(--dust-light)">4-bed + pool</div></div>
+        <div style="background:var(--ink);padding:0.6rem;border-radius:4px"><div class="t-label" style="font-size:0.58rem;margin-bottom:0.2rem">Cheapest rental</div><div style="font-weight:600;color:var(--parch)">$180/wk</div><div style="font-size:0.72rem;color:var(--dust-light)">1-bed unit</div></div>
+        <div style="background:var(--ink);padding:0.6rem;border-radius:4px"><div class="t-label" style="font-size:0.58rem;margin-bottom:0.2rem">Most expensive</div><div style="font-weight:600;color:var(--ochre-light)">$550/wk</div><div style="font-size:0.72rem;color:var(--dust-light)">4-bed renovated</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;margin-bottom:1rem">
+    <div class="filter-bar" style="margin:0">
+      <button class="fbtn on" data-f="all" data-scope="#prop-grid">All</button>
+      <button class="fbtn" data-f="sale" data-scope="#prop-grid">For Sale</button>
+      <button class="fbtn" data-f="rent" data-scope="#prop-grid">For Rent</button>
+      <button class="fbtn" data-f="commercial" data-scope="#prop-grid">Commercial</button>
+    </div>
+    <div class="search-wrap" style="width:250px"><span class="search-ico">⌕</span><input type="text" placeholder="Street, suburb..."></div>
+  </div>
+
+  <div class="g-auto" id="prop-grid">
+    <div class="prop-card" data-cat="sale">
+      <div class="prop-thumb"><svg width="64" height="64" viewBox="0 0 64 64" fill="none"><rect x="12" y="28" width="40" height="30" fill="#28221A"/><polygon points="6,28 32,6 58,28" fill="#1C1812"/><rect x="24" y="38" width="16" height="20" fill="#0F0D0A"/><rect x="14" y="32" width="12" height="12" fill="#B83A18" opacity="0.5"/></svg>
+        <div style="position:absolute;top:0.65rem;left:0.65rem"><span class="badge b-rust">For Sale</span></div>
+      </div>
+      <div class="prop-body"><div class="prop-price">$285,000</div><div class="prop-addr">14 Chloride Street</div><div class="prop-agent">LJ Hooker Broken Hill</div><div class="prop-specs"><span>🛏 3</span><span>🚿 1</span><span>🚗 1</span><span>480m²</span></div></div>
+    </div>
+    <div class="prop-card" data-cat="sale">
+      <div class="prop-thumb" style="background:var(--ink-lift)"><svg width="64" height="64" viewBox="0 0 64 64" fill="none"><rect x="6" y="22" width="52" height="36" fill="#28221A"/><polygon points="3,22 32,4 61,22" fill="#1C1812"/><rect x="22" y="40" width="20" height="18" fill="#0F0D0A"/><rect x="8" y="28" width="14" height="14" fill="#B83A18" opacity="0.4"/><rect x="42" y="28" width="12" height="14" fill="#B83A18" opacity="0.4"/></svg>
+        <div style="position:absolute;top:0.65rem;left:0.65rem"><span class="badge b-rust">For Sale</span></div>
+      </div>
+      <div class="prop-body"><div class="prop-price">$420,000</div><div class="prop-addr">8 Sulphide Street</div><div class="prop-agent">First National BH</div><div class="prop-specs"><span>🛏 4</span><span>🚿 2</span><span>🚗 2</span><span>680m²</span></div></div>
+    </div>
+    <div class="prop-card" data-cat="rent">
+      <div class="prop-thumb" style="background:#191614"><svg width="64" height="64" viewBox="0 0 64 64" fill="none"><rect x="16" y="14" width="32" height="44" fill="#28221A"/><rect x="24" y="32" width="16" height="26" fill="#0F0D0A"/><rect x="18" y="20" width="10" height="10" fill="#3A6090" opacity="0.5"/><rect x="36" y="20" width="10" height="10" fill="#3A6090" opacity="0.5"/></svg>
+        <div style="position:absolute;top:0.65rem;left:0.65rem"><span class="badge b-slate">For Rent</span></div>
+      </div>
+      <div class="prop-body"><div class="prop-price" style="color:var(--slate-light)">$290/week</div><div class="prop-addr">22 Iodide Street</div><div class="prop-agent">Property Manager Direct</div><div class="prop-specs"><span>🛏 3</span><span>🚿 1</span><span>🚗 1</span></div></div>
+    </div>
+    <div class="prop-card" data-cat="commercial">
+      <div class="prop-thumb" style="background:#141210"><svg width="64" height="64" viewBox="0 0 64 64" fill="none"><rect x="8" y="14" width="48" height="48" fill="#28221A"/><rect x="12" y="20" width="10" height="10" fill="#C47A18" opacity="0.4"/><rect x="27" y="20" width="10" height="10" fill="#C47A18" opacity="0.4"/><rect x="42" y="20" width="10" height="10" fill="#C47A18" opacity="0.4"/><rect x="12" y="36" width="10" height="10" fill="#C47A18" opacity="0.3"/><rect x="27" y="36" width="10" height="10" fill="#C47A18" opacity="0.3"/><rect x="24" y="50" width="16" height="12" fill="#0F0D0A"/></svg>
+        <div style="position:absolute;top:0.65rem;left:0.65rem"><span class="badge b-ochre">Commercial</span></div>
+      </div>
+      <div class="prop-body"><div class="prop-price" style="color:var(--ochre-light)">$850/week</div><div class="prop-addr">162 Argent St — CBD retail</div><div class="prop-agent">Commercial lease · LJ Hooker</div><div class="prop-specs"><span>180m² floor</span><span>Rear parking</span></div></div>
+    </div>
+    <div class="prop-card" data-cat="sale">
+      <div class="prop-thumb"><svg width="64" height="64" viewBox="0 0 64 64" fill="none"><rect x="12" y="30" width="40" height="28" fill="#28221A"/><polygon points="8,30 32,10 56,30" fill="#1C1812"/><rect x="26" y="40" width="12" height="18" fill="#0F0D0A"/></svg>
+        <div style="position:absolute;top:0.65rem;left:0.65rem"><span class="badge b-rust">For Sale</span></div>
+        <div style="position:absolute;top:0.65rem;right:0.65rem;background:rgba(160,32,32,0.85);padding:0.15rem 0.4rem;border-radius:2px;font-family:var(--font-mono);font-size:0.6rem;color:var(--cream);letter-spacing:0.06em">PRICE REDUCED</div>
+      </div>
+      <div class="prop-body"><div class="prop-price">$149,000 <span style="font-size:0.75rem;color:var(--dust-light);text-decoration:line-through;font-family:var(--font-body)">$175k</span></div><div class="prop-addr">7 Wolfram Street</div><div class="prop-agent">hockingstuart</div><div class="prop-specs"><span>🛏 2</span><span>🚿 1</span><span>325m²</span></div></div>
+    </div>
+    <div class="prop-card" data-cat="commercial">
+      <div class="prop-thumb" style="background:#141210"><svg width="64" height="64" viewBox="0 0 64 64" fill="none"><rect x="6" y="8" width="52" height="56" fill="#28221A"/><rect x="12" y="14" width="16" height="16" fill="#2A5A3A" opacity="0.3"/><rect x="36" y="14" width="16" height="16" fill="#2A5A3A" opacity="0.3"/><rect x="12" y="36" width="16" height="16" fill="#2A5A3A" opacity="0.3"/><rect x="36" y="36" width="16" height="16" fill="#2A5A3A" opacity="0.3"/></svg>
+        <div style="position:absolute;top:0.65rem;left:0.65rem"><span class="badge b-sage">Business for Sale</span></div>
+      </div>
+      <div class="prop-body"><div class="prop-price" style="color:var(--sage-light)">$195,000</div><div class="prop-addr">Going concern — Café, Argent St</div><div class="prop-agent">Incl. fitout · Contact agent for P&L</div><div class="prop-specs"><span>90m²</span><span>Seats 40</span></div></div>
+    </div>
+  </div>
+
+  <div style="margin-top:1.2rem;padding:0.9rem;background:var(--ink-mid);border-radius:6px;font-size:0.75rem;color:var(--dust-light);border:1px solid rgba(255,255,255,0.04)">
+    <strong style="color:var(--parch)">Sources:</strong> realestate.com.au · domain.com.au · LJ Hooker BH · First National BH. Where "price on application" is displayed, JSON-LD schema.org/priceRange structured data is checked in page source. Historic medians: NSW Valuer General · PropTrack · CoreLogic.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     WATER & ENERGY
+═══════════════════════════════════════════════════════ -->
+<section class="section" id="s-water">
+  <div class="s-hero">
+    <div class="t-label" style="margin-bottom:0.5rem">Menindee Lakes · Pipeline · Energy Grid</div>
+    <h2 class="t-section-title">Water &amp; Energy</h2>
+    <p style="color:var(--dust-light);margin-top:0.5rem;max-width:560px;font-size:0.88rem">
+      Broken Hill's water travels 326km from Menindee Lakes through a pipeline commissioned in 1953. Water security is the city's most critical infrastructure issue. Energy comes primarily from the SA grid via Broken Hill's interconnector.
+    </p>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat warn"><div class="stat-val">47%</div><div class="stat-lbl">Menindee Lakes capacity</div><div class="stat-chg down">↓ from 58% last month</div></div>
+    <div class="stat slate"><div class="stat-val">326km</div><div class="stat-lbl">Pipeline length to city</div><div class="stat-chg flat">Commissioned 1953</div></div>
+    <div class="stat sage"><div class="stat-val">3.2GL</div><div class="stat-lbl">City water storage (Stephens Ck)</div><div class="stat-chg flat">~8 months supply</div></div>
+    <div class="stat ochre"><div class="stat-val">$0.42</div><div class="stat-lbl">Grid electricity (peak $/kWh)</div></div>
+  </div>
+
+  <div class="g3" style="margin-bottom:1.4rem">
+    <div class="card">
+      <div class="card-head"><div class="card-title">Menindee Lakes</div><span class="badge b-warn">47% capacity</span></div>
+      <div class="water-gauge" style="margin-bottom:0.9rem">
+        <div class="water-fill" style="height:0%" data-pct="47"></div>
+        <div class="water-label">
+          <div class="water-pct">47%</div>
+          <div class="t-label" style="font-size:0.6rem;margin-top:0.3rem">of total capacity</div>
+        </div>
+      </div>
+      <div style="font-size:0.77rem;color:var(--dust-light)">Total capacity: 1,794 GL. Current volume approx. 843 GL. Critical threshold for BH supply: 15% (270 GL). Above threshold — no immediate concern.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="card-title">Stephens Creek Reservoir</div><span class="badge b-sage">Healthy</span></div>
+      <div class="water-gauge" style="margin-bottom:0.9rem">
+        <div class="water-fill" style="height:0%;background:linear-gradient(to top, rgba(42,90,58,0.8), rgba(74,154,100,0.4))" data-pct="78"></div>
+        <div class="water-label">
+          <div class="water-pct">78%</div>
+          <div class="t-label" style="font-size:0.6rem;margin-top:0.3rem">city storage</div>
+        </div>
+      </div>
+      <div style="font-size:0.77rem;color:var(--dust-light)">Local storage at Stephens Creek. Approx. 8 months supply at current demand. Pipeline from Menindee actively pumping.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="card-title">Energy Grid</div><span class="badge b-slate">SA Interconnect</span></div>
+      <div style="display:flex;flex-direction:column;gap:0.7rem;margin-top:0.5rem">
+        <div style="background:var(--ink);border-radius:4px;padding:0.8rem">
+          <div class="t-label" style="font-size:0.6rem;margin-bottom:0.3rem">Grid supply</div>
+          <div style="font-family:var(--font-mono);font-size:0.82rem;color:var(--parch)">SA Power Networks via 220kV interconnector</div>
+        </div>
+        <div style="background:var(--ink);border-radius:4px;padding:0.8rem">
+          <div class="t-label" style="font-size:0.6rem;margin-bottom:0.3rem">Local renewable</div>
+          <div style="font-family:var(--font-mono);font-size:0.82rem;color:var(--parch)">Silverton Wind Farm — 200MW operational</div>
+        </div>
+        <div style="background:var(--ink);border-radius:4px;padding:0.8rem">
+          <div class="t-label" style="font-size:0.6rem;margin-bottom:0.3rem">Solar farm</div>
+          <div style="font-family:var(--font-mono);font-size:0.82rem;color:var(--parch)">BH Solar Farm — 53MW (APA Group)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div class="card-title">Water Security History</div></div>
+    <div class="timeline">
+      <div class="tl-item flag"><div class="tl-date">2015–2019</div><div class="tl-title">Severe drought — Menindee Lakes fell to 4% capacity</div><div class="tl-body">Near-crisis. Emergency desalination plant commissioned at cost of $14M. State government and BCC in dispute over pipeline upgrade funding. Menindee fish kill events during 2018–2019 (millions of fish). Water trucked in as emergency backup.</div></div>
+      <div class="tl-item good"><div class="tl-date">2022</div><div class="tl-title">Flooding rains — lakes refilled to 98%</div><div class="tl-body">La Niña event. Darling River flooded, lakes refilled rapidly. Flooding caused infrastructure damage but secured water supply for years ahead.</div></div>
+      <div class="tl-item note"><div class="tl-date">2023</div><div class="tl-title">Pipeline upgrade — Stage 1 completed</div><div class="tl-body">$190M upgrade to the Broken Hill pipeline completed. Improved capacity and reliability. Stage 2 funding under negotiation with NSW Government.</div></div>
+      <div class="tl-item"><div class="tl-date">2024–present</div><div class="tl-title">Lakes at 47% — monitoring closely</div><div class="tl-body">Moderate concern. El Niño conditions forecast to continue. NSW WaterNSW conducting monthly assessments. City has approximately 18 months security at current draw rates.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     DUST & AIR QUALITY
+═══════════════════════════════════════════════════════ -->
+<section class="section" id="s-dust">
+  <div class="s-hero">
+    <div class="t-label" style="margin-bottom:0.5rem">EPA NSW · BOM · Real-time monitoring</div>
+    <h2 class="t-section-title">Dust &amp; Air Quality</h2>
+    <p style="color:var(--dust-light);margin-top:0.5rem;max-width:560px;font-size:0.88rem">
+      Broken Hill residents care deeply about dust. The city sits on semi-arid plains subject to frequent dust storms. The old mine tailings and salt lakes contribute fine particulate matter. EPA NSW monitors PM2.5 and PM10 at Station BRHIL.
+    </p>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat warn"><div class="stat-val">AQI 42</div><div class="stat-lbl">Current air quality index</div><div class="stat-chg flat">Moderate</div></div>
+    <div class="stat sage"><div class="stat-val">18 µg</div><div class="stat-lbl">PM2.5 today (µg/m³)</div><div class="stat-chg flat">Below 25µg threshold</div></div>
+    <div class="stat ochre"><div class="stat-val">14</div><div class="stat-lbl">Dust storm days (2023)</div></div>
+    <div class="stat danger"><div class="stat-val">67</div><div class="stat-lbl">Worst AQI this week (Sat)</div><div class="stat-chg down">Poor — outdoor activity restricted</div></div>
+  </div>
+
+  <div class="g2" style="margin-bottom:1.4rem">
+    <div class="card">
+      <div class="card-head"><div class="card-title">7-Day PM2.5 (µg/m³)</div><span class="badge b-dust">EPA Station BRHIL</span></div>
+      <div class="chart-wrap"><canvas id="aqi-chart" class="w100"></canvas></div>
+      <div style="display:flex;gap:1rem;margin-top:0.7rem;font-size:0.74rem">
+        <div style="display:flex;align-items:center;gap:0.4rem"><div style="width:10px;height:10px;border-radius:2px;background:#4A9A64"></div>Good (&lt;25)</div>
+        <div style="display:flex;align-items:center;gap:0.4rem"><div style="width:10px;height:10px;border-radius:2px;background:#E08C24"></div>Moderate (25–50)</div>
+        <div style="display:flex;align-items:center;gap:0.4rem"><div style="width:10px;height:10px;border-radius:2px;background:#E05050"></div>Poor (&gt;50)</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="card-title">Notable Dust Events</div><span class="badge b-danger">Historic</span></div>
+      <div class="timeline">
+        <div class="tl-item flag"><div class="tl-date">Feb 2020</div><div class="tl-title">Severe 3-day dust storm</div><div class="tl-body">Visibility under 100m. Roads closed. PM10 exceeded 1,000 µg/m³. Reached Adelaide as visible haze.</div></div>
+        <div class="tl-item flag"><div class="tl-date">Sep 2018</div><div class="tl-title">Red dust event — BH turned red</div><div class="tl-body">Iron-rich dust from Flinders Ranges. Photographed internationally. AQI &gt;800 for 6 hours. Hospital admissions up 40%.</div></div>
+        <div class="tl-item note"><div class="tl-date">Nov 2019</div><div class="tl-title">Menindee lake bed dust — ongoing issue</div><div class="tl-body">With lakes at 4%, exposed lake bed sediment became a significant dust source. Fine particles contained heavy metals from historic mine tailings. NSW EPA issued ongoing advisory.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div class="card-title">Health Guidance by AQI Level</div></div>
+    <div class="scroll-x">
+      <table class="tbl">
+        <thead><tr><th>AQI Range</th><th>Category</th><th>PM2.5 (µg/m³)</th><th>Recommended action</th></tr></thead>
+        <tbody>
+          <tr><td class="mono-cell">0–33</td><td><span class="badge b-sage">Good</span></td><td class="mono-cell">&lt;25</td><td>No action required. Outdoor exercise fine.</td></tr>
+          <tr><td class="mono-cell">34–66</td><td><span class="badge b-ochre">Moderate</span></td><td class="mono-cell">25–50</td><td>Sensitive groups (asthma, elderly, children) reduce outdoor exposure.</td></tr>
+          <tr><td class="mono-cell">67–99</td><td><span class="badge b-warn">Poor</span></td><td class="mono-cell">50–100</td><td>Avoid strenuous outdoor activity. Close windows. Check on vulnerable neighbours.</td></tr>
+          <tr><td class="mono-cell">100+</td><td><span class="badge b-danger">Hazardous</span></td><td class="mono-cell">&gt;100</td><td>Stay indoors. Wear P2 mask outdoors. Emergency services on standby.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     ON THIS DAY
+═══════════════════════════════════════════════════════ -->
+<section class="section" id="s-otd">
+  <div class="s-hero">
+    <div class="t-label" style="margin-bottom:0.5rem">Trove · National Library of Australia · Digitised historical newspapers</div>
+    <h2 class="t-section-title">On This Day in Broken Hill</h2>
+    <p style="color:var(--dust-light);margin-top:0.5rem;max-width:560px;font-size:0.88rem">
+      Surfacing stories from exactly X years ago today. Sourced from the Trove digitised newspaper archive — the National Library's collection of over 1 billion Australian newspaper pages going back to the 1800s.
+    </p>
+  </div>
+
+  <div class="alert alert-info" style="margin-bottom:1.4rem">
+    <span class="alert-icon">📰</span>
+    <div>Showing stories from this day in history. In the live version, these are pulled automatically from the Trove API filtered to Broken Hill editions of the <em>Barrier Miner</em>, <em>Barrier Daily Truth</em>, and <em>Broken Hill Times</em>.</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.2rem">
+    <div class="otd-card">
+      <div class="tl-date" style="margin-bottom:0.5rem">This day, 1915 — 111 years ago</div>
+      <div class="otd-headline">"New Year's Day Picnic Train Attack Shocks Nation — Two Dead, Many Wounded Near Broken Hill"</div>
+      <div style="font-size:0.78rem;color:var(--dust-light);margin-top:0.5rem">The Barrier Miner, 1 Jan 1915. An extraordinary attack on a picnic train carrying AOOT members to Silverton. Two gunmen, both killed by police. Led to significant wartime security changes in regional NSW.</div>
+      <div class="t-label" style="font-size:0.58rem;margin-top:0.7rem">Barrier Miner · Page 1</div>
+      <div class="otd-year">1915</div>
+    </div>
+
+    <div class="otd-card">
+      <div class="tl-date" style="margin-bottom:0.5rem">This day, 1970 — 56 years ago</div>
+      <div class="otd-headline">"BHP Announces Automation of Surface Ore Processing — 340 Jobs to Be Affected"</div>
+      <div style="font-size:0.78rem;color:var(--dust-light);margin-top:0.5rem">The Barrier Daily Truth, Mar 1970. Automation of the BHP North Mine surface plant triggers first major industrial dispute of the decade. Union response detailed. Marks beginning of multi-decade workforce reduction.</div>
+      <div class="t-label" style="font-size:0.58rem;margin-top:0.7rem">Barrier Daily Truth · Page 1</div>
+      <div class="otd-year">1970</div>
+    </div>
+
+    <div class="otd-card">
+      <div class="tl-date" style="margin-bottom:0.5rem">This day, 1994 — 32 years ago</div>
+      <div class="otd-headline">"Film Crew Arrives for Desert Odyssey — Priscilla Begins Production in Silverton Tomorrow"</div>
+      <div style="font-size:0.78rem;color:var(--dust-light);margin-top:0.5rem">Local newspaper notes arrival of production team for <em>The Adventures of Priscilla, Queen of the Desert</em>. Silverton Hotel owner describes "very colourful visitors." Production ran for three weeks in the region.</div>
+      <div class="t-label" style="font-size:0.58rem;margin-top:0.7rem">Broken Hill Times · Page 3</div>
+      <div class="otd-year">1994</div>
+    </div>
+
+    <div class="otd-card">
+      <div class="tl-date" style="margin-bottom:0.5rem">This day, 1952 — 74 years ago</div>
+      <div class="otd-headline">"School of the Air Expands to Include All Children in 250-Mile Radius"</div>
+      <div style="font-size:0.78rem;color:var(--dust-light);margin-top:0.5rem">The Barrier Miner reports the expansion of the BH School of the Air — the world's first distance education program. Now serving 50+ students across remote stations via two-way radio.</div>
+      <div class="t-label" style="font-size:0.58rem;margin-top:0.7rem">Barrier Miner · Page 2</div>
+      <div class="otd-year">1952</div>
+    </div>
+  </div>
+
+  <div style="margin-top:1.4rem;padding:1rem;background:var(--ink-mid);border-radius:8px;font-size:0.78rem;color:var(--dust-light)">
+    <strong style="color:var(--parch)">How this works:</strong> The Trove API (api.trove.nla.gov.au) provides free access to digitised newspaper articles. In the live version, a daily cron job queries the API for articles from Broken Hill newspapers published on this calendar date in any year, scores them by historical significance, and surfaces the top results. Free API key required.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     ORAL HISTORY ARCHIVE
+═══════════════════════════════════════════════════════ -->
+<section class="section" id="s-oral">
+  <div class="s-hero">
+    <div class="t-label" style="margin-bottom:0.5rem">Community memories · Linked to map &amp; time</div>
+    <h2 class="t-section-title">Oral History Archive</h2>
+    <p style="color:var(--dust-light);margin-top:0.5rem;max-width:560px;font-size:0.88rem">
+      Broken Hill has an extraordinary living history. Residents submit short written or audio recollections, linked to locations and time periods. A record of the city through the people who lived it.
+    </p>
+  </div>
+
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.4rem;flex-wrap:wrap;gap:1rem">
+    <div class="filter-bar" style="margin:0">
+      <button class="fbtn on" data-f="all">All eras</button>
+      <button class="fbtn" data-f="1880s">1880s–1920s</button>
+      <button class="fbtn" data-f="1940s">1940s–1960s</button>
+      <button class="fbtn" data-f="1970s">1970s–1990s</button>
+      <button class="fbtn" data-f="2000s">2000s–today</button>
+    </div>
+    <button class="btn btn-rust">+ Submit your memory</button>
+  </div>
+
+  <div class="g-auto" style="margin-bottom:1.4rem">
+    <div class="oral-card">
+      <div class="oral-quote">"I started at the North Mine in 1962, seventeen years old. You could smell the sulfur from three streets away. The shift siren at six AM was the heartbeat of the whole town — everyone knew what it meant."</div>
+      <div class="oral-meta">
+        <div class="oral-avatar">RB</div>
+        <div><div class="oral-name">Ron B., retired miner</div><div class="oral-place">📍 North Mine headframe area · 1962–1987</div></div>
+      </div>
+      <div class="t-label" style="font-size:0.58rem;margin-top:0.75rem">Submitted 2024 · Verified by BH Historical Society</div>
+    </div>
+
+    <div class="oral-card">
+      <div class="oral-quote">"Bells Milk Bar was where you went after school, every afternoon. Mrs Bell knew every kid in the street by name. She made a vanilla spider that nobody has been able to replicate since. That place was the whole of childhood."</div>
+      <div class="oral-meta">
+        <div class="oral-avatar" style="background:var(--slate)">ML</div>
+        <div><div class="oral-name">Margaret L., retired teacher</div><div class="oral-place">📍 Bells Milk Bar, Oxide St · 1955–1970</div></div>
+      </div>
+      <div class="t-label" style="font-size:0.58rem;margin-top:0.75rem">Submitted 2023</div>
+    </div>
+
+    <div class="oral-card">
+      <div class="oral-quote">"The Flying Doctor days were something else. Dad was a radio operator — when the School of the Air started broadcasting, children twenty miles out could finally hear a teacher. We thought it was magic."</div>
+      <div class="oral-meta">
+        <div class="oral-avatar" style="background:var(--ochre)">PH</div>
+        <div><div class="oral-name">Patricia H., station daughter</div><div class="oral-place">📍 Broken Hill RFDS base · 1948–1960</div></div>
+      </div>
+      <div class="t-label" style="font-size:0.58rem;margin-top:0.75rem">Submitted 2024 · Audio recording available</div>
+    </div>
+
+    <div class="oral-card">
+      <div class="oral-quote">"Pro Hart used to wander Argent Street with paint on his hands. You'd say g'day and he'd pull out a napkin and sketch something right there. Half the town has a Pro Hart napkin drawing in a drawer somewhere."</div>
+      <div class="oral-meta">
+        <div class="oral-avatar" style="background:var(--sage)">JW</div>
+        <div><div class="oral-name">Jim W., local business owner</div><div class="oral-place">📍 Argent St, CBD · 1970s–1990s</div></div>
+      </div>
+      <div class="t-label" style="font-size:0.58rem;margin-top:0.75rem">Submitted 2024</div>
+    </div>
+  </div>
+
+  <!-- Submit form -->
+  <div class="card" style="border:1px dashed rgba(255,255,255,0.12)">
+    <div class="card-head"><div class="card-title">Share your memory</div><span class="badge b-ochre">Free · No account needed</span></div>
+    <div class="g2">
+      <div style="display:flex;flex-direction:column;gap:0.8rem">
+        <div>
+          <div class="t-label" style="font-size:0.62rem;margin-bottom:0.3rem">Your name (or initials)</div>
+          <input type="text" placeholder="e.g. Margaret L." style="width:100%;background:var(--ink);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:0.55rem 0.8rem;color:var(--parch);font-size:0.86rem;outline:none">
+        </div>
+        <div>
+          <div class="t-label" style="font-size:0.62rem;margin-bottom:0.3rem">Location in Broken Hill</div>
+          <input type="text" placeholder="e.g. Argent St, South Mine, Silverton..." style="width:100%;background:var(--ink);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:0.55rem 0.8rem;color:var(--parch);font-size:0.86rem;outline:none">
+        </div>
+        <div>
+          <div class="t-label" style="font-size:0.62rem;margin-bottom:0.3rem">Approximate year(s)</div>
+          <input type="text" placeholder="e.g. 1965–1972" style="width:100%;background:var(--ink);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:0.55rem 0.8rem;color:var(--parch);font-size:0.86rem;outline:none">
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.8rem">
+        <div style="flex:1">
+          <div class="t-label" style="font-size:0.62rem;margin-bottom:0.3rem">Your memory</div>
+          <textarea placeholder="Write your recollection here — no minimum or maximum length..." style="width:100%;height:120px;background:var(--ink);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:0.55rem 0.8rem;color:var(--parch);font-size:0.86rem;outline:none;resize:vertical;font-family:var(--font-body)"></textarea>
+        </div>
+        <button class="btn btn-rust" style="align-self:flex-start">Submit memory →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     BUSINESS OBITUARIES
+═══════════════════════════════════════════════════════ -->
+<section class="section" id="s-bizob">
+  <div class="s-hero">
+    <div class="t-label" style="margin-bottom:0.5rem">Opened · Closed · Remembered</div>
+    <h2 class="t-section-title">Business Obituaries</h2>
+    <p style="color:var(--dust-light);margin-top:0.5rem;max-width:560px;font-size:0.88rem">
+      A database of businesses that have operated in Broken Hill — when they opened, when they closed, and what they meant to the town. Surprisingly hard to find anywhere else.
+    </p>
+  </div>
+
+  <div class="filter-bar">
+    <button class="fbtn on" data-f="all">All</button>
+    <button class="fbtn" data-f="food">Food &amp; Drink</button>
+    <button class="fbtn" data-f="retail">Retail</button>
+    <button class="fbtn" data-f="service">Services</button>
+    <button class="fbtn" data-f="entertainment">Entertainment</button>
+    <button class="fbtn" data-f="open">Still open</button>
+  </div>
+
+  <div class="card" style="margin-bottom:1.4rem">
+    <div style="display:flex;flex-direction:column">
+      <div class="biz-item" data-cat="food">
+        <div class="biz-years">1920s<br>Present<br><span class="badge b-sage" style="margin-top:0.3rem;font-size:0.55rem">Still open</span></div>
+        <div><div class="biz-name">Bells Milk Bar</div><div class="biz-desc">One of Australia's most intact 1950s milk bars. 166 Oxide St. Vanilla spiders, penny sweets, original fitout. Listed NSW Heritage Register. An anchor of the city's identity.</div></div>
+      </div>
+      <div class="biz-item" data-cat="entertainment">
+        <div class="biz-years">1911<br>1960s<br><span class="badge b-dust" style="margin-top:0.3rem;font-size:0.55rem">Closed</span></div>
+        <div><div class="biz-name">Empire Theatre</div><div class="biz-desc">Argent St. One of two original picture palaces serving Broken Hill's large early-20th century population. Closed when TV arrived. Building demolished 1971. Many long-time residents remember weekly matinees.</div></div>
+      </div>
+      <div class="biz-item" data-cat="retail">
+        <div class="biz-years">1945<br>2018<br><span class="badge b-dust" style="margin-top:0.3rem;font-size:0.55rem">Closed</span></div>
+        <div><div class="biz-name">Whitelaws Hardware</div><div class="biz-desc">Oxide St. Three generations of the Whitelaw family. Every miner, farmer and builder within 200km knew this store. Closed 2018 when the third-generation owners retired. Replaced by a national chain.</div></div>
+      </div>
+      <div class="biz-item" data-cat="food">
+        <div class="biz-years">1972<br>2021<br><span class="badge b-dust" style="margin-top:0.3rem;font-size:0.55rem">Closed</span></div>
+        <div><div class="biz-name">Mario's Café</div><div class="biz-desc">Argent St. Italian-Australian family for 49 years. Famous for the "Mario's big breakfast" — reportedly consumed by every film crew that ever came to town. Closed due to family's retirement during COVID.</div></div>
+      </div>
+      <div class="biz-item" data-cat="service">
+        <div class="biz-years">1950<br>Present<br><span class="badge b-sage" style="margin-top:0.3rem;font-size:0.55rem">Still open</span></div>
+        <div><div class="biz-name">Pro Hart Gallery</div><div class="biz-desc">108 Wyman St. Kevin "Pro" Hart's studio became a gallery after his death in 2006. Maintained by the Hart family. Thousands of original works. A cultural institution of national significance.</div></div>
+      </div>
+      <div class="biz-item" data-cat="entertainment">
+        <div class="biz-years">1967<br>1999<br><span class="badge b-dust" style="margin-top:0.3rem;font-size:0.55rem">Closed</span></div>
+        <div><div class="biz-name">Oasis Skating Rink</div><div class="biz-desc">Crystal St. The social heart of Broken Hill teenagers from the late 1960s to late 1990s. Friday night sessions drew hundreds. Closed when the building became structurally unsound. Fondly remembered by multiple generations.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="border:1px dashed rgba(255,255,255,0.1)">
+    <div class="card-head"><div class="card-title">Add a business</div><span class="badge b-dust">Community sourced</span></div>
+    <p style="font-size:0.82rem;color:var(--dust-light);margin-bottom:1rem">Know a Broken Hill business that should be remembered? Submit its details below.</p>
+    <div class="g2">
+      <input type="text" placeholder="Business name" style="background:var(--ink);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:0.55rem 0.8rem;color:var(--parch);font-size:0.86rem;outline:none">
+      <input type="text" placeholder="Street address" style="background:var(--ink);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:0.55rem 0.8rem;color:var(--parch);font-size:0.86rem;outline:none">
+      <input type="text" placeholder="Year opened" style="background:var(--ink);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:0.55rem 0.8rem;color:var(--parch);font-size:0.86rem;outline:none">
+      <input type="text" placeholder="Year closed (or 'still open')" style="background:var(--ink);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:0.55rem 0.8rem;color:var(--parch);font-size:0.86rem;outline:none">
+    </div>
+    <textarea placeholder="What do you remember about this place?" style="width:100%;margin-top:0.8rem;height:80px;background:var(--ink);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:0.55rem 0.8rem;color:var(--parch);font-size:0.86rem;outline:none;resize:vertical;font-family:var(--font-body)"></textarea>
+    <button class="btn btn-rust" style="margin-top:0.8rem">Submit business →</button>
+  </div>
+</section>
+
+<!-- Remaining sections (Weather, Crime, Buy/Swap/Sell, Tourism, Film, Radio) -->
+<section class="section" id="s-weather">
+  <div class="s-hero"><div class="t-label" style="margin-bottom:0.5rem">BOM Station 047007</div><h2 class="t-section-title">Weather &amp; Climate</h2></div>
+  <div class="stat-row">
+    <div class="stat"><div class="stat-val">34°</div><div class="stat-lbl">Today's max</div></div>
+    <div class="stat ochre"><div class="stat-val">238mm</div><div class="stat-lbl">Avg annual rainfall</div></div>
+    <div class="stat danger"><div class="stat-val">49.8°</div><div class="stat-lbl">All-time record (Jan 2019)</div></div>
+    <div class="stat sage"><div class="stat-val">14</div><div class="stat-lbl">Days &gt;40° per year (avg)</div></div>
+  </div>
+  <div class="g2">
+    <div class="card"><div class="card-head"><div class="card-title">Monthly Climate Profile</div><div class="t-label">BOM 047007</div></div><div class="chart-wrap"><canvas id="weather-chart" class="w100"></canvas></div><div style="margin-top:0.5rem;font-size:0.74rem;color:var(--dust-light)">Temp band (high/low) · Rainfall bars</div></div>
+    <div class="card"><div class="card-head"><div class="card-title">Notable Events</div></div><div class="timeline"><div class="tl-item flag"><div class="tl-date">Jan 2019</div><div class="tl-title">Record heat: 49.8°C</div><div class="tl-body">All-time station record. Emergency declarations across western NSW. Power outages.</div></div><div class="tl-item flag"><div class="tl-date">Feb 2020</div><div class="tl-title">3-day dust storm</div><div class="tl-body">Visibility under 100m. Roads closed. Reached Adelaide.</div></div><div class="tl-item note"><div class="tl-date">Apr 2022</div><div class="tl-title">Menindee flooding</div><div class="tl-body">Darling River 12.1m at Wilcannia. Menindee Lakes overflow. SES rescues.</div></div></div></div>
+  </div>
+  <div class="card" style="margin-top:1.4rem"><div class="card-head"><div class="card-title">The Mundi Mundi Plains — Geology</div></div><p style="font-size:0.84rem;color:var(--dust-light);line-height:1.8;max-width:780px">The Mundi Mundi Plains lie west of Broken Hill — a vast flat expanse where you can see the curvature of the Earth. Formed through aeolian (wind-blown) sediment deposition over millions of years, underlain by Cenozoic alluvial fans from the Barrier Range. During wetter Pleistocene epochs, ephemeral lake systems covered the area. The surface clay-pan and gibber formations are classic Australian shield geology. Filming location for <em>Mad Max 2</em> (1981) and <em>The Adventures of Priscilla, Queen of the Desert</em> (1994).</p></div>
+</section>
+
+<section class="section" id="s-crime">
+  <div class="s-hero"><div class="t-label" style="margin-bottom:0.5rem">NSW Police · Local Court · Official sources only</div><h2 class="t-section-title">Crime &amp; Courts</h2></div>
+  <div class="alert alert-info" style="margin-bottom:1.4rem"><span class="alert-icon">ℹ</span><div>All listings from NSW Online Registry (public list). Suppressed matters excluded automatically. Only officially published information is shown — privacy policy applied strictly.</div></div>
+  <div class="g2" style="margin-bottom:1.4rem">
+    <div class="card"><div class="card-head"><div class="card-title">Upcoming Local Court Listings</div><span class="badge b-dust">Broken Hill Local Court</span></div><table class="tbl"><thead><tr><th>Date</th><th>Matter type</th><th>Status</th></tr></thead><tbody><tr><td class="mono-cell">28 Mar</td><td>Mentions (x6)</td><td><span class="badge b-dust">Listed</span></td></tr><tr><td class="mono-cell">28 Mar</td><td>DV interim hearing</td><td><span class="badge b-ochre">Hearing</span></td></tr><tr><td class="mono-cell">2 Apr</td><td>Traffic matters (x4)</td><td><span class="badge b-dust">Listed</span></td></tr><tr><td class="mono-cell">4 Apr</td><td>Criminal sentences (x2)</td><td><span class="badge b-rust">Sentence</span></td></tr><tr><td class="mono-cell">9 Apr</td><td>Civil small claims (x3)</td><td><span class="badge b-slate">Civil</span></td></tr></tbody></table></div>
+    <div class="card"><div class="card-head"><div class="card-title">Police Media Releases</div><span class="badge b-rust">NSW Police</span></div><div style="display:flex;flex-direction:column;gap:0.7rem"><div style="border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:0.7rem"><div style="font-size:0.83rem;font-weight:500;color:var(--parch);margin-bottom:0.2rem">Man charged following alleged break and enter — Oxide St</div><div style="font-size:0.77rem;color:var(--dust-light)">A 34-year-old Broken Hill man charged with break, enter and steal. Conditional bail. Appears 11 April.</div><div class="t-label" style="font-size:0.6rem;margin-top:0.25rem">25 Mar 2026 · Far West Police District</div></div><div style="border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:0.7rem"><div style="font-size:0.83rem;font-weight:500;color:var(--parch);margin-bottom:0.2rem">Traffic operation results — 4 PCA, 38 speed, 12 defects</div><div style="font-size:0.77rem;color:var(--dust-light)">Far West Police blitz 18–22 March. Results published via NSW Police media unit.</div><div class="t-label" style="font-size:0.6rem;margin-top:0.25rem">23 Mar 2026</div></div></div></div>
+  </div>
+  <div class="card"><div class="card-head"><div class="card-title">Notable Historic Cases</div></div><table class="tbl"><thead><tr><th>Year</th><th>Case</th><th>Status</th><th>Notes</th></tr></thead><tbody><tr><td class="mono-cell">1915</td><td>New Year's Day Outrage</td><td><span class="badge b-sage">Resolved</span></td><td>Attack on picnic train. Two perpetrators killed by police. Documented in Trove.</td></tr><tr><td class="mono-cell">2014</td><td>Toddler disappearance near Yunta</td><td><span class="badge b-danger">Unsolved</span></td><td>Child reported missing from remote property. Major search. Case remains open.</td></tr><tr><td class="mono-cell">2022</td><td>Silver City Hwy hit-run fatality</td><td><span class="badge b-warn">Ongoing</span></td><td>Pedestrian killed. Investigation continuing. Appeal for information.</td></tr></tbody></table></div>
+</section>
+
+<section class="section" id="s-buysell">
+  <div class="s-hero"><div class="t-label" style="margin-bottom:0.5rem">Gumtree · Community listings</div><h2 class="t-section-title">Buy / Swap / Sell</h2></div>
+  <div class="filter-bar"><button class="fbtn on" data-f="all">All</button><button class="fbtn" data-f="vehicles">Vehicles</button><button class="fbtn" data-f="tools">Tools</button><button class="fbtn" data-f="furniture">Furniture</button><button class="fbtn" data-f="electronics">Electronics</button><button class="fbtn" data-f="free">Free</button></div>
+  <div class="g-auto-sm" style="margin-bottom:1.4rem">
+    <div class="card" data-cat="vehicles"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">2008 Toyota HiLux SR5 4x4</div><div class="t-display" style="font-size:1.3rem;color:var(--ochre-light)">$18,500</div><div style="font-size:0.77rem;color:var(--dust-light);margin:0.35rem 0">220k km · Diesel · Manual · Towbar, snorkel, ARB</div><div style="display:flex;justify-content:space-between"><span class="badge b-rust">Vehicles</span><span class="t-label" style="font-size:0.58rem">3d ago · Gumtree</span></div></div>
+    <div class="card" data-cat="tools"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Makita 18V combo kit — 5 tools</div><div class="t-display" style="font-size:1.3rem;color:var(--ochre-light)">$420</div><div style="font-size:0.77rem;color:var(--dust-light);margin:0.35rem 0">Drill, driver, jigsaw, torch, grinder. 3x batteries. Near new.</div><div style="display:flex;justify-content:space-between"><span class="badge b-slate">Tools</span><span class="t-label" style="font-size:0.58rem">1d ago</span></div></div>
+    <div class="card" data-cat="furniture"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Leather lounge suite 3+2</div><div class="t-display" style="font-size:1.3rem;color:var(--ochre-light)">$350 ono</div><div style="font-size:0.77rem;color:var(--dust-light);margin:0.35rem 0">Brown leather. Good condition. Moving interstate. South BH pickup.</div><div style="display:flex;justify-content:space-between"><span class="badge b-ochre">Furniture</span><span class="t-label" style="font-size:0.58rem">5d ago</span></div></div>
+    <div class="card" data-cat="free"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Free — Pool toys &amp; kids bikes</div><div class="t-display" style="font-size:1.3rem;color:var(--sage-light)">FREE</div><div style="font-size:0.77rem;color:var(--dust-light);margin:0.35rem 0">Assorted pool toys, 2x small bikes, helmets. Argent area. First in.</div><div style="display:flex;justify-content:space-between"><span class="badge b-sage">Free</span><span class="t-label" style="font-size:0.58rem">Today</span></div></div>
+    <div class="card" data-cat="electronics"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">65" Samsung QLED TV 2022</div><div class="t-display" style="font-size:1.3rem;color:var(--ochre-light)">$700</div><div style="font-size:0.77rem;color:var(--dust-light);margin:0.35rem 0">Excellent cond. Includes wall bracket. Alma area.</div><div style="display:flex;justify-content:space-between"><span class="badge b-dust">Electronics</span><span class="t-label" style="font-size:0.58rem">2d ago · Gumtree</span></div></div>
+    <div class="card" style="border:1px dashed rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;min-height:130px;cursor:pointer;flex-direction:column;gap:0.5rem" onclick=""><div style="font-size:1.8rem;opacity:0.3">+</div><div class="t-label" style="font-size:0.62rem;text-align:center">Submit listing<br>Free · no sign-up</div></div>
+  </div>
+</section>
+
+<section class="section" id="s-tourism">
+  <div class="s-hero"><div class="t-label" style="margin-bottom:0.5rem">Heritage · Art · Outback</div><h2 class="t-section-title">Tourism &amp; History</h2></div>
+  <div class="g-auto">
+    <div class="card"><div class="t-display" style="font-size:1rem;color:var(--ochre-light);margin-bottom:0.3rem">Pro Hart Gallery</div><span class="badge b-rust" style="margin-bottom:0.6rem;display:inline-block">Art</span><p style="font-size:0.82rem;color:var(--dust-light)">Studio &amp; gallery of Kevin "Pro" Hart (1928–2006). Thousands of originals. 108 Wyman St.</p></div>
+    <div class="card"><div class="t-display" style="font-size:1rem;color:var(--ochre-light);margin-bottom:0.3rem">Bells Milk Bar</div><span class="badge b-ochre" style="margin-bottom:0.6rem;display:inline-block">Iconic</span><p style="font-size:0.82rem;color:var(--dust-light)">Perfectly preserved 1950s milk bar. 166 Oxide St. NSW Heritage Register. Featured in numerous films.</p></div>
+    <div class="card"><div class="t-display" style="font-size:1rem;color:var(--ochre-light);margin-bottom:0.3rem">Silver City Mint</div><span class="badge b-slate" style="margin-bottom:0.6rem;display:inline-block">Heritage</span><p style="font-size:0.82rem;color:var(--dust-light)">Houses the Big Picture — world's largest acrylic painting (12m × 100m) by Peter Anderson. Chloride St.</p></div>
+    <div class="card"><div class="t-display" style="font-size:1rem;color:var(--ochre-light);margin-bottom:0.3rem">Living Desert Sculptures</div><span class="badge b-sage" style="margin-bottom:0.6rem;display:inline-block">Art/Geology</span><p style="font-size:0.82rem;color:var(--dust-light)">International sculpture symposium 1993. Sandstone works by artists from 10 countries. Stunning sunset views.</p></div>
+    <div class="card"><div class="t-display" style="font-size:1rem;color:var(--ochre-light);margin-bottom:0.3rem">Silverton Ghost Town</div><span class="badge b-ochre" style="margin-bottom:0.6rem;display:inline-block">Ghost Town</span><p style="font-size:0.82rem;color:var(--dust-light)">25km NW. Pop. 3,000 in 1880s, now ~50. Famous pub, camel farm, Mad Max film locations.</p></div>
+    <div class="card"><div class="t-display" style="font-size:1rem;color:var(--ochre-light);margin-bottom:0.3rem">Royal Flying Doctor Service</div><span class="badge b-dust" style="margin-bottom:0.6rem;display:inline-block">History</span><p style="font-size:0.82rem;color:var(--dust-light)">BH is a key RFDS hub. Visitor centre at BH Airport. School of the Air museum also on site.</p></div>
+  </div>
+</section>
+
+<section class="section" id="s-film">
+  <div class="s-hero"><div class="t-label" style="margin-bottom:0.5rem">Production history · Locations</div><h2 class="t-section-title">Films Shot in Broken Hill</h2></div>
+  <table class="tbl" style="background:var(--ink-mid);border-radius:8px;overflow:hidden">
+    <thead><tr><th>Year</th><th>Film</th><th>Director</th><th>Locations used</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td class="mono-cell">1981</td><td style="font-weight:500">Mad Max 2: The Road Warrior</td><td>George Miller</td><td>Silverton, Mundi Mundi Plains</td><td>The definitive BH film. Plains unmistakable.</td></tr>
+      <tr><td class="mono-cell">1985</td><td style="font-weight:500">Razorback</td><td>Russell Mulcahy</td><td>Silver City region</td><td>Horror. Landscape central to the aesthetic.</td></tr>
+      <tr><td class="mono-cell">1994</td><td style="font-weight:500">Priscilla, Queen of the Desert</td><td>Stephan Elliott</td><td>Silverton, BH CBD</td><td>Silverton Hotel features prominently.</td></tr>
+      <tr><td class="mono-cell">2003</td><td style="font-weight:500">Japanese Story</td><td>Sue Brooks</td><td>Broken Hill, outback</td><td>Toni Collette. BH landscape as remote Australia.</td></tr>
+      <tr><td class="mono-cell">2006</td><td style="font-weight:500">Aquamarine</td><td>Elizabeth Allen</td><td>Broken Hill surrounds</td><td>US teen film. Significant local production.</td></tr>
+      <tr><td class="mono-cell">2008</td><td style="font-weight:500">Australia</td><td>Baz Luhrmann</td><td>Various NSW outback</td><td>Silverton used. BH region principal production base.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="section" id="s-radio">
+  <div class="s-hero"><div class="t-label" style="margin-bottom:0.5rem">Local stations · Streams</div><h2 class="t-section-title">Local Radio</h2></div>
+  <div class="g-auto">
+    <div class="card"><div style="display:flex;align-items:center;gap:0.9rem;margin-bottom:0.75rem"><div style="width:44px;height:44px;background:var(--rust);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1rem;color:var(--cream)">2BH</div><div><div style="font-weight:500;color:var(--parch)">2BH — ABC Western NSW</div><div style="font-size:0.77rem;color:var(--dust-light)">801 AM · Public broadcaster</div></div></div><a href="https://www.abc.net.au/radio" target="_blank" class="btn btn-ghost" style="font-size:0.68rem">▶ Listen via ABC</a></div>
+    <div class="card"><div style="display:flex;align-items:center;gap:0.9rem;margin-bottom:0.75rem"><div style="width:44px;height:44px;background:var(--ochre);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1rem;color:var(--cream)">2HC</div><div><div style="font-weight:500;color:var(--parch)">2HC — Broken Hill FM</div><div style="font-size:0.77rem;color:var(--dust-light)">101.3 FM · Commercial · Local news &amp; sport</div></div></div><div style="font-size:0.77rem;color:var(--dust-light)">Stream via station website. Local news, racing, community announcements.</div></div>
+    <div class="card"><div style="display:flex;align-items:center;gap:0.9rem;margin-bottom:0.75rem"><div style="width:44px;height:44px;background:var(--slate);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1rem;color:var(--cream)">8NR</div><div><div style="font-weight:500;color:var(--parch)">8NR — CAAMA Radio</div><div style="font-size:0.77rem;color:var(--dust-light)">Indigenous community broadcaster</div></div></div><div style="font-size:0.77rem;color:var(--dust-light)">Covers far-western NSW and SA border regions. Accessible via CAAMA app.</div></div>
+  </div>
+</section>
+
+</main>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>

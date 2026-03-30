@@ -7,8 +7,6 @@
 <link rel="stylesheet" href="css/style.css">
 <script src="data/config.js"></script>
 </head>
-<script src="js/data-loader.js"></script>
-<script src="js/adsb.js"></script>
 <body>
 
 <div class="app">
@@ -69,6 +67,11 @@
     </div>
     <div class="nav-link" data-sec="radio" onclick="showSection('radio')">
       <span class="ico">◉</span> Local Radio
+    </div>
+
+    <div class="nav-group-label">Aviation</div>
+    <div class="nav-link" data-sec="adsb" onclick="showSection('adsb')">
+      <span class="ico">✈</span> ADS-B &amp; Aviation
     </div>
     <div class="nav-link" data-sec="oral" onclick="showSection('oral')">
       <span class="ico">🎙</span> Oral History Archive <span class="nav-new">New</span>
@@ -1109,33 +1112,27 @@
 </section>
 
 <!-- ═══════════════════════════════════════════════════════
-     ADS-B / AVIATION SECTION
-     FlightAware feeder: Phate4
-     Airport: YBHI (Broken Hill)
-     API key stored in GitHub secret: FLIGHTAWARE_API_KEY
+     ADS-B / AVIATION
 ═══════════════════════════════════════════════════════ -->
 <section class="section" id="s-adsb">
   <div class="s-hero">
     <div class="s-hero-watermark">ADSB</div>
-    <div class="t-label" style="margin-bottom:0.5rem">FlightAware · Phate4 · YBHI · Live</div>
+    <div class="t-label" style="margin-bottom:0.5rem">FlightAware · Phate4 · YBHI · Live · All feeders</div>
     <h2 class="t-section-title">ADS-B &amp; Aviation</h2>
     <p style="color:var(--dust-light);margin-top:0.5rem;max-width:560px;font-size:0.88rem">
-      Live aircraft over Broken Hill. Your station stats. YBHI arrivals and departures.
-      Powered by your FlightAware feeder and AeroAPI.
+      Live aircraft over the Broken Hill region sourced from the full FlightAware global feeder network.
+      Your Phate4 station shown as orange range ring. YBHI arrivals and departures. Adelaide, Melbourne and Mildura routes visible.
     </p>
   </div>
 
-  <!-- Station stat row -->
-  <div class="stat-row" id="adsb-stats">
-    <div class="stat"><div class="stat-val" id="a-aircraft">—</div><div class="stat-lbl">Aircraft now</div><div class="stat-chg flat" id="a-aircraft-sub">Loading...</div></div>
-    <div class="stat ochre"><div class="stat-val" id="a-range">—</div><div class="stat-lbl">Best range today</div><div class="stat-chg flat" id="a-range-sub">—</div></div>
-    <div class="stat slate"><div class="stat-val" id="a-positions">—</div><div class="stat-lbl">Positions today</div><div class="stat-chg flat" id="a-pos-sub">—</div></div>
-    <div class="stat sage"><div class="stat-val" id="a-uptime">—</div><div class="stat-lbl">Feed uptime (30d)</div><div class="stat-chg flat" id="a-uptime-sub">—</div></div>
-    <div class="stat"><div class="stat-val" id="a-rank">—</div><div class="stat-lbl">AU feeder rank</div><div class="stat-chg flat" id="a-rank-sub">—</div></div>
-    <div class="stat ochre"><div class="stat-val" id="a-seen">—</div><div class="stat-lbl">Aircraft seen (7d)</div><div class="stat-chg flat" id="a-seen-sub">—</div></div>
+  <div class="stat-row">
+    <div class="stat"><div class="stat-val" id="a-aircraft">—</div><div class="stat-lbl">Aircraft in region</div><div class="stat-chg flat" id="a-aircraft-sub">Loading...</div></div>
+    <div class="stat ochre"><div class="stat-val" id="a-overhead">—</div><div class="stat-lbl">Within 60nm of YBHI</div></div>
+    <div class="stat slate"><div class="stat-val" id="a-max-alt">—</div><div class="stat-lbl">Highest aircraft</div></div>
+    <div class="stat sage"><div class="stat-val" id="a-arrivals">—</div><div class="stat-lbl">YBHI arrivals</div></div>
+    <div class="stat"><div class="stat-val" id="a-departures">—</div><div class="stat-lbl">YBHI departures</div></div>
   </div>
 
-  <!-- Loading state -->
   <div id="adsb-loading" style="text-align:center;padding:2rem;color:var(--dust-light);font-family:var(--font-mono);font-size:0.78rem">
     <div style="margin-bottom:0.5rem">Connecting to FlightAware AeroAPI...</div>
     <div style="width:200px;height:3px;background:var(--ink-lift);border-radius:2px;margin:0 auto;overflow:hidden">
@@ -1143,28 +1140,23 @@
     </div>
   </div>
 
-  <!-- Main radar + FIDS layout -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-bottom:1.4rem" id="adsb-main" style="display:none">
-
-    <!-- RADAR -->
+  <div id="adsb-main" style="display:none;grid-template-columns:1fr 1fr;gap:1.4rem;margin-bottom:1.4rem">
     <div class="card" style="padding:0;overflow:hidden">
       <div style="padding:0.9rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between;align-items:center">
-        <div class="card-title">Live radar — YBHI</div>
+        <div class="card-title">Live radar — Broken Hill region</div>
         <div style="display:flex;align-items:center;gap:0.5rem">
           <div style="width:6px;height:6px;border-radius:50%;background:var(--sage-light);animation:blink 2s infinite"></div>
           <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--dust-light)" id="radar-count">— aircraft</span>
         </div>
       </div>
-      <canvas id="adsb-radar" style="display:block;width:100%;background:#050809"></canvas>
+      <canvas id="adsb-radar" style="display:block;width:100%;background:#04080c"></canvas>
     </div>
 
-    <!-- FIDS -->
     <div class="card" style="padding:0;overflow:hidden">
       <div style="padding:0.9rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between;align-items:center">
         <div class="card-title">Arrivals &amp; departures — YBHI</div>
         <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--dust-light)" id="fids-updated">—</span>
       </div>
-      <!-- FIDS header -->
       <div style="display:grid;grid-template-columns:50px 1fr 68px 56px 52px;border-bottom:1px solid rgba(255,255,255,0.07)">
         <span style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.1em;color:var(--dust);padding:6px 10px;background:var(--ink);text-transform:uppercase">Type</span>
         <span style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.1em;color:var(--dust);padding:6px 10px;background:var(--ink);text-transform:uppercase">Flight / Route</span>
@@ -1172,64 +1164,36 @@
         <span style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.1em;color:var(--dust);padding:6px 10px;background:var(--ink);text-transform:uppercase">Alt</span>
         <span style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.1em;color:var(--dust);padding:6px 10px;background:var(--ink);text-transform:uppercase">Status</span>
       </div>
-      <div id="fids-rows" style="overflow-y:auto;max-height:280px"></div>
-      <div style="padding:0.6rem 1rem;font-family:var(--font-mono);font-size:0.65rem;color:var(--dust);border-top:1px solid rgba(255,255,255,0.04)">
-        Source: FlightAware AeroAPI · YBHI · Updates every 60s
+      <div id="fids-rows" style="overflow-y:auto;max-height:260px"></div>
+      <div style="padding:0.75rem 1rem;border-top:1px solid rgba(255,255,255,0.04)">
+        <div class="t-label" style="font-size:0.6rem;margin-bottom:0.5rem">Aircraft within 60nm of YBHI</div>
+        <div id="overhead-list"></div>
       </div>
     </div>
   </div>
 
-  <!-- Best catches + history -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-bottom:1.4rem" id="adsb-lower" style="display:none">
-
-    <!-- Best catches -->
+  <div id="adsb-lower" style="display:none;grid-template-columns:1fr 1fr;gap:1.4rem;margin-bottom:1.4rem">
     <div class="card">
-      <div class="card-head">
-        <div class="card-title">Best catches — Phate4</div>
-        <span class="badge b-dust">All time</span>
-      </div>
-      <div id="best-catches" style="display:grid;grid-template-columns:1fr 1fr;gap:0.7rem"></div>
+      <div class="card-head"><div class="card-title">Best catches — Phate4</div><span class="badge b-dust">Furthest &amp; rarest today</span></div>
+      <div id="best-catches" style="display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;margin-top:0.5rem"></div>
     </div>
 
-    <!-- Position history -->
     <div class="card">
-      <div class="card-head">
-        <div class="card-title">Positions per day</div>
-        <span class="badge b-slate">14 days</span>
+      <div class="card-head"><div class="card-title">Your station — Phate4</div><span class="badge b-slate">FlightAware</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;font-size:0.78rem;margin-bottom:1rem">
+        <div style="background:var(--ink);padding:0.6rem;border-radius:4px"><div class="t-label" style="font-size:0.58rem;margin-bottom:0.2rem">Location</div><div style="font-family:var(--font-mono);color:var(--parch);font-size:0.72rem">31.95°S 141.47°E</div></div>
+        <div style="background:var(--ink);padding:0.6rem;border-radius:4px"><div class="t-label" style="font-size:0.58rem;margin-bottom:0.2rem">Station</div><div style="font-family:var(--font-mono);color:var(--parch);font-size:0.72rem">Phate4</div></div>
+        <div style="background:var(--ink);padding:0.6rem;border-radius:4px"><div class="t-label" style="font-size:0.58rem;margin-bottom:0.2rem">Approx range</div><div style="font-family:var(--font-mono);color:var(--ochre-light);font-size:0.72rem">~250nm</div></div>
+        <div style="background:var(--ink);padding:0.6rem;border-radius:4px"><div class="t-label" style="font-size:0.58rem;margin-bottom:0.2rem">Profile</div><div><a href="https://flightaware.com/adsb/stats/user/Phate4" target="_blank" style="font-family:var(--font-mono);font-size:0.7rem;color:var(--slate-light)">flightaware.com →</a></div></div>
       </div>
-      <div id="pos-history"></div>
-
-      <!-- Range ring info -->
-      <div style="margin-top:1rem;padding:0.8rem;background:var(--ink);border-radius:6px">
-        <div class="t-label" style="font-size:0.6rem;margin-bottom:0.5rem">Your station · Phate4</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;font-size:0.78rem">
-          <div>
-            <div style="color:var(--dust-light);font-size:0.72rem">Location</div>
-            <div style="font-family:var(--font-mono);color:var(--parch)">31.95°S 141.47°E</div>
-          </div>
-          <div>
-            <div style="color:var(--dust-light);font-size:0.72rem">Receiver</div>
-            <div style="font-family:var(--font-mono);color:var(--parch)" id="a-receiver">FlightAware</div>
-          </div>
-          <div>
-            <div style="color:var(--dust-light);font-size:0.72rem">Coverage</div>
-            <div style="font-family:var(--font-mono);color:var(--ochre-light)" id="a-coverage">—</div>
-          </div>
-          <div>
-            <div style="color:var(--dust-light);font-size:0.72rem">Profile</div>
-            <div><a href="https://flightaware.com/adsb/stats/user/Phate4" target="_blank" style="font-family:var(--font-mono);font-size:0.72rem;color:var(--slate-light)">flightaware.com →</a></div>
-          </div>
-        </div>
+      <div style="font-size:0.74rem;color:var(--dust-light);padding:0.75rem;background:var(--ink);border-radius:6px">
+        Aircraft coverage uses the full FlightAware global feeder network — not just your station. Your Phate4 station is shown as the orange dashed ring on the radar. Everything outside that ring is covered by other feeders in the network.
       </div>
     </div>
   </div>
 
-  <!-- Data note -->
   <div style="padding:0.8rem 1rem;background:var(--ink-mid);border-radius:6px;font-size:0.74rem;color:var(--dust-light);border:1px solid rgba(255,255,255,0.04)">
-    <strong style="color:var(--parch)">Data sources:</strong>
-    FlightAware AeroAPI (aircraft positions, YBHI flights) ·
-    FlightAware feeder stats (Phate4 station) ·
-    Refreshes every 60 seconds · ADS-B range approx. 200–350nm from Broken Hill depending on altitude
+    <strong style="color:var(--parch)">Sources:</strong> FlightAware AeroAPI · YBHI (Broken Hill Airport) · Refreshes every 5 minutes · Map covers ADL (330nm), MLD (160nm), MEL (510nm) · Data from full FlightAware feeder network
   </div>
 </section>
 
@@ -1237,5 +1201,6 @@
 </div>
 
 <script src="js/main.js"></script>
+<script src="js/adsb.js"></script>
 </body>
 </html>

@@ -339,30 +339,80 @@ def scrape_council_events():
 # ── FUELCHECK NSW ─────────────────────────────────────────────
 def scrape_fuel():
     print("Fuel prices (FuelCheck NSW)...")
-    api_key = os.environ.get('FUELCHECK_API_KEY', '')
-    if not api_key:
-        print("  No FUELCHECK_API_KEY — add to GitHub secrets for live prices")
+
+    # Auth header from GitHub secret — stored as base64 Basic auth string
+    auth_header = os.environ.get('FUELCHECK_AUTH_HEADER', '')
+    if not auth_header:
+        print("  No FUELCHECK_AUTH_HEADER — add to GitHub secrets")
         save('fuel.json', [])
         return
+
     try:
-        # FuelCheck API — register free at api.nsw.gov.au
+        now_ts = datetime.utcnow().strftime('%d/%m/%Y %H:%M:%S')
+
         headers = {
             **HEADERS,
-            'apikey': api_key,
-            'requesttimestamp': datetime.utcnow().strftime('%d/%m/%Y %H:%M:%S'),
+            'Authorization': f'Basic {auth_header}',
+            'requesttimestamp': now_ts,
             'Content-Type': 'application/json',
         }
-        r = requests.post(
-            'https://api.onegov.nsw.gov.au/FuelPriceCheck/v2/fuel/prices/bylocation',
+
+        # Step 1 — get a transactionid token
+        token_r = requests.get(
+            'https://api.onegov.nsw.gov.au/oauth/client_credential/accesstoken?grant_type=client_credentials',
             headers=headers,
-            json={'fueltype': ['ULP','P95','P98','DL','E10'], 'latitude': -31.95, 'longitude': 141.47, 'radius': 5, 'sortby': 'Price', 'sortascending': True},
             timeout=15
         )
-        r.raise_for_status()
-        data = r.json()
-        stations = data.get('stations', data.get('prices', []))
-        save('fuel.json', stations)
-        print(f"  Found {len(stations)} fuel prices")
+        token_r.raise_for_status()
+        token_data = token_r.json()
+        access_token = token_data.get('access_token', '')
+
+        if not access_token:
+            print(f"  FuelCheck: no access token returned: {token_data}")
+            save('fuel.json', [])
+            return
+
+        # Step 2 — get prices near Broken Hill
+        price_headers = {
+            **HEADERS,
+            'Authorization': f'Bearer {access_token}',
+            'requesttimestamp': now_ts,
+            'transactionid': now_ts.replace('/', '').replace(' ', '').replace(':', ''),
+            'Content-Type': 'application/json',
+        }
+
+        price_r = requests.get(
+            'https://api.onegov.nsw.gov.au/FuelPriceCheck/v2/fuel/prices/bylocation'
+            '?latitude=-31.9500&longitude=141.4333&radius=10&sortby=Price&sortascending=true',
+            headers=price_headers,
+            timeout=15
+        )
+        price_r.raise_for_status()
+        data = price_r.json()
+
+        # Response shape: { stations: [...], prices: [...] }
+        stations_raw = data.get('stations', [])
+        prices_raw   = data.get('prices', [])
+
+        # Merge station info with price info
+        station_map = {s['stationid']: s for s in stations_raw}
+        results = []
+        for p in prices_raw:
+            sid = p.get('stationid')
+            s   = station_map.get(sid, {})
+            results.append({
+                'stationid':   sid,
+                'stationname': s.get('name', p.get('stationname', '')),
+                'brand':       s.get('brand', p.get('brand', '')),
+                'address':     f"{s.get('address', {}).get('line1','')} {s.get('address', {}).get('suburb','')}".strip(),
+                'fueltype':    p.get('fueltype', ''),
+                'price':       p.get('price', 0),     # in cents e.g. 1999 = 199.9¢
+                'lastupdated': p.get('lastupdated', ''),
+            })
+
+        save('fuel.json', results)
+        print(f"  Found {len(results)} fuel prices across {len(stations_raw)} stations")
+
     except Exception as e:
         print(f"  FuelCheck failed: {e}")
         save('fuel.json', [])

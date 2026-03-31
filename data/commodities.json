@@ -1,0 +1,33 @@
+{
+  "updated": "2026-03-31T10:18:23.405995Z",
+  "data": {
+    "lead": {
+      "price": 2050,
+      "change24h": 0
+    },
+    "zinc": {
+      "price": 2780,
+      "change24h": 0
+    },
+    "silver": {
+      "price": 31.2,
+      "change24h": 0
+    },
+    "gold": {
+      "price": 3100,
+      "change24h": 0
+    },
+    "copper": {
+      "price": 9100,
+      "change24h": 0
+    },
+    "iron": {
+      "price": 105,
+      "change24h": 0
+    },
+    "steel": {
+      "price": 490,
+      "change24h": 0
+    }
+  }
+}

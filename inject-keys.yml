@@ -1,0 +1,76 @@
+name: Inject API keys & deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Inject API keys into config file
+        run: |
+          mkdir -p data
+          cat > data/config.js << 'ENDOFCONFIG'
+          window.FLIGHTAWARE_API_KEY = '${{ secrets.FLIGHTAWARE_API_KEY }}';
+          window.TROVE_API_KEY = '${{ secrets.TROVE_API_KEY }}';
+          ENDOFCONFIG
+          echo "Config written"
+
+      - name: Verify config
+        run: |
+          [ -f data/config.js ] && echo "config.js OK" || (echo "ERROR: config.js missing" && exit 1)
+
+      - name: Commit config
+        run: |
+          git config user.name "Tha Hill Bot"
+          git config user.email "bot@thahill.com.au"
+          git add data/config.js
+          git diff --staged --quiet || git commit -m "Inject runtime config [skip ci]"
+          git push
+
+  scrape-data:
+    runs-on: ubuntu-latest
+    needs: build-and-deploy
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4 lxml
+
+      - name: Run all scrapers
+        run: python scripts/scrape.py
+        env:
+          TROVE_API_KEY:         ${{ secrets.TROVE_API_KEY }}
+          FUELCHECK_AUTH_HEADER: ${{ secrets.FUELCHECK_AUTH_HEADER }}
+          METALS_API_KEY:        ${{ secrets.METALS_API_KEY }}
+          TFN_API_KEY:           ${{ secrets.TFN_API_KEY }}
+
+      - name: Commit scraped data
+        run: |
+          git config user.name "Tha Hill Bot"
+          git config user.email "bot@thahill.com.au"
+          git add data/
+          git diff --staged --quiet || git commit -m "Data refresh $(date -u '+%Y-%m-%d %H:%M UTC') [skip ci]"
+          git push

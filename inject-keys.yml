@@ -9,41 +9,8 @@ env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
-  build-and-deploy:
+  build-and-scrape:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pages: write
-      id-token: write
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Inject API keys into config file
-        run: |
-          mkdir -p data
-          cat > data/config.js << 'ENDOFCONFIG'
-          window.FLIGHTAWARE_API_KEY = '${{ secrets.FLIGHTAWARE_API_KEY }}';
-          window.TROVE_API_KEY = '${{ secrets.TROVE_API_KEY }}';
-          ENDOFCONFIG
-          echo "Config written"
-
-      - name: Verify config
-        run: |
-          [ -f data/config.js ] && echo "config.js OK" || (echo "ERROR: config.js missing" && exit 1)
-
-      - name: Commit config
-        run: |
-          git config user.name "Tha Hill Bot"
-          git config user.email "bot@thahill.com.au"
-          git add -f data/config.js
-          git diff --staged --quiet || git commit -m "Inject runtime config [skip ci]"
-          git push
-
-  scrape-data:
-    runs-on: ubuntu-latest
-    needs: build-and-deploy
     permissions:
       contents: write
 
@@ -59,6 +26,15 @@ jobs:
       - name: Install dependencies
         run: pip install requests beautifulsoup4 lxml
 
+      - name: Inject API keys
+        run: |
+          mkdir -p data
+          cat > data/config.js << 'ENDOFCONFIG'
+          window.FLIGHTAWARE_API_KEY = '${{ secrets.FLIGHTAWARE_API_KEY }}';
+          window.TROVE_API_KEY = '${{ secrets.TROVE_API_KEY }}';
+          ENDOFCONFIG
+          echo "Config written"
+
       - name: Run all scrapers
         run: python scripts/scrape.py
         env:
@@ -67,9 +43,11 @@ jobs:
           METALS_API_KEY:        ${{ secrets.METALS_API_KEY }}
           TFN_API_KEY:           ${{ secrets.TFN_API_KEY }}
 
-      - name: Commit scraped data
+      - name: Commit everything
         run: |
           git config user.name "Tha Hill Bot"
           git config user.email "bot@thahill.com.au"
+          git add -f data/config.js
           git add data/
-          git diff --staged --quiet || (git pull --rebase origin main && git commit -m "Data refresh $(date -u '+%Y-%m-%d %H:%M UTC') [skip ci]" && git push)
+          git diff --staged --quiet || git commit -m "Data refresh $(date -u '+%Y-%m-%d %H:%M UTC') [skip ci]"
+          git push

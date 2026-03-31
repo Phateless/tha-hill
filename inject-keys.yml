@@ -37,7 +37,7 @@ jobs:
         run: |
           git config user.name "Tha Hill Bot"
           git config user.email "bot@thahill.com.au"
-          git add data/config.js
+          git add -f data/config.js
           git diff --staged --quiet || git commit -m "Inject runtime config [skip ci]"
           git push
 
@@ -72,5 +72,4 @@ jobs:
           git config user.name "Tha Hill Bot"
           git config user.email "bot@thahill.com.au"
           git add data/
-          git diff --staged --quiet || git commit -m "Data refresh $(date -u '+%Y-%m-%d %H:%M UTC') [skip ci]"
-          git push
+          git diff --staged --quiet || (git pull --rebase origin main && git commit -m "Data refresh $(date -u '+%Y-%m-%d %H:%M UTC') [skip ci]" && git push)

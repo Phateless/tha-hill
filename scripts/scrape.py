@@ -340,78 +340,99 @@ def scrape_council_events():
 def scrape_fuel():
     print("Fuel prices (FuelCheck NSW)...")
 
-    # Auth header from GitHub secret — stored as base64 Basic auth string
     auth_header = os.environ.get('FUELCHECK_AUTH_HEADER', '')
     if not auth_header:
-        print("  No FUELCHECK_AUTH_HEADER — add to GitHub secrets")
+        print("  No FUELCHECK_AUTH_HEADER secret set")
         save('fuel.json', [])
         return
 
     try:
         now_ts = datetime.utcnow().strftime('%d/%m/%Y %H:%M:%S')
 
-        headers = {
-            **HEADERS,
-            'Authorization': f'Basic {auth_header}',
-            'requesttimestamp': now_ts,
-            'Content-Type': 'application/json',
-        }
-
-        # Step 1 — get a transactionid token
+        # Step 1 — OAuth token
         token_r = requests.get(
             'https://api.onegov.nsw.gov.au/oauth/client_credential/accesstoken?grant_type=client_credentials',
-            headers=headers,
+            headers={
+                'Authorization': f'Basic {auth_header}',
+                'Content-Type': 'application/json',
+            },
             timeout=15
         )
         token_r.raise_for_status()
-        token_data = token_r.json()
-        access_token = token_data.get('access_token', '')
+        access_token = token_r.json().get('access_token', '')
 
         if not access_token:
-            print(f"  FuelCheck: no access token returned: {token_data}")
+            print(f"  FuelCheck: token request failed: {token_r.text[:200]}")
             save('fuel.json', [])
             return
 
-        # Step 2 — get prices near Broken Hill
-        price_headers = {
-            **HEADERS,
-            'Authorization': f'Bearer {access_token}',
-            'requesttimestamp': now_ts,
-            'transactionid': now_ts.replace('/', '').replace(' ', '').replace(':', ''),
-            'Content-Type': 'application/json',
-        }
+        print(f"  Token acquired")
 
-        price_r = requests.get(
-            'https://api.onegov.nsw.gov.au/FuelPriceCheck/v2/fuel/prices/bylocation'
-            '?latitude=-31.9500&longitude=141.4333&radius=10&sortby=Price&sortascending=true',
-            headers=price_headers,
-            timeout=15
-        )
-        price_r.raise_for_status()
-        data = price_r.json()
+        # Step 2 — fetch nearby prices for each fuel type
+        # /nearby returns closest stations if none in radius — perfect for BH
+        fuel_types = ['ULP', 'P95', 'P98', 'DL', 'E10', 'PDL']
+        all_results = []
+        seen = set()
 
-        # Response shape: { stations: [...], prices: [...] }
-        stations_raw = data.get('stations', [])
-        prices_raw   = data.get('prices', [])
+        for ftype in fuel_types:
+            try:
+                r = requests.get(
+                    f'https://api.onegov.nsw.gov.au/FuelPriceCheck/v2/fuel/prices/nearby',
+                    headers={
+                        'Authorization': f'Bearer {access_token}',
+                        'requesttimestamp': now_ts,
+                        'transactionid': f"thahill{datetime.utcnow().strftime('%Y%m%d%H%M%S')}{ftype}",
+                        'Content-Type': 'application/json',
+                    },
+                    params={
+                        'latitude':  -31.9500,
+                        'longitude':  141.4333,
+                        'radius':     10,        # km — covers all BH stations
+                        'fueltype':   ftype,
+                        'sortby':     'Price',
+                        'sortascending': 'true',
+                        'maxresults': 20,
+                    },
+                    timeout=15
+                )
+                if not r.ok:
+                    print(f"  {ftype}: {r.status_code} — {r.text[:100]}")
+                    continue
 
-        # Merge station info with price info
-        station_map = {s['stationid']: s for s in stations_raw}
-        results = []
-        for p in prices_raw:
-            sid = p.get('stationid')
-            s   = station_map.get(sid, {})
-            results.append({
-                'stationid':   sid,
-                'stationname': s.get('name', p.get('stationname', '')),
-                'brand':       s.get('brand', p.get('brand', '')),
-                'address':     f"{s.get('address', {}).get('line1','')} {s.get('address', {}).get('suburb','')}".strip(),
-                'fueltype':    p.get('fueltype', ''),
-                'price':       p.get('price', 0),     # in cents e.g. 1999 = 199.9¢
-                'lastupdated': p.get('lastupdated', ''),
-            })
+                data = r.json()
+                stations_map = {s['stationid']: s for s in data.get('stations', [])}
 
-        save('fuel.json', results)
-        print(f"  Found {len(results)} fuel prices across {len(stations_raw)} stations")
+                for p in data.get('prices', []):
+                    sid = p.get('stationid')
+                    s   = stations_map.get(sid, {})
+                    key = f"{sid}_{ftype}"
+                    if key in seen:
+                        continue
+                    seen.add(key)
+
+                    addr = s.get('address', {})
+                    all_results.append({
+                        'stationid':   sid,
+                        'stationname': s.get('name', ''),
+                        'brand':       s.get('brand', ''),
+                        'address':     f"{addr.get('line1','')} {addr.get('suburb','')}".strip(),
+                        'fueltype':    p.get('fueltype', ftype),
+                        'price':       p.get('price', 0),   # tenths of a cent e.g. 1999 = 199.9¢
+                        'lastupdated': p.get('lastupdated', ''),
+                    })
+
+                print(f"  {ftype}: {len(data.get('prices',[]))} prices")
+
+            except Exception as fe:
+                print(f"  {ftype} fetch failed: {fe}")
+                continue
+
+        if all_results:
+            save('fuel.json', sorted(all_results, key=lambda x: x['price']))
+            print(f"  Total: {len(all_results)} price entries saved")
+        else:
+            print("  No fuel data returned — saving empty")
+            save('fuel.json', [])
 
     except Exception as e:
         print(f"  FuelCheck failed: {e}")

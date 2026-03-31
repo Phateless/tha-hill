@@ -46,17 +46,22 @@ async function initPetrol() {
 }
 
 function renderFuel(stations, updated) {
+  // API price field is in tenths of a cent — 1999 = 199.9¢
+  // Divide by 10 to get cents per litre
+  const toCpl = p => p / 10;
+
   const ulp = stations.filter(s => s.fueltype === 'ULP' || s.fueltype === 'E10').sort((a,b) => a.price - b.price);
   const dl  = stations.filter(s => s.fueltype === 'DL').sort((a,b) => a.price - b.price);
-  const avg = ulp.length ? (ulp.reduce((s,x) => s + x.price, 0) / ulp.length / 100).toFixed(2) : '—';
+  const ulpCpl = ulp.map(s => toCpl(s.price));
+  const avg = ulpCpl.length ? (ulpCpl.reduce((s,x) => s+x, 0) / ulpCpl.length).toFixed(1) : '—';
 
   if (ulp.length) {
-    setEl('fuel-cheapest', (ulp[0].price/100).toFixed(1) + '¢');
+    setEl('fuel-cheapest', toCpl(ulp[0].price).toFixed(1) + '¢');
     setEl('fuel-cheapest-where', ulp[0].stationname || ulp[0].brand || 'Cheapest station');
   }
   setEl('fuel-avg', avg + '¢');
   if (dl.length) {
-    setEl('fuel-diesel', (dl[0].price/100).toFixed(1) + '¢');
+    setEl('fuel-diesel', toCpl(dl[0].price).toFixed(1) + '¢');
     setEl('fuel-diesel-where', dl[0].stationname || dl[0].brand || '');
   }
   setEl('fuel-updated', updated ? new Date(updated).toLocaleString('en-AU', {timeZone:'Australia/Broken_Hill',hour:'2-digit',minute:'2-digit',hour12:false}) : 'Today');
@@ -64,16 +69,17 @@ function renderFuel(stations, updated) {
   const tbody = document.getElementById('fuel-tbody');
   if (tbody) {
     const allSorted = [...stations].sort((a,b) => a.price - b.price);
-    const ulpAvgVal = ulp.length ? ulp.reduce((s,x) => s+x.price,0)/ulp.length : 0;
+    const avgVal = ulpCpl.length ? ulpCpl.reduce((s,x)=>s+x,0)/ulpCpl.length : 0;
     tbody.innerHTML = allSorted.map(s => {
-      const vsAvg = ulpAvgVal ? ((s.price - ulpAvgVal)/10).toFixed(1) : '—';
-      const vsCol = parseFloat(vsAvg) < 0 ? 'var(--sage-light)' : parseFloat(vsAvg) > 0 ? '#E05050' : 'var(--dust-light)';
+      const cpl = toCpl(s.price);
+      const vsAvg = avgVal ? (cpl - avgVal).toFixed(1) : null;
+      const vsCol = vsAvg !== null ? (parseFloat(vsAvg) < 0 ? 'var(--sage-light)' : parseFloat(vsAvg) > 0 ? '#E05050' : 'var(--dust-light)') : 'var(--dust-light)';
       return `<tr data-cat="${s.fueltype}">
         <td style="font-weight:500">${s.brand || s.stationname || '—'}</td>
         <td style="font-size:0.8rem;color:var(--dust-light)">${s.address || '—'}</td>
         <td><span class="badge b-dust">${s.fueltype}</span></td>
-        <td style="font-family:var(--font-mono);font-weight:500;color:var(--parch)">${(s.price/10).toFixed(1)}¢</td>
-        <td style="font-family:var(--font-mono);font-size:0.75rem;color:${vsCol}">${vsAvg !== '—' ? (parseFloat(vsAvg)>0?'+':'')+vsAvg+'¢' : '—'}</td>
+        <td style="font-family:var(--font-mono);font-weight:500;color:var(--parch)">${cpl.toFixed(1)}¢</td>
+        <td style="font-family:var(--font-mono);font-size:0.75rem;color:${vsCol}">${vsAvg !== null ? (parseFloat(vsAvg)>0?'+':'')+vsAvg+'¢' : '—'}</td>
         <td style="font-size:0.72rem;color:var(--dust-light)">${s.lastupdated ? new Date(s.lastupdated).toLocaleDateString('en-AU') : '—'}</td>
       </tr>`;
     }).join('');
@@ -81,7 +87,7 @@ function renderFuel(stations, updated) {
 
   hide('fuel-loading');
   show('fuel-table-wrap');
-  drawFuelChart(ulp);
+  drawFuelChart(ulp.map(s => ({...s, cpl: toCpl(s.price)})));
 }
 
 function renderFuelFallback() {
@@ -110,8 +116,8 @@ function drawFuelChart(ulpData) {
   const H = 160;
   const pad = {t:12,r:16,b:28,l:55};
   const cW = W-pad.l-pad.r, cH = H-pad.t-pad.b;
-
-  const history = generateFuelHistory(ulpData[0].price/10);
+  const currentCpl = ulpData[0].cpl || (ulpData[0].price / 10);
+  const history = generateFuelHistory(currentCpl);
   const mn = Math.min(...history.map(h=>h.v))-2, mx = Math.max(...history.map(h=>h.v))+2;
 
   ctx.fillStyle='#04080c'; ctx.fillRect(0,0,W,H);

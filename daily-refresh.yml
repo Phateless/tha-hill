@@ -1,0 +1,37 @@
+name: Daily Data Refresh
+
+on:
+  schedule:
+    - cron: '0 18 * * *'  # Runs 4am ACST daily (18:00 UTC)
+  workflow_dispatch:        # Also allows manual trigger from GitHub UI
+
+jobs:
+  refresh-data:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4 lxml
+
+      - name: Run data scrapers
+        run: python scripts/scrape.py
+        env:
+          TROVE_API_KEY: ${{ secrets.TROVE_API_KEY }}
+
+      - name: Commit updated data
+        run: |
+          git config user.name "Tha Hill Bot"
+          git config user.email "bot@thahill.com.au"
+          git add data/
+          git diff --staged --quiet || git commit -m "Data refresh $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git push

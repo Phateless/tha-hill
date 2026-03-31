@@ -7,8 +7,6 @@
 <link rel="stylesheet" href="css/style.css">
 <script src="data/config.js"></script>
 </head>
-<script src="js/data-loader.js"></script>
-<script src="js/adsb.js"></script>
 <body>
 
 <div class="app">
@@ -70,14 +68,71 @@
     <div class="nav-link" data-sec="radio" onclick="showSection('radio')">
       <span class="ico">◉</span> Local Radio
     </div>
+
+    <div class="nav-group-label">Aviation</div>
+    <div class="nav-link" data-sec="adsb" onclick="showSection('adsb')">
+      <span class="ico">✈</span> ADS-B &amp; Aviation
+    </div>
+
+    <div class="nav-group-label">Transport</div>
+    <div class="nav-link" data-sec="transport" onclick="showSection('transport')">
+      <span class="ico">🚕</span> Taxis &amp; Transport
+    </div>
+
+    <div class="nav-group-label">Environment</div>
+    <div class="nav-link" data-sec="fishing" onclick="showSection('fishing')">
+      <span class="ico">🎣</span> Fishing Guide
+    </div>
+    <div class="nav-link" data-sec="boating" onclick="showSection('boating')">
+      <span class="ico">🚤</span> Boating &amp; Jet Ski
+    </div>
+    <div class="nav-link" data-sec="flora" onclick="showSection('flora')">
+      <span class="ico">🦘</span> Flora &amp; Fauna
+    </div>
+
+    <div class="nav-group-label">Money &amp; Finance</div>
+    <div class="nav-link" data-sec="rates" onclick="showSection('rates')">
+      <span class="ico">🏛</span> Council Rates
+    </div>
+    <div class="nav-link" data-sec="minetax" onclick="showSection('minetax')">
+      <span class="ico">💰</span> Mine Rates &amp; Taxes
+    </div>
+    <div class="nav-link" data-sec="benefits" onclick="showSection('benefits')">
+      <span class="ico">💸</span> Government Benefits
+    </div>
+
+    <div class="nav-group-label">Services</div>
+    <div class="nav-link" data-sec="emergency" onclick="showSection('emergency')">
+      <span class="ico">🚨</span> Emergency Services
+    </div>
+    <div class="nav-link" data-sec="welfare" onclick="showSection('welfare')">
+      <span class="ico">🤝</span> Welfare &amp; Support
+    </div>
+    <div class="nav-link" data-sec="schools" onclick="showSection('schools')">
+      <span class="ico">🏫</span> Schools &amp; Kinders
+    </div>
+    <div class="nav-link" data-sec="toilets" onclick="showSection('toilets')">
+      <span class="ico">🚻</span> Public Toilets &amp; BBQs
+    </div>
+    <div class="nav-link" data-sec="groups" onclick="showSection('groups')">
+      <span class="ico">👥</span> Clubs &amp; Groups
+    </div>
+
+    <div class="nav-group-label">Culture</div>
+    <div class="nav-link" data-sec="art" onclick="showSection('art')">
+      <span class="ico">🎨</span> Art Scene
+    </div>
+    <div class="nav-link" data-sec="geocaching" onclick="showSection('geocaching')">
+      <span class="ico">📍</span> Geocaching
+    </div>
     <div class="nav-link" data-sec="oral" onclick="showSection('oral')">
-      <span class="ico">🎙</span> Oral History Archive <span class="nav-new">New</span>
+      <span class="ico">🎙</span> Oral History Archive
     </div>
     <div class="nav-link" data-sec="bizob" onclick="showSection('bizob')">
-      <span class="ico">🏪</span> Business Obituaries <span class="nav-new">New</span>
+      <span class="ico">🏪</span> Business Obituaries
     </div>
     <div class="nav-link" data-sec="otd" onclick="showSection('otd')">
-      <span class="ico">📰</span> On This Day <span class="nav-new">New</span>
+      <span class="ico">📰</span> On This Day
     </div>
 
   </div>
@@ -1109,33 +1164,27 @@
 </section>
 
 <!-- ═══════════════════════════════════════════════════════
-     ADS-B / AVIATION SECTION
-     FlightAware feeder: Phate4
-     Airport: YBHI (Broken Hill)
-     API key stored in GitHub secret: FLIGHTAWARE_API_KEY
+     ADS-B / AVIATION
 ═══════════════════════════════════════════════════════ -->
 <section class="section" id="s-adsb">
   <div class="s-hero">
     <div class="s-hero-watermark">ADSB</div>
-    <div class="t-label" style="margin-bottom:0.5rem">FlightAware · Phate4 · YBHI · Live</div>
+    <div class="t-label" style="margin-bottom:0.5rem">FlightAware · Phate4 · YBHI · Live · All feeders</div>
     <h2 class="t-section-title">ADS-B &amp; Aviation</h2>
     <p style="color:var(--dust-light);margin-top:0.5rem;max-width:560px;font-size:0.88rem">
-      Live aircraft over Broken Hill. Your station stats. YBHI arrivals and departures.
-      Powered by your FlightAware feeder and AeroAPI.
+      Live aircraft over the Broken Hill region sourced from the full FlightAware global feeder network.
+      Your Phate4 station shown as orange range ring. YBHI arrivals and departures. Adelaide, Melbourne and Mildura routes visible.
     </p>
   </div>
 
-  <!-- Station stat row -->
-  <div class="stat-row" id="adsb-stats">
-    <div class="stat"><div class="stat-val" id="a-aircraft">—</div><div class="stat-lbl">Aircraft now</div><div class="stat-chg flat" id="a-aircraft-sub">Loading...</div></div>
-    <div class="stat ochre"><div class="stat-val" id="a-range">—</div><div class="stat-lbl">Best range today</div><div class="stat-chg flat" id="a-range-sub">—</div></div>
-    <div class="stat slate"><div class="stat-val" id="a-positions">—</div><div class="stat-lbl">Positions today</div><div class="stat-chg flat" id="a-pos-sub">—</div></div>
-    <div class="stat sage"><div class="stat-val" id="a-uptime">—</div><div class="stat-lbl">Feed uptime (30d)</div><div class="stat-chg flat" id="a-uptime-sub">—</div></div>
-    <div class="stat"><div class="stat-val" id="a-rank">—</div><div class="stat-lbl">AU feeder rank</div><div class="stat-chg flat" id="a-rank-sub">—</div></div>
-    <div class="stat ochre"><div class="stat-val" id="a-seen">—</div><div class="stat-lbl">Aircraft seen (7d)</div><div class="stat-chg flat" id="a-seen-sub">—</div></div>
+  <div class="stat-row">
+    <div class="stat"><div class="stat-val" id="a-aircraft">—</div><div class="stat-lbl">Aircraft in region</div><div class="stat-chg flat" id="a-aircraft-sub">Loading...</div></div>
+    <div class="stat ochre"><div class="stat-val" id="a-overhead">—</div><div class="stat-lbl">Within 60nm of YBHI</div></div>
+    <div class="stat slate"><div class="stat-val" id="a-max-alt">—</div><div class="stat-lbl">Highest aircraft</div></div>
+    <div class="stat sage"><div class="stat-val" id="a-arrivals">—</div><div class="stat-lbl">YBHI arrivals</div></div>
+    <div class="stat"><div class="stat-val" id="a-departures">—</div><div class="stat-lbl">YBHI departures</div></div>
   </div>
 
-  <!-- Loading state -->
   <div id="adsb-loading" style="text-align:center;padding:2rem;color:var(--dust-light);font-family:var(--font-mono);font-size:0.78rem">
     <div style="margin-bottom:0.5rem">Connecting to FlightAware AeroAPI...</div>
     <div style="width:200px;height:3px;background:var(--ink-lift);border-radius:2px;margin:0 auto;overflow:hidden">
@@ -1143,28 +1192,23 @@
     </div>
   </div>
 
-  <!-- Main radar + FIDS layout -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-bottom:1.4rem" id="adsb-main" style="display:none">
-
-    <!-- RADAR -->
+  <div id="adsb-main" style="display:none;grid-template-columns:1fr 1fr;gap:1.4rem;margin-bottom:1.4rem">
     <div class="card" style="padding:0;overflow:hidden">
       <div style="padding:0.9rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between;align-items:center">
-        <div class="card-title">Live radar — YBHI</div>
+        <div class="card-title">Live radar — Broken Hill region</div>
         <div style="display:flex;align-items:center;gap:0.5rem">
           <div style="width:6px;height:6px;border-radius:50%;background:var(--sage-light);animation:blink 2s infinite"></div>
           <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--dust-light)" id="radar-count">— aircraft</span>
         </div>
       </div>
-      <canvas id="adsb-radar" style="display:block;width:100%;background:#050809"></canvas>
+      <canvas id="adsb-radar" style="display:block;width:100%;background:#04080c"></canvas>
     </div>
 
-    <!-- FIDS -->
     <div class="card" style="padding:0;overflow:hidden">
       <div style="padding:0.9rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between;align-items:center">
         <div class="card-title">Arrivals &amp; departures — YBHI</div>
         <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--dust-light)" id="fids-updated">—</span>
       </div>
-      <!-- FIDS header -->
       <div style="display:grid;grid-template-columns:50px 1fr 68px 56px 52px;border-bottom:1px solid rgba(255,255,255,0.07)">
         <span style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.1em;color:var(--dust);padding:6px 10px;background:var(--ink);text-transform:uppercase">Type</span>
         <span style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.1em;color:var(--dust);padding:6px 10px;background:var(--ink);text-transform:uppercase">Flight / Route</span>
@@ -1172,64 +1216,663 @@
         <span style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.1em;color:var(--dust);padding:6px 10px;background:var(--ink);text-transform:uppercase">Alt</span>
         <span style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.1em;color:var(--dust);padding:6px 10px;background:var(--ink);text-transform:uppercase">Status</span>
       </div>
-      <div id="fids-rows" style="overflow-y:auto;max-height:280px"></div>
-      <div style="padding:0.6rem 1rem;font-family:var(--font-mono);font-size:0.65rem;color:var(--dust);border-top:1px solid rgba(255,255,255,0.04)">
-        Source: FlightAware AeroAPI · YBHI · Updates every 60s
+      <div id="fids-rows" style="overflow-y:auto;max-height:260px"></div>
+      <div style="padding:0.75rem 1rem;border-top:1px solid rgba(255,255,255,0.04)">
+        <div class="t-label" style="font-size:0.6rem;margin-bottom:0.5rem">Aircraft within 60nm of YBHI</div>
+        <div id="overhead-list"></div>
       </div>
     </div>
   </div>
 
-  <!-- Best catches + history -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-bottom:1.4rem" id="adsb-lower" style="display:none">
-
-    <!-- Best catches -->
+  <div id="adsb-lower" style="display:none;grid-template-columns:1fr 1fr;gap:1.4rem;margin-bottom:1.4rem">
     <div class="card">
-      <div class="card-head">
-        <div class="card-title">Best catches — Phate4</div>
-        <span class="badge b-dust">All time</span>
-      </div>
-      <div id="best-catches" style="display:grid;grid-template-columns:1fr 1fr;gap:0.7rem"></div>
+      <div class="card-head"><div class="card-title">Best catches — Phate4</div><span class="badge b-dust">Furthest &amp; rarest today</span></div>
+      <div id="best-catches" style="display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;margin-top:0.5rem"></div>
     </div>
 
-    <!-- Position history -->
     <div class="card">
-      <div class="card-head">
-        <div class="card-title">Positions per day</div>
-        <span class="badge b-slate">14 days</span>
+      <div class="card-head"><div class="card-title">Your station — Phate4</div><span class="badge b-slate">FlightAware</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;font-size:0.78rem;margin-bottom:1rem">
+        <div style="background:var(--ink);padding:0.6rem;border-radius:4px"><div class="t-label" style="font-size:0.58rem;margin-bottom:0.2rem">Location</div><div style="font-family:var(--font-mono);color:var(--parch);font-size:0.72rem">31.95°S 141.47°E</div></div>
+        <div style="background:var(--ink);padding:0.6rem;border-radius:4px"><div class="t-label" style="font-size:0.58rem;margin-bottom:0.2rem">Station</div><div style="font-family:var(--font-mono);color:var(--parch);font-size:0.72rem">Phate4</div></div>
+        <div style="background:var(--ink);padding:0.6rem;border-radius:4px"><div class="t-label" style="font-size:0.58rem;margin-bottom:0.2rem">Approx range</div><div style="font-family:var(--font-mono);color:var(--ochre-light);font-size:0.72rem">~250nm</div></div>
+        <div style="background:var(--ink);padding:0.6rem;border-radius:4px"><div class="t-label" style="font-size:0.58rem;margin-bottom:0.2rem">Profile</div><div><a href="https://flightaware.com/adsb/stats/user/Phate4" target="_blank" style="font-family:var(--font-mono);font-size:0.7rem;color:var(--slate-light)">flightaware.com →</a></div></div>
       </div>
-      <div id="pos-history"></div>
+      <div style="font-size:0.74rem;color:var(--dust-light);padding:0.75rem;background:var(--ink);border-radius:6px">
+        Aircraft coverage uses the full FlightAware global feeder network — not just your station. Your Phate4 station is shown as the orange dashed ring on the radar. Everything outside that ring is covered by other feeders in the network.
+      </div>
+    </div>
+  </div>
 
-      <!-- Range ring info -->
-      <div style="margin-top:1rem;padding:0.8rem;background:var(--ink);border-radius:6px">
-        <div class="t-label" style="font-size:0.6rem;margin-bottom:0.5rem">Your station · Phate4</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;font-size:0.78rem">
-          <div>
-            <div style="color:var(--dust-light);font-size:0.72rem">Location</div>
-            <div style="font-family:var(--font-mono);color:var(--parch)">31.95°S 141.47°E</div>
-          </div>
-          <div>
-            <div style="color:var(--dust-light);font-size:0.72rem">Receiver</div>
-            <div style="font-family:var(--font-mono);color:var(--parch)" id="a-receiver">FlightAware</div>
-          </div>
-          <div>
-            <div style="color:var(--dust-light);font-size:0.72rem">Coverage</div>
-            <div style="font-family:var(--font-mono);color:var(--ochre-light)" id="a-coverage">—</div>
-          </div>
-          <div>
-            <div style="color:var(--dust-light);font-size:0.72rem">Profile</div>
-            <div><a href="https://flightaware.com/adsb/stats/user/Phate4" target="_blank" style="font-family:var(--font-mono);font-size:0.72rem;color:var(--slate-light)">flightaware.com →</a></div>
-          </div>
+  <div style="padding:0.8rem 1rem;background:var(--ink-mid);border-radius:6px;font-size:0.74rem;color:var(--dust-light);border:1px solid rgba(255,255,255,0.04)">
+    <strong style="color:var(--parch)">Sources:</strong> FlightAware AeroAPI · YBHI (Broken Hill Airport) · Refreshes every 5 minutes · Map covers ADL (330nm), MLD (160nm), MEL (510nm) · Data from full FlightAware feeder network
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     TRANSPORT
+═══════════════════════════════════════════════════════ -->
+<section class="section" id="s-transport">
+  <div class="s-hero"><div class="t-label" style="margin-bottom:0.5rem">Taxis · Rideshare · Local contacts</div><h2 class="t-section-title">Taxis &amp; Transport</h2></div>
+  <div class="g2" style="margin-bottom:1.4rem">
+    <div class="card">
+      <div class="card-head"><div class="card-title">Local taxi services</div></div>
+      <div style="display:flex;flex-direction:column;gap:0.75rem">
+        <div style="background:var(--ink);border-radius:6px;padding:1rem">
+          <div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Broken Hill Taxis</div>
+          <div style="font-family:var(--font-display);font-size:1.8rem;color:var(--rust-light)">08 8087 2222</div>
+          <div style="font-size:0.78rem;color:var(--dust-light);margin-top:0.3rem">24 hours · Rank at Argent St &amp; Chloride St</div>
+        </div>
+        <div style="background:var(--ink);border-radius:6px;padding:1rem">
+          <div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Silver City Taxis</div>
+          <div style="font-family:var(--font-display);font-size:1.8rem;color:var(--rust-light)">08 8088 4444</div>
+          <div style="font-size:0.78rem;color:var(--dust-light);margin-top:0.3rem">24 hours · Maxi taxis available on request</div>
+        </div>
+        <div style="background:var(--ink);border-radius:6px;padding:1rem">
+          <div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Airport transfers</div>
+          <div style="font-size:0.82rem;color:var(--dust-light)">Both operators service YBHI. Rank outside arrivals. No prebooking required — taxis meet all scheduled Rex flights.</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">Rideshare &amp; other options</div></div>
+      <div class="alert alert-info" style="margin-bottom:1rem"><span class="alert-icon">ℹ</span><div><strong>Uber:</strong> Uber is not currently operating in Broken Hill. The city's remote location and population size mean it has not attracted rideshare operators. Taxis are the primary option.</div></div>
+      <div style="display:flex;flex-direction:column;gap:0.6rem">
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem">
+          <div style="font-weight:500;color:var(--parch);font-size:0.88rem;margin-bottom:0.2rem">Community transport (HACC)</div>
+          <div style="font-size:0.78rem;color:var(--dust-light)">For eligible residents — aged, disabled. Contact Far West NSW PHN: <span style="color:var(--rust-light);font-family:var(--font-mono)">1800 081 017</span></div>
+        </div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem">
+          <div style="font-weight:500;color:var(--parch);font-size:0.88rem;margin-bottom:0.2rem">Wheelchair accessible taxis</div>
+          <div style="font-size:0.78rem;color:var(--dust-light)">Available through Broken Hill Taxis with 2hr notice. WAT subsidy scheme applies for eligible passengers.</div>
+        </div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem">
+          <div style="font-weight:500;color:var(--parch);font-size:0.88rem;margin-bottom:0.2rem">NSW TrainLink coach connection</div>
+          <div style="font-size:0.78rem;color:var(--dust-light)">Coach services connect BH to Mildura and regional centres. Book at: <span style="color:var(--slate-light)">transportnsw.info</span></div>
         </div>
       </div>
     </div>
   </div>
+  <div style="padding:0.8rem 1rem;background:var(--ink-mid);border-radius:6px;font-size:0.74rem;color:var(--dust-light);border:1px solid rgba(255,255,255,0.04)">Note: Contact details subject to change. Verify before travel. Bus and train timetables coming in the next update.</div>
+</section>
 
-  <!-- Data note -->
+<!-- ═══════════════════════════════════════════════════════
+     FISHING
+═══════════════════════════════════════════════════════ -->
+<section class="section" id="s-fishing">
+  <div class="s-hero"><div class="t-label" style="margin-bottom:0.5rem">Menindee Lakes · Darling River · Licences · Species</div><h2 class="t-section-title">Fishing Guide</h2></div>
+  <div class="stat-row">
+    <div class="stat ochre"><div class="stat-val">$35</div><div class="stat-lbl">NSW fishing licence (1yr)</div></div>
+    <div class="stat"><div class="stat-val">$12</div><div class="stat-lbl">Daily licence</div></div>
+    <div class="stat sage"><div class="stat-val">Free</div><div class="stat-lbl">Under 18s</div></div>
+    <div class="stat slate"><div class="stat-val">Free</div><div class="stat-lbl">Pensioners (NSW)</div></div>
+  </div>
+  <div class="g2" style="margin-bottom:1.4rem">
+    <div class="card">
+      <div class="card-head"><div class="card-title">Fishing locations — Menindee region</div></div>
+      <div style="display:flex;flex-direction:column;gap:0.6rem">
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Menindee Lake (Main Lake)</div><div style="font-size:0.78rem;color:var(--dust-light)">Best for golden perch, Murray cod, silver perch. Boat ramp at Menindee township. Bank fishing along eastern shore near caravan park.</div></div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Lake Pamamaroo</div><div style="font-size:0.78rem;color:var(--dust-light)">Popular for Murray cod. Accessed via Kinchega NP. 4WD recommended for some access tracks.</div></div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Darling River — Menindee to Pooncarie</div><div style="font-size:0.78rem;color:var(--dust-light)">Golden perch, catfish, Murray cod. Best after rain events when river flows increase. Bait: yabbies, shrimp, worms.</div></div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Copi Hollow</div><div style="font-size:0.78rem;color:var(--dust-light)">Small lake near Menindee. Family friendly. Bank fishing only. Suitable for beginners. Yabbies, carp common.</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">Species guide &amp; size/bag limits</div></div>
+      <div class="scroll-x">
+        <table class="tbl">
+          <thead><tr><th>Species</th><th>Min size</th><th>Bag limit</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:500">Murray cod</td><td class="mono-cell">55cm</td><td class="mono-cell">1 per day</td><td>Slot limit 55–75cm. Must release &gt;75cm.</td></tr>
+            <tr><td style="font-weight:500">Golden perch</td><td class="mono-cell">30cm</td><td class="mono-cell">10 per day</td><td>Most common in Menindee. Excellent eating.</td></tr>
+            <tr><td style="font-weight:500">Silver perch</td><td class="mono-cell">25cm</td><td class="mono-cell">10 per day</td><td>Less common — threatened species. Handle carefully.</td></tr>
+            <tr><td style="font-weight:500">Catfish (tandanus)</td><td class="mono-cell">25cm</td><td class="mono-cell">10 per day</td><td>Excellent bait fish. Common in Darling.</td></tr>
+            <tr><td style="font-weight:500">Carp</td><td class="mono-cell">No limit</td><td class="mono-cell">No limit</td><td>Noxious species. Do not return to water.</td></tr>
+            <tr><td style="font-weight:500">Yabbies</td><td class="mono-cell">No limit</td><td class="mono-cell">200 per day</td><td>Trap or hand. Licence required.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:1.4rem">
+    <div class="card-head"><div class="card-title">Drop net &amp; opera house trap rules — NSW</div><span class="badge b-danger">Important</span></div>
+    <div class="g2">
+      <div>
+        <div style="font-size:0.84rem;font-weight:500;color:var(--parch);margin-bottom:0.75rem">Mandatory labelling requirements</div>
+        <div style="display:flex;flex-direction:column;gap:0.5rem;font-size:0.82rem;color:var(--dust-light)">
+          <div style="background:var(--ink);border-radius:4px;padding:0.6rem">All nets and traps must be labelled with: <strong style="color:var(--parch)">full name, address, and fishing licence number</strong> on a durable tag attached to the net/trap.</div>
+          <div style="background:var(--ink);border-radius:4px;padding:0.6rem">Label must be <strong style="color:var(--parch)">waterproof and legible</strong>. Plastic-coated or engraved tags are recommended in freshwater environments.</div>
+          <div style="background:var(--ink);border-radius:4px;padding:0.6rem">Nets/traps may not be left unattended for more than <strong style="color:var(--parch)">24 hours</strong> in inland waters.</div>
+          <div style="background:var(--ink);border-radius:4px;padding:0.6rem">Opera house traps must have a <strong style="color:var(--parch)">maximum 25mm mesh size</strong>. Larger mesh is illegal.</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:0.84rem;font-weight:500;color:var(--parch);margin-bottom:0.75rem">What you can use</div>
+        <div style="display:flex;flex-direction:column;gap:0.4rem;font-size:0.82rem">
+          <div style="display:flex;justify-content:space-between;padding:0.5rem 0.75rem;background:var(--ink);border-radius:4px"><span>Drop nets</span><span class="badge b-sage">Legal · max 1.2m dia</span></div>
+          <div style="display:flex;justify-content:space-between;padding:0.5rem 0.75rem;background:var(--ink);border-radius:4px"><span>Opera house traps</span><span class="badge b-sage">Legal · labelled only</span></div>
+          <div style="display:flex;justify-content:space-between;padding:0.5rem 0.75rem;background:var(--ink);border-radius:4px"><span>Yabby pumps</span><span class="badge b-sage">Legal</span></div>
+          <div style="display:flex;justify-content:space-between;padding:0.5rem 0.75rem;background:var(--ink);border-radius:4px"><span>Cast nets</span><span class="badge b-ochre">Restricted waters</span></div>
+          <div style="display:flex;justify-content:space-between;padding:0.5rem 0.75rem;background:var(--ink);border-radius:4px"><span>Gill nets</span><span class="badge b-danger">Illegal — inland NSW</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div style="padding:0.8rem 1rem;background:var(--ink-mid);border-radius:6px;font-size:0.74rem;color:var(--dust-light);border:1px solid rgba(255,255,255,0.04)">
-    <strong style="color:var(--parch)">Data sources:</strong>
-    FlightAware AeroAPI (aircraft positions, YBHI flights) ·
-    FlightAware feeder stats (Phate4 station) ·
-    Refreshes every 60 seconds · ADS-B range approx. 200–350nm from Broken Hill depending on altitude
+    <strong style="color:var(--parch)">Licences:</strong> Purchase at <a href="https://www.dpi.nsw.gov.au/fishing/recreational/fishing-licence" target="_blank" style="color:var(--slate-light)">dpi.nsw.gov.au</a> or Service NSW outlets. Carry licence when fishing. Penalties up to $22,000 for serious offences. Source: NSW DPI Fisheries.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     BOATING
+═══════════════════════════════════════════════════════ -->
+<section class="section" id="s-boating">
+  <div class="s-hero"><div class="t-label" style="margin-bottom:0.5rem">Menindee Lakes · Licences · Rules · Ramps</div><h2 class="t-section-title">Boating &amp; Jet Ski</h2></div>
+  <div class="g2" style="margin-bottom:1.4rem">
+    <div class="card">
+      <div class="card-head"><div class="card-title">NSW boat licence requirements</div></div>
+      <div style="display:flex;flex-direction:column;gap:0.6rem;font-size:0.82rem">
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem">
+          <div style="font-weight:500;color:var(--parch);margin-bottom:0.3rem">General boat licence</div>
+          <div style="color:var(--dust-light)">Required to operate a vessel with a motor over 4.4kW (approx. 6HP). Must be 16+ years. Written and practical test. Cost approx. $45 via Service NSW. Licence valid for life.</div>
+        </div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem">
+          <div style="font-weight:500;color:var(--parch);margin-bottom:0.3rem">Personal watercraft (jet ski) licence</div>
+          <div style="color:var(--dust-light)">Separate PWC licence required in addition to general boat licence. Must be 16+. Complete an approved course. NSW Maritime approved providers offer 1-day courses.</div>
+        </div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem">
+          <div style="font-weight:500;color:var(--parch);margin-bottom:0.3rem">No licence needed if...</div>
+          <div style="color:var(--dust-light)">Vessel under 4.4kW motor · Vessel under oars only · Passenger on licensed operator's boat · Person under supervision of licenced operator on a vessel they own.</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">Menindee Lakes — boating info</div></div>
+      <div style="display:flex;flex-direction:column;gap:0.5rem;font-size:0.82rem">
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Boat ramps</div><div style="color:var(--dust-light)">Main ramp: Menindee township, near caravan park · Lake Pamamaroo: dirt ramp, 4WD recommended · Copi Hollow: small ramp, suitable for tinny/kayak</div></div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Speed limits</div><div style="color:var(--dust-light)">No speed limit on open lake water. 8 knots within 30m of shore, swimmers, other vessels, or structures. PWCs must stay 60m from swimmers.</div></div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Safety requirements</div><div style="color:var(--dust-light)">Life jacket for every person on board · Flares (Class 1 for open water) · Fire extinguisher · Horn or whistle · Anchor and rope · Bilge pump</div></div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Kinchega National Park access</div><div style="color:var(--dust-light)">Park entry fee applies. Camping available. Boat access to Lake Pamamaroo through park. Check NPWS for conditions before visiting.</div></div>
+      </div>
+    </div>
+  </div>
+  <div style="padding:0.8rem 1rem;background:var(--ink-mid);border-radius:6px;font-size:0.74rem;color:var(--dust-light);border:1px solid rgba(255,255,255,0.04)">
+    <strong style="color:var(--parch)">Licences &amp; courses:</strong> Service NSW · <a href="https://www.transport.nsw.gov.au/operations/maritime/recreational-boating/boat-driving-licence" target="_blank" style="color:var(--slate-light)">transport.nsw.gov.au</a> · Transport for NSW Maritime: 13 12 36
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     FLORA & FAUNA
+═══════════════════════════════════════════════════════ -->
+<section class="section" id="s-flora">
+  <div class="s-hero"><div class="t-label" style="margin-bottom:0.5rem">Living Desert · Local species · Kinchega NP</div><h2 class="t-section-title">Flora &amp; Fauna</h2></div>
+  <div class="g2" style="margin-bottom:1.4rem">
+    <div class="card">
+      <div class="card-head"><div class="card-title">The Living Desert — sculptures &amp; wildlife</div></div>
+      <p style="font-size:0.84rem;color:var(--dust-light);line-height:1.8;margin-bottom:1rem">The Living Desert State Conservation Area, 10km north of Broken Hill, combines an internationally significant sculpture symposium with remarkable outback flora and fauna. The 12 sandstone sculptures were carved in situ by artists from 10 countries in 1993. The reserve protects 2,440 hectares of semi-arid scrubland.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;font-size:0.8rem">
+        <div style="background:var(--ink);padding:0.6rem;border-radius:4px"><div class="t-label" style="font-size:0.58rem;margin-bottom:0.2rem">Opening hours</div><div style="color:var(--parch)">Sunrise to sunset daily</div></div>
+        <div style="background:var(--ink);padding:0.6rem;border-radius:4px"><div class="t-label" style="font-size:0.58rem;margin-bottom:0.2rem">Entry</div><div style="color:var(--parch)">Free</div></div>
+        <div style="background:var(--ink);padding:0.6rem;border-radius:4px"><div class="t-label" style="font-size:0.58rem;margin-bottom:0.2rem">Best time to visit</div><div style="color:var(--parch)">Sunrise / sunset</div></div>
+        <div style="background:var(--ink);padding:0.6rem;border-radius:4px"><div class="t-label" style="font-size:0.58rem;margin-bottom:0.2rem">Facilities</div><div style="color:var(--parch)">Toilets, walking tracks</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">Local fauna — what to look for</div></div>
+      <div style="display:flex;flex-direction:column;gap:0.5rem">
+        <div style="background:var(--ink);border-radius:4px;padding:0.6rem 0.8rem;display:flex;justify-content:space-between;align-items:center"><span style="font-size:0.84rem;color:var(--parch)">Red kangaroo</span><span class="badge b-sage">Common</span></div>
+        <div style="background:var(--ink);border-radius:4px;padding:0.6rem 0.8rem;display:flex;justify-content:space-between;align-items:center"><span style="font-size:0.84rem;color:var(--parch)">Euro (wallaroo)</span><span class="badge b-sage">Common</span></div>
+        <div style="background:var(--ink);border-radius:4px;padding:0.6rem 0.8rem;display:flex;justify-content:space-between;align-items:center"><span style="font-size:0.84rem;color:var(--parch)">Emu</span><span class="badge b-sage">Common</span></div>
+        <div style="background:var(--ink);border-radius:4px;padding:0.6rem 0.8rem;display:flex;justify-content:space-between;align-items:center"><span style="font-size:0.84rem;color:var(--parch)">Wedge-tailed eagle</span><span class="badge b-ochre">Occasional</span></div>
+        <div style="background:var(--ink);border-radius:4px;padding:0.6rem 0.8rem;display:flex;justify-content:space-between;align-items:center"><span style="font-size:0.84rem;color:var(--parch)">Perentie (giant goanna)</span><span class="badge b-ochre">Occasional</span></div>
+        <div style="background:var(--ink);border-radius:4px;padding:0.6rem 0.8rem;display:flex;justify-content:space-between;align-items:center"><span style="font-size:0.84rem;color:var(--parch)">Mallee fowl</span><span class="badge b-danger">Rare — protected</span></div>
+        <div style="background:var(--ink);border-radius:4px;padding:0.6rem 0.8rem;display:flex;justify-content:space-between;align-items:center"><span style="font-size:0.84rem;color:var(--parch)">Dusky hopping mouse</span><span class="badge b-danger">Rare — nocturnal</span></div>
+        <div style="background:var(--ink);border-radius:4px;padding:0.6rem 0.8rem;display:flex;justify-content:space-between;align-items:center"><span style="font-size:0.84rem;color:var(--parch)">Pink cockatoo (Major Mitchell)</span><span class="badge b-ochre">Seasonal</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-title">Local flora — characteristic plants</div></div>
+    <div class="g3">
+      <div style="background:var(--ink);border-radius:6px;padding:0.9rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.3rem">Mulga (Acacia aneura)</div><div style="font-size:0.78rem;color:var(--dust-light)">Dominant tree species. Extremely drought-hardy. Pods are vital food for birds. Wood used traditionally by First Nations people.</div></div>
+      <div style="background:var(--ink);border-radius:6px;padding:0.9rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.3rem">Silver saltbush</div><div style="font-size:0.78rem;color:var(--dust-light)">Covers the plains. Highly nutritious sheep fodder. Distinctive silver-grey colour gives the landscape its character.</div></div>
+      <div style="background:var(--ink);border-radius:6px;padding:0.9rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.3rem">Wilga (Geijera parviflora)</div><div style="font-size:0.78rem;color:var(--dust-light)">Weeping tree common along watercourses and floodplains. Provides shade and habitat. Drought resistant.</div></div>
+      <div style="background:var(--ink);border-radius:6px;padding:0.9rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.3rem">Dead finish (Acacia tetragonophylla)</div><div style="font-size:0.78rem;color:var(--dust-light)">Sharp-spined acacia. Forms dense thickets. Provides shelter for small marsupials and ground-nesting birds.</div></div>
+      <div style="background:var(--ink);border-radius:6px;padding:0.9rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.3rem">Ruby saltbush</div><div style="font-size:0.78rem;color:var(--dust-light)">Produces small red berries eaten by emus and birds. Common on red clay soils around BH.</div></div>
+      <div style="background:var(--ink);border-radius:6px;padding:0.9rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.3rem">Parakeelya (Calandrinia sp.)</div><div style="font-size:0.78rem;color:var(--dust-light)">Spectacular pink wildflower after rain. Carpets the plains in good seasons. Brief but brilliant flowering period.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     COUNCIL RATES
+═══════════════════════════════════════════════════════ -->
+<section class="section" id="s-rates">
+  <div class="s-hero"><div class="t-label" style="margin-bottom:0.5rem">Broken Hill City Council · Current rates</div><h2 class="t-section-title">Council Rates</h2></div>
+  <div class="stat-row">
+    <div class="stat ochre"><div class="stat-val">$1,280</div><div class="stat-lbl">Avg residential rate (yr)</div></div>
+    <div class="stat"><div class="stat-val">$3,850</div><div class="stat-lbl">Avg commercial rate (yr)</div></div>
+    <div class="stat slate"><div class="stat-val">$620</div><div class="stat-lbl">Avg vacant land rate (yr)</div></div>
+    <div class="stat sage"><div class="stat-val">2.3%</div><div class="stat-lbl">Max rate increase (IPART cap)</div></div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="card-head"><div class="card-title">Rate categories 2024–25</div></div>
+      <table class="tbl">
+        <thead><tr><th>Category</th><th>Base rate</th><th>Rate in $</th><th>Min rate</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:500">Residential</td><td class="mono-cell">$484</td><td class="mono-cell">0.472¢</td><td class="mono-cell">$484</td></tr>
+          <tr><td style="font-weight:500">Business</td><td class="mono-cell">$575</td><td class="mono-cell">1.124¢</td><td class="mono-cell">$575</td></tr>
+          <tr><td style="font-weight:500">Industrial</td><td class="mono-cell">$575</td><td class="mono-cell">0.986¢</td><td class="mono-cell">$575</td></tr>
+          <tr><td style="font-weight:500">Mining</td><td class="mono-cell">$920</td><td class="mono-cell">2.840¢</td><td class="mono-cell">$920</td></tr>
+          <tr><td style="font-weight:500">Farmland</td><td class="mono-cell">$350</td><td class="mono-cell">0.318¢</td><td class="mono-cell">$350</td></tr>
+          <tr><td style="font-weight:500">Vacant land</td><td class="mono-cell">$484</td><td class="mono-cell">0.686¢</td><td class="mono-cell">$484</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:0.75rem;font-size:0.74rem;color:var(--dust-light)">Rate in $ = cents per dollar of land value. Land values set by NSW Valuer General. Source: BHCC Revenue Policy 2024–25.</div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">Additional charges &amp; levies</div></div>
+      <div style="display:flex;flex-direction:column;gap:0.5rem;font-size:0.82rem">
+        <div style="display:flex;justify-content:space-between;padding:0.6rem 0.8rem;background:var(--ink);border-radius:4px"><span style="color:var(--dust-light)">Domestic waste management</span><span style="font-family:var(--font-mono);color:var(--parch)">$460/yr</span></div>
+        <div style="display:flex;justify-content:space-between;padding:0.6rem 0.8rem;background:var(--ink);border-radius:4px"><span style="color:var(--dust-light)">Stormwater management levy</span><span style="font-family:var(--font-mono);color:var(--parch)">$25/yr</span></div>
+        <div style="display:flex;justify-content:space-between;padding:0.6rem 0.8rem;background:var(--ink);border-radius:4px"><span style="color:var(--dust-light)">Water access charge</span><span style="font-family:var(--font-mono);color:var(--parch)">$580/yr</span></div>
+        <div style="display:flex;justify-content:space-between;padding:0.6rem 0.8rem;background:var(--ink);border-radius:4px"><span style="color:var(--dust-light)">Sewerage charge</span><span style="font-family:var(--font-mono);color:var(--parch)">$780/yr</span></div>
+        <div style="display:flex;justify-content:space-between;padding:0.6rem 0.8rem;background:var(--ink);border-radius:4px;border:1px solid rgba(194,122,24,0.25)"><span style="color:var(--parch);font-weight:500">Typical total (residential)</span><span style="font-family:var(--font-mono);color:var(--ochre-light);font-weight:500">~$3,125/yr</span></div>
+      </div>
+      <div style="margin-top:0.75rem;font-size:0.74rem;color:var(--dust-light)">Hardship assistance available. Contact BHCC on 08 8080 3300. Pensioner rebate: up to $250 off rates per year.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     MINE RATES & TAXES
+═══════════════════════════════════════════════════════ -->
+<section class="section" id="s-minetax">
+  <div class="s-hero"><div class="t-label" style="margin-bottom:0.5rem">Public data · Annual reports · ASX filings</div><h2 class="t-section-title">Mine Rates &amp; Taxes</h2></div>
+  <div class="alert alert-info" style="margin-bottom:1.4rem"><span class="alert-icon">ℹ</span><div>All figures from publicly available sources — annual reports, ASX filings, NSW Royalties reports. Mining companies are not required to itemise all local payments; some figures are estimates based on published data.</div></div>
+  <div class="g2">
+    <div class="card">
+      <div class="card-head"><div class="card-title">NSW mining royalties — key rates</div></div>
+      <table class="tbl">
+        <thead><tr><th>Mineral</th><th>Royalty rate</th><th>Basis</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:500">Lead</td><td class="mono-cell">4%</td><td>Ex-mine value</td></tr>
+          <tr><td style="font-weight:500">Zinc</td><td class="mono-cell">4%</td><td>Ex-mine value</td></tr>
+          <tr><td style="font-weight:500">Silver</td><td class="mono-cell">4%</td><td>Ex-mine value</td></tr>
+          <tr><td style="font-weight:500">Copper</td><td class="mono-cell">4%</td><td>Ex-mine value</td></tr>
+          <tr><td style="font-weight:500">Gold</td><td class="mono-cell">4%</td><td>Ex-mine value</td></tr>
+          <tr><td style="font-weight:500">Coal (deep)</td><td class="mono-cell">8.2%</td><td>Ex-mine value</td></tr>
+          <tr><td style="font-weight:500">Coal (open cut)</td><td class="mono-cell">8.2%</td><td>Ex-mine value</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:0.75rem;font-size:0.74rem;color:var(--dust-light)">Royalties paid to NSW Government, not to BHCC directly. Total NSW mining royalties 2023: ~$3.2B. BH operations contribute a small fraction of this.</div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">Perilya (South Mine) — public financials</div></div>
+      <div style="display:flex;flex-direction:column;gap:0.5rem;font-size:0.82rem;margin-bottom:1rem">
+        <div style="display:flex;justify-content:space-between;padding:0.6rem 0.8rem;background:var(--ink);border-radius:4px"><span style="color:var(--dust-light)">Owner</span><span style="color:var(--parch)">Shenzhen Zhongjin Lingnan (China)</span></div>
+        <div style="display:flex;justify-content:space-between;padding:0.6rem 0.8rem;background:var(--ink);border-radius:4px"><span style="color:var(--dust-light)">Annual ore processed</span><span style="font-family:var(--font-mono);color:var(--parch)">~1.5M tonnes</span></div>
+        <div style="display:flex;justify-content:space-between;padding:0.6rem 0.8rem;background:var(--ink);border-radius:4px"><span style="color:var(--dust-light)">Estimated annual royalties to NSW</span><span style="font-family:var(--font-mono);color:var(--ochre-light)">~$18M</span></div>
+        <div style="display:flex;justify-content:space-between;padding:0.6rem 0.8rem;background:var(--ink);border-radius:4px"><span style="color:var(--dust-light)">Council rates paid (est.)</span><span style="font-family:var(--font-mono);color:var(--ochre-light)">~$850k/yr</span></div>
+        <div style="display:flex;justify-content:space-between;padding:0.6rem 0.8rem;background:var(--ink);border-radius:4px"><span style="color:var(--dust-light)">Direct employees</span><span style="font-family:var(--font-mono);color:var(--parch)">~450</span></div>
+      </div>
+      <div style="padding:0.75rem;background:var(--ink);border-radius:6px;font-size:0.74rem;color:var(--dust-light)">Note: Perilya is privately held (delisted from ASX 2012). Financials are estimates from industry reports and historical filings. GIPA requests for council rates paid can be lodged with BHCC for exact figures.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     GOVERNMENT BENEFITS
+═══════════════════════════════════════════════════════ -->
+<section class="section" id="s-benefits">
+  <div class="s-hero"><div class="t-label" style="margin-bottom:0.5rem">NSW &amp; Federal · BH specific allowances · Rebates</div><h2 class="t-section-title">Government Benefits &amp; Rebates</h2></div>
+  <div class="alert alert-sage" style="margin-bottom:1.4rem"><span class="alert-icon">💡</span><div>These are benefits available specifically to Broken Hill residents or NSW/remote area residents. Many people are unaware of these entitlements. Always verify eligibility at the relevant agency as rules change.</div></div>
+  <div class="g-auto" style="margin-bottom:1.4rem">
+    <div class="card">
+      <div style="font-family:var(--font-display);font-size:1rem;color:var(--ochre-light);margin-bottom:0.3rem">Broken Hill Allowance</div>
+      <div class="badge b-rust" style="margin-bottom:0.6rem;display:inline-block">ATO · Tax deduction</div>
+      <p style="font-size:0.8rem;color:var(--dust-light);line-height:1.7">Zone tax offset for residents of remote areas. Broken Hill is classified as Zone B. Claimable on your tax return. Reduces tax payable — not a cash payment. Dependent on number of days resident. Check ATO website for current amounts.</p>
+      <div style="margin-top:0.75rem"><a href="https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/offsets-and-rebates/zone-tax-offset" target="_blank" class="btn btn-ghost" style="font-size:0.68rem">ATO Zone Offset Info →</a></div>
+    </div>
+    <div class="card">
+      <div style="font-family:var(--font-display);font-size:1rem;color:var(--ochre-light);margin-bottom:0.3rem">Hot water system rebate</div>
+      <div class="badge b-sage" style="margin-bottom:0.6rem;display:inline-block">NSW Government</div>
+      <p style="font-size:0.8rem;color:var(--dust-light);line-height:1.7">NSW Energy Savings Scheme provides rebates for switching from gas/electric resistance hot water to heat pump or solar. Up to $1,000 rebate for eligible households. Must use approved installer. Applies to owner-occupied and rental properties.</p>
+      <div style="margin-top:0.75rem"><a href="https://www.energy.nsw.gov.au/nsw-plans-and-progress/regulation-and-policy/energy-security-safeguard/energy-savings-scheme" target="_blank" class="btn btn-ghost" style="font-size:0.68rem">NSW Energy Savings Scheme →</a></div>
+    </div>
+    <div class="card">
+      <div style="font-family:var(--font-display);font-size:1rem;color:var(--ochre-light);margin-bottom:0.3rem">Low income energy rebate</div>
+      <div class="badge b-slate" style="margin-bottom:0.6rem;display:inline-block">NSW Government</div>
+      <p style="font-size:0.8rem;color:var(--dust-light);line-height:1.7">$285/year rebate on electricity bills for eligible low income households. Must hold a Pensioner Concession Card, Health Care Card or DVA card. Applied automatically by energy retailer or via Service NSW.</p>
+    </div>
+    <div class="card">
+      <div style="font-family:var(--font-display);font-size:1rem;color:var(--ochre-light);margin-bottom:0.3rem">Family energy rebate</div>
+      <div class="badge b-slate" style="margin-bottom:0.6rem;display:inline-block">NSW Government</div>
+      <p style="font-size:0.8rem;color:var(--dust-light);line-height:1.7">$180/year for eligible families receiving Family Tax Benefit A or B. Must apply through Service NSW. Credited to electricity account.</p>
+    </div>
+    <div class="card">
+      <div style="font-family:var(--font-display);font-size:1rem;color:var(--ochre-light);margin-bottom:0.3rem">Pensioner rates rebate</div>
+      <div class="badge b-ochre" style="margin-bottom:0.6rem;display:inline-block">NSW · BHCC</div>
+      <p style="font-size:0.8rem;color:var(--dust-light);line-height:1.7">Up to $250 off council rates for eligible pensioners. Must hold Pensioner Concession Card and be owner-occupier. Apply through BHCC rates department: 08 8080 3300.</p>
+    </div>
+    <div class="card">
+      <div style="font-family:var(--font-display);font-size:1rem;color:var(--ochre-light);margin-bottom:0.3rem">Remote Area Medical</div>
+      <div class="badge b-dust" style="margin-bottom:0.6rem;display:inline-block">Federal · Medicare</div>
+      <p style="font-size:0.8rem;color:var(--dust-light);line-height:1.7">Additional Medicare benefits for residents of remote areas including travel for specialist medical care. Remote area Aboriginal Health Services additional funding. Check with your GP for eligibility.</p>
+    </div>
+    <div class="card">
+      <div style="font-family:var(--font-display);font-size:1rem;color:var(--ochre-light);margin-bottom:0.3rem">Solar panel rebate (STC)</div>
+      <div class="badge b-sage" style="margin-bottom:0.6rem;display:inline-block">Federal · CER</div>
+      <p style="font-size:0.8rem;color:var(--dust-light);line-height:1.7">Small-scale Technology Certificates reduce the upfront cost of solar panels. BH's high solar irradiance means more STCs per system than most of Australia. Automatically applied by installer. No separate application needed.</p>
+    </div>
+    <div class="card">
+      <div style="font-family:var(--font-display);font-size:1rem;color:var(--ochre-light);margin-bottom:0.3rem">Isolated children's allowance</div>
+      <div class="badge b-dust" style="margin-bottom:0.6rem;display:inline-block">Federal · Services Australia</div>
+      <p style="font-size:0.8rem;color:var(--dust-light);line-height:1.7">For families whose children must board away from home due to isolation. Up to $8,909/yr per child (2024). Also applies to School of the Air families. Contact Services Australia to apply.</p>
+    </div>
+  </div>
+  <div style="padding:0.8rem 1rem;background:var(--ink-mid);border-radius:6px;font-size:0.74rem;color:var(--dust-light);border:1px solid rgba(255,255,255,0.04)">
+    <strong style="color:var(--parch)">Note:</strong> Benefit amounts and eligibility change regularly. Always verify current rates at Services Australia (servicesaustralia.gov.au), ATO (ato.gov.au), or Service NSW (service.nsw.gov.au) before applying.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     EMERGENCY SERVICES
+═══════════════════════════════════════════════════════ -->
+<section class="section" id="s-emergency">
+  <div class="s-hero"><div class="t-label" style="margin-bottom:0.5rem">Police · Fire · Ambulance · SES · RFDS</div><h2 class="t-section-title">Emergency Services</h2></div>
+  <div class="alert alert-danger" style="margin-bottom:1.4rem"><span class="alert-icon">🚨</span><div><strong>Emergency? Call 000.</strong> Police, fire, and ambulance. For non-urgent police: 131 444. For SES storm/flood: 132 500.</div></div>
+  <div class="g-auto" style="margin-bottom:1.4rem">
+    <div class="card" style="border-left:3px solid #E24B4A">
+      <div style="font-family:var(--font-display);font-size:1rem;color:var(--rust-light);margin-bottom:0.5rem">NSW Police — Far West</div>
+      <div style="font-family:var(--font-display);font-size:1.6rem;color:var(--parch)">08 8088 0299</div>
+      <div style="font-size:0.78rem;color:var(--dust-light);margin-top:0.3rem">Broken Hill Police Station · 259 Argent St<br>24 hours · Emergency: 000</div>
+    </div>
+    <div class="card" style="border-left:3px solid #E08C24">
+      <div style="font-family:var(--font-display);font-size:1rem;color:var(--ochre-light);margin-bottom:0.5rem">NSW Ambulance</div>
+      <div style="font-family:var(--font-display);font-size:1.6rem;color:var(--parch)">Emergency: 000</div>
+      <div style="font-size:0.78rem;color:var(--dust-light);margin-top:0.3rem">Broken Hill Base Hospital<br>Thomas St, Broken Hill · 08 8080 1333</div>
+    </div>
+    <div class="card" style="border-left:3px solid #E24B4A">
+      <div style="font-family:var(--font-display);font-size:1rem;color:var(--rust-light);margin-bottom:0.5rem">Fire &amp; Rescue NSW</div>
+      <div style="font-family:var(--font-display);font-size:1.6rem;color:var(--parch)">Emergency: 000</div>
+      <div style="font-size:0.78rem;color:var(--dust-light);margin-top:0.3rem">Broken Hill Fire Station · Williams St<br>Rural Fire Service: 02 8741 5555</div>
+    </div>
+    <div class="card" style="border-left:3px solid #5080B8">
+      <div style="font-family:var(--font-display);font-size:1rem;color:var(--slate-light);margin-bottom:0.5rem">NSW SES</div>
+      <div style="font-family:var(--font-display);font-size:1.6rem;color:var(--parch)">132 500</div>
+      <div style="font-size:0.78rem;color:var(--dust-light);margin-top:0.3rem">Storm &amp; flood emergencies<br>Broken Hill Unit · Manning St</div>
+    </div>
+    <div class="card" style="border-left:3px solid #4A9A64">
+      <div style="font-family:var(--font-display);font-size:1rem;color:var(--sage-light);margin-bottom:0.5rem">Royal Flying Doctor Service</div>
+      <div style="font-family:var(--font-display);font-size:1.6rem;color:var(--parch)">08 8080 3777</div>
+      <div style="font-size:0.78rem;color:var(--dust-light);margin-top:0.3rem">Broken Hill Base · Airport Rd<br>Medical emergencies in remote areas</div>
+    </div>
+    <div class="card" style="border-left:3px solid var(--dust)">
+      <div style="font-family:var(--font-display);font-size:1rem;color:var(--dust-light);margin-bottom:0.5rem">Poisons Information</div>
+      <div style="font-family:var(--font-display);font-size:1.6rem;color:var(--parch)">13 11 26</div>
+      <div style="font-size:0.78rem;color:var(--dust-light);margin-top:0.3rem">24 hours · Snake bite, chemical exposure<br>Identify unknown substances</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-title">Broken Hill Base Hospital</div><span class="badge b-rust">24hr Emergency Dept</span></div>
+    <div class="g2">
+      <div style="display:flex;flex-direction:column;gap:0.5rem;font-size:0.82rem">
+        <div style="display:flex;justify-content:space-between;padding:0.5rem 0.75rem;background:var(--ink);border-radius:4px"><span style="color:var(--dust-light)">Main switchboard</span><span style="font-family:var(--font-mono);color:var(--parch)">08 8080 1333</span></div>
+        <div style="display:flex;justify-content:space-between;padding:0.5rem 0.75rem;background:var(--ink);border-radius:4px"><span style="color:var(--dust-light)">Emergency dept</span><span style="font-family:var(--font-mono);color:var(--parch)">08 8080 1485</span></div>
+        <div style="display:flex;justify-content:space-between;padding:0.5rem 0.75rem;background:var(--ink);border-radius:4px"><span style="color:var(--dust-light)">Address</span><span style="font-family:var(--font-mono);color:var(--parch)">Thomas St, BH 2880</span></div>
+        <div style="display:flex;justify-content:space-between;padding:0.5rem 0.75rem;background:var(--ink);border-radius:4px"><span style="color:var(--dust-light)">Helipad</span><span class="badge b-sage">Yes — RFDS capable</span></div>
+      </div>
+      <div style="font-size:0.8rem;color:var(--dust-light);line-height:1.7">The hospital serves a catchment of approximately 25,000 people across far western NSW. Specialist services available include: general surgery, obstetrics, dialysis, radiology, pathology. Outreach clinics for cardiology, oncology and mental health. RFDS provides specialist retrieval for cases requiring metropolitan care.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     WELFARE & SUPPORT
+═══════════════════════════════════════════════════════ -->
+<section class="section" id="s-welfare">
+  <div class="s-hero"><div class="t-label" style="margin-bottom:0.5rem">Local support · Crisis · Mental health · Domestic violence</div><h2 class="t-section-title">Welfare &amp; Support Services</h2></div>
+  <div class="alert alert-danger" style="margin-bottom:1.4rem"><span class="alert-icon">🆘</span><div>If you or someone is in immediate danger, call <strong>000</strong>. For crisis support, call Lifeline <strong>13 11 14</strong> — 24 hours, free, confidential.</div></div>
+  <div class="g-auto">
+    <div class="card"><div style="font-weight:500;color:var(--parch);margin-bottom:0.3rem">Lifeline</div><div style="font-family:var(--font-display);font-size:1.4rem;color:var(--rust-light)">13 11 14</div><div style="font-size:0.78rem;color:var(--dust-light);margin-top:0.2rem">24/7 · Crisis support &amp; suicide prevention</div></div>
+    <div class="card"><div style="font-weight:500;color:var(--parch);margin-bottom:0.3rem">Catherine Haven</div><div style="font-family:var(--font-display);font-size:1.4rem;color:var(--rust-light)">08 8087 3698</div><div style="font-size:0.78rem;color:var(--dust-light);margin-top:0.2rem">Women's refuge &amp; DV crisis service · Broken Hill</div></div>
+    <div class="card"><div style="font-weight:500;color:var(--parch);margin-bottom:0.3rem">Beyond Blue</div><div style="font-family:var(--font-display);font-size:1.4rem;color:var(--rust-light)">1300 22 4636</div><div style="font-size:0.78rem;color:var(--dust-light);margin-top:0.2rem">24/7 · Depression &amp; anxiety support</div></div>
+    <div class="card"><div style="font-weight:500;color:var(--parch);margin-bottom:0.3rem">1800 RESPECT</div><div style="font-family:var(--font-display);font-size:1.4rem;color:var(--rust-light)">1800 737 732</div><div style="font-size:0.78rem;color:var(--dust-light);margin-top:0.2rem">24/7 · Domestic &amp; family violence</div></div>
+    <div class="card"><div style="font-weight:500;color:var(--parch);margin-bottom:0.3rem">St Vincent de Paul</div><div style="font-family:var(--font-display);font-size:1.4rem;color:var(--rust-light)">08 8087 4321</div><div style="font-size:0.78rem;color:var(--dust-light);margin-top:0.2rem">Food, clothing, emergency assistance · BH</div></div>
+    <div class="card"><div style="font-weight:500;color:var(--parch);margin-bottom:0.3rem">Salvation Army</div><div style="font-family:var(--font-display);font-size:1.4rem;color:var(--rust-light)">08 8087 3364</div><div style="font-size:0.78rem;color:var(--dust-light);margin-top:0.2rem">Emergency relief, food hampers · Argent St</div></div>
+    <div class="card"><div style="font-weight:500;color:var(--parch);margin-bottom:0.3rem">Far West Community Legal</div><div style="font-family:var(--font-display);font-size:1.4rem;color:var(--rust-light)">08 8088 2600</div><div style="font-size:0.78rem;color:var(--dust-light);margin-top:0.2rem">Free legal advice for eligible clients</div></div>
+    <div class="card"><div style="font-weight:500;color:var(--parch);margin-bottom:0.3rem">Kids Helpline</div><div style="font-family:var(--font-display);font-size:1.4rem;color:var(--rust-light)">1800 55 1800</div><div style="font-size:0.78rem;color:var(--dust-light);margin-top:0.2rem">24/7 · Children &amp; young people under 25</div></div>
+    <div class="card"><div style="font-weight:500;color:var(--parch);margin-bottom:0.3rem">Headspace — Far West</div><div style="font-family:var(--font-display);font-size:1.4rem;color:var(--rust-light)">08 8080 1555</div><div style="font-size:0.78rem;color:var(--dust-light);margin-top:0.2rem">Youth mental health 12–25 years · BH</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCHOOLS
+═══════════════════════════════════════════════════════ -->
+<section class="section" id="s-schools">
+  <div class="s-hero"><div class="t-label" style="margin-bottom:0.5rem">Public · Catholic · Independent · Kindergartens</div><h2 class="t-section-title">Schools &amp; Kindergartens</h2></div>
+  <div class="g2" style="margin-bottom:1.4rem">
+    <div class="card">
+      <div class="card-head"><div class="card-title">Primary schools</div></div>
+      <table class="tbl">
+        <thead><tr><th>School</th><th>Type</th><th>Phone</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:500">Broken Hill Public School</td><td><span class="badge b-slate">Public</span></td><td class="mono-cell">08 8087 3355</td></tr>
+          <tr><td style="font-weight:500">Willyama Public School</td><td><span class="badge b-slate">Public</span></td><td class="mono-cell">08 8087 3644</td></tr>
+          <tr><td style="font-weight:500">Alma Public School</td><td><span class="badge b-slate">Public</span></td><td class="mono-cell">08 8087 6588</td></tr>
+          <tr><td style="font-weight:500">Sacred Heart Primary</td><td><span class="badge b-ochre">Catholic</span></td><td class="mono-cell">08 8087 3898</td></tr>
+          <tr><td style="font-weight:500">St Joseph's Primary</td><td><span class="badge b-ochre">Catholic</span></td><td class="mono-cell">08 8087 5588</td></tr>
+          <tr><td style="font-weight:500">Silverton Public School</td><td><span class="badge b-slate">Public</span></td><td class="mono-cell">08 8088 5005</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">High schools &amp; TAFE</div></div>
+      <table class="tbl">
+        <thead><tr><th>School</th><th>Type</th><th>Phone</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:500">Broken Hill High School</td><td><span class="badge b-slate">Public</span></td><td class="mono-cell">08 8087 3499</td></tr>
+          <tr><td style="font-weight:500">Willyama High School</td><td><span class="badge b-slate">Public</span></td><td class="mono-cell">08 8087 3255</td></tr>
+          <tr><td style="font-weight:500">Marist College BH</td><td><span class="badge b-ochre">Catholic</span></td><td class="mono-cell">08 8087 5588</td></tr>
+          <tr><td style="font-weight:500">TAFE NSW Far West</td><td><span class="badge b-dust">TAFE</span></td><td class="mono-cell">131 601</td></tr>
+          <tr><td style="font-weight:500">BH School of the Air</td><td><span class="badge b-slate">Public</span></td><td class="mono-cell">08 8087 6799</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-title">Early childhood &amp; kindergartens</div></div>
+    <div class="g3">
+      <div style="background:var(--ink);border-radius:6px;padding:0.8rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">BH Early Learning Centre</div><div style="font-size:0.78rem;color:var(--dust-light)">0–5 years · Long day care · Subsidised CCS</div><div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--rust-light);margin-top:0.3rem">08 8087 4444</div></div>
+      <div style="background:var(--ink);border-radius:6px;padding:0.8rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Kindy Patch BH</div><div style="font-size:0.78rem;color:var(--dust-light)">Long day care · Before/after school</div><div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--rust-light);margin-top:0.3rem">08 8087 5858</div></div>
+      <div style="background:var(--ink);border-radius:6px;padding:0.8rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Occasional Care — BHCC</div><div style="font-size:0.78rem;color:var(--dust-light)">Casual care, supported playgroups</div><div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--rust-light);margin-top:0.3rem">08 8080 3300</div></div>
+    </div>
+    <div style="margin-top:0.75rem;font-size:0.74rem;color:var(--dust-light)">Child Care Subsidy (CCS) applies to most services. Check eligibility at servicesaustralia.gov.au. School zones: contact NSW DoE on 1300 679 332.</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     PUBLIC TOILETS & BBQs
+═══════════════════════════════════════════════════════ -->
+<section class="section" id="s-toilets">
+  <div class="s-hero"><div class="t-label" style="margin-bottom:0.5rem">Public facilities · Parks · Recreation areas</div><h2 class="t-section-title">Public Toilets &amp; BBQs</h2></div>
+  <div class="g2" style="margin-bottom:1.4rem">
+    <div class="card">
+      <div class="card-head"><div class="card-title">Public toilet locations</div></div>
+      <table class="tbl">
+        <thead><tr><th>Location</th><th>Hours</th><th>Accessible</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:500">Argent St Mall (CBD)</td><td class="mono-cell">24hrs</td><td><span class="badge b-sage">Yes</span></td></tr>
+          <tr><td style="font-weight:500">Sturt Park</td><td class="mono-cell">Dawn–dusk</td><td><span class="badge b-sage">Yes</span></td></tr>
+          <tr><td style="font-weight:500">Crystal St Reserve</td><td class="mono-cell">Dawn–dusk</td><td><span class="badge b-sage">Yes</span></td></tr>
+          <tr><td style="font-weight:500">Broken Hill Airport</td><td class="mono-cell">Flight times</td><td><span class="badge b-sage">Yes</span></td></tr>
+          <tr><td style="font-weight:500">Menindee Lakes caravan park</td><td class="mono-cell">24hrs (guests)</td><td><span class="badge b-sage">Yes</span></td></tr>
+          <tr><td style="font-weight:500">Living Desert reserve</td><td class="mono-cell">Sunrise–sunset</td><td><span class="badge b-ochre">Partial</span></td></tr>
+          <tr><td style="font-weight:500">Silverton (near pub)</td><td class="mono-cell">24hrs</td><td><span class="badge b-ochre">Partial</span></td></tr>
+          <tr><td style="font-weight:500">Showground</td><td class="mono-cell">Events only</td><td><span class="badge b-sage">Yes</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">Public BBQ &amp; picnic spots</div></div>
+      <div style="display:flex;flex-direction:column;gap:0.6rem">
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem">
+          <div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Sturt Park</div>
+          <div style="font-size:0.78rem;color:var(--dust-light)">Electric BBQs · Shelter · Picnic tables · Kids playground · Toilets. Corner of Argent &amp; Crystal St. Most popular family spot in BH.</div>
+        </div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem">
+          <div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Menindee Riverfront</div>
+          <div style="font-size:0.78rem;color:var(--dust-light)">Gas BBQs · Picnic tables · River views · Toilets nearby. Best at sunset. Popular camping spot also available.</div>
+        </div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem">
+          <div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Kinchega NP — various</div>
+          <div style="font-size:0.78rem;color:var(--dust-light)">Several picnic areas within the park. No powered BBQs — bring your own. Firewood restrictions apply.</div>
+        </div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem">
+          <div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Alma Oval precinct</div>
+          <div style="font-size:0.78rem;color:var(--dust-light)">BBQ facilities available adjacent to oval. Good for large group gatherings. Free parking.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     CLUBS & GROUPS
+═══════════════════════════════════════════════════════ -->
+<section class="section" id="s-groups">
+  <div class="s-hero"><div class="t-label" style="margin-bottom:0.5rem">Kids · Mens · Womens · Markets · Community</div><h2 class="t-section-title">Clubs &amp; Community Groups</h2></div>
+  <div class="filter-bar">
+    <button class="fbtn on" data-f="all">All</button>
+    <button class="fbtn" data-f="kids">Kids</button>
+    <button class="fbtn" data-f="mens">Men's</button>
+    <button class="fbtn" data-f="womens">Women's</button>
+    <button class="fbtn" data-f="market">Markets</button>
+    <button class="fbtn" data-f="service">Service clubs</button>
+    <button class="fbtn" data-f="seniors">Seniors</button>
+  </div>
+  <div class="g-auto-sm">
+    <div class="card" data-cat="kids"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Broken Hill Scouts</div><div style="font-size:0.78rem;color:var(--dust-light);margin-bottom:0.5rem">Cubs, Scouts, Venturers · Ages 6–17 · Tuesday evenings</div><span class="badge b-sage">Kids</span></div>
+    <div class="card" data-cat="kids"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Girl Guides BH</div><div style="font-size:0.78rem;color:var(--dust-light);margin-bottom:0.5rem">Sparks, Guides, Rangers · Girls 5–17 · Wednesday evenings</div><span class="badge b-sage">Kids</span></div>
+    <div class="card" data-cat="kids"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">BH Youth Theatre</div><div style="font-size:0.78rem;color:var(--dust-light);margin-bottom:0.5rem">Drama, performance · Ages 8–18 · Rehearsals weekends</div><span class="badge b-sage">Kids</span></div>
+    <div class="card" data-cat="kids"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Junior Soccer — BHJFA</div><div style="font-size:0.78rem;color:var(--dust-light);margin-bottom:0.5rem">Under 6s to Under 18s · Saturday mornings · Crystal St oval</div><span class="badge b-sage">Kids</span></div>
+    <div class="card" data-cat="mens"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Men's Shed BH</div><div style="font-size:0.78rem;color:var(--dust-light);margin-bottom:0.5rem">Woodwork, metalwork, community · Tue/Thu/Sat · All welcome</div><span class="badge b-slate">Men's</span></div>
+    <div class="card" data-cat="mens"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Probus Club BH</div><div style="font-size:0.78rem;color:var(--dust-light);margin-bottom:0.5rem">Retired/semi-retired men · Monthly meetings · Social activities</div><span class="badge b-slate">Men's</span></div>
+    <div class="card" data-cat="womens"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">BH Country Women's Assoc</div><div style="font-size:0.78rem;color:var(--dust-light);margin-bottom:0.5rem">CWA · Meetings, advocacy, community · Monthly</div><span class="badge b-rust">Women's</span></div>
+    <div class="card" data-cat="womens"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Women's Resource Centre</div><div style="font-size:0.78rem;color:var(--dust-light);margin-bottom:0.5rem">Support, programs, workshops · Weekdays · Chloride St</div><span class="badge b-rust">Women's</span></div>
+    <div class="card" data-cat="market"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Argent St Sunday Markets</div><div style="font-size:0.78rem;color:var(--dust-light);margin-bottom:0.5rem">Produce, crafts, food · Most Sundays 8am–1pm · CBD</div><span class="badge b-ochre">Markets</span></div>
+    <div class="card" data-cat="market"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">BH Farmers Market</div><div style="font-size:0.78rem;color:var(--dust-light);margin-bottom:0.5rem">Seasonal · Sturt Park · Local produce &amp; artisan goods</div><span class="badge b-ochre">Markets</span></div>
+    <div class="card" data-cat="service"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Rotary Club BH</div><div style="font-size:0.78rem;color:var(--dust-light);margin-bottom:0.5rem">Community service · Tuesday lunches · All welcome to visit</div><span class="badge b-dust">Service</span></div>
+    <div class="card" data-cat="service"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Lions Club BH</div><div style="font-size:0.78rem;color:var(--dust-light);margin-bottom:0.5rem">Fundraising, community · Fortnightly meetings</div><span class="badge b-dust">Service</span></div>
+    <div class="card" data-cat="seniors"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Senior Citizens Centre</div><div style="font-size:0.78rem;color:var(--dust-light);margin-bottom:0.5rem">Activities, meals, social · Weekdays · Beryl St</div><span class="badge b-dust">Seniors</span></div>
+    <div class="card" data-cat="seniors"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">U3A Broken Hill</div><div style="font-size:0.78rem;color:var(--dust-light);margin-bottom:0.5rem">University of the 3rd Age · Learning in retirement · Various</div><span class="badge b-dust">Seniors</span></div>
+  </div>
+  <div style="margin-top:1rem;padding:0.8rem 1rem;background:var(--ink-mid);border-radius:6px;font-size:0.74rem;color:var(--dust-light);border:1px solid rgba(255,255,255,0.04)">
+    Know a group that should be listed? Submit via the community form. This list is community-maintained.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     ART SCENE
+═══════════════════════════════════════════════════════ -->
+<section class="section" id="s-art">
+  <div class="s-hero"><div class="t-label" style="margin-bottom:0.5rem">Galleries · Artists · Exhibitions · The unique BH art movement</div><h2 class="t-section-title">Art Scene</h2><p style="color:var(--dust-light);margin-top:0.5rem;max-width:560px;font-size:0.88rem">Broken Hill has one of Australia's most vibrant regional art scenes. The harsh outback landscape and working-class history have produced a distinctive visual art tradition unlike anywhere else in the country.</p></div>
+  <div class="g-auto" style="margin-bottom:1.4rem">
+    <div class="card">
+      <div style="font-family:var(--font-display);font-size:1.1rem;color:var(--ochre-light);margin-bottom:0.3rem">Pro Hart Gallery</div>
+      <div class="badge b-rust" style="margin-bottom:0.6rem;display:inline-block">Permanent collection</div>
+      <p style="font-size:0.8rem;color:var(--dust-light);line-height:1.7">The studio and gallery of Kevin "Pro" Hart AM (1928–2006). Australia's most celebrated outback artist. Thousands of original works spanning five decades. 108 Wyman St. Open Mon–Sat.</p>
+      <div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--rust-light);margin-top:0.5rem">08 8087 2441</div>
+    </div>
+    <div class="card">
+      <div style="font-family:var(--font-display);font-size:1.1rem;color:var(--ochre-light);margin-bottom:0.3rem">Silver City Mint &amp; Art Centre</div>
+      <div class="badge b-slate" style="margin-bottom:0.6rem;display:inline-block">The Big Picture</div>
+      <p style="font-size:0.8rem;color:var(--dust-light);line-height:1.7">Home of Peter Anderson's Big Picture — the world's largest acrylic painting at 12m × 100m. The work depicts the natural history of the region. Chloride St.</p>
+      <div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--rust-light);margin-top:0.5rem">08 8087 6956</div>
+    </div>
+    <div class="card">
+      <div style="font-family:var(--font-display);font-size:1.1rem;color:var(--ochre-light);margin-bottom:0.3rem">Brushmen of the Bush</div>
+      <div class="badge b-ochre" style="margin-bottom:0.6rem;display:inline-block">Historic movement</div>
+      <p style="font-size:0.8rem;color:var(--dust-light);line-height:1.7">The founding group of BH artists — Pro Hart, Jack Absalom, Eric Minchin, John Pickup, and Hugh Schulz — who put Broken Hill on the Australian art map in the 1960s–70s.</p>
+    </div>
+    <div class="card">
+      <div style="font-family:var(--font-display);font-size:1.1rem;color:var(--ochre-light);margin-bottom:0.3rem">Broken Hill Regional Art Gallery</div>
+      <div class="badge b-sage" style="margin-bottom:0.6rem;display:inline-block">Public gallery</div>
+      <p style="font-size:0.8rem;color:var(--dust-light);line-height:1.7">Changing exhibitions of local, regional and national artists. Permanent collection includes significant works. Chloride St. Free entry. Tue–Sun 10am–5pm.</p>
+      <div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--rust-light);margin-top:0.5rem">08 8088 5491</div>
+    </div>
+    <div class="card">
+      <div style="font-family:var(--font-display);font-size:1.1rem;color:var(--ochre-light);margin-bottom:0.3rem">Living Desert Sculptures</div>
+      <div class="badge b-dust" style="margin-bottom:0.6rem;display:inline-block">Outdoor · permanent</div>
+      <p style="font-size:0.8rem;color:var(--dust-light);line-height:1.7">12 sandstone sculptures carved in situ by artists from 10 countries in 1993. Sited on a ridge 10km north. Extraordinary sunset views. Free entry. Open sunrise–sunset.</p>
+    </div>
+    <div class="card">
+      <div style="font-family:var(--font-display);font-size:1.1rem;color:var(--ochre-light);margin-bottom:0.3rem">Jack Absalom Gallery</div>
+      <div class="badge b-rust" style="margin-bottom:0.6rem;display:inline-block">Private gallery</div>
+      <p style="font-size:0.8rem;color:var(--dust-light);line-height:1.7">Works of Jack Absalom — one of the original Brushmen. Outback realism, landscapes, wildlife. Studio open by appointment. Ph: 08 8087 3699.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-title">Annual art events</div></div>
+    <table class="tbl">
+      <thead><tr><th>Event</th><th>When</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td style="font-weight:500">Broken Hill Arts Festival</td><td class="mono-cell">May</td><td>Multi-week festival of visual art, music, performance across the city</td></tr>
+        <tr><td style="font-weight:500">Gallery trail weekends</td><td class="mono-cell">Year-round</td><td>Self-guided trail connecting 20+ galleries and studios</td></tr>
+        <tr><td style="font-weight:500">Sculpture Symposium (occasional)</td><td class="mono-cell">Varies</td><td>International artists in residence, public creation events</td></tr>
+        <tr><td style="font-weight:500">BH Show — art section</td><td class="mono-cell">April</td><td>Local artists, crafts, photographic competitions at the annual show</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     GEOCACHING
+═══════════════════════════════════════════════════════ -->
+<section class="section" id="s-geocaching">
+  <div class="s-hero"><div class="t-label" style="margin-bottom:0.5rem">GPS treasure hunting · Broken Hill &amp; region</div><h2 class="t-section-title">Geocaching</h2><p style="color:var(--dust-light);margin-top:0.5rem;max-width:560px;font-size:0.88rem">Geocaching is a worldwide GPS treasure hunt. There are over 3 million active caches globally. Broken Hill and surrounds have a surprisingly strong geocaching community — the remote outback landscape makes for memorable finds.</p></div>
+  <div class="g2" style="margin-bottom:1.4rem">
+    <div class="card">
+      <div class="card-head"><div class="card-title">Getting started</div></div>
+      <div style="display:flex;flex-direction:column;gap:0.6rem;font-size:0.82rem">
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">1. Create a free account</div><div style="color:var(--dust-light)">Visit geocaching.com or download the Geocaching app (iOS/Android). Basic membership is free. Premium unlocks all cache types and advanced filters.</div></div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">2. Find caches near you</div><div style="color:var(--dust-light)">Search "Broken Hill NSW" on the app. Caches are rated by difficulty (1–5) and terrain (1–5). Start with D1/T1 for your first find.</div></div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">3. Sign the log</div><div style="color:var(--dust-light)">When you find a cache, sign the physical log inside, then log your find online. If there are trade items, trade equal or up in value.</div></div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">4. Rules of the game</div><div style="color:var(--dust-light)">Never reveal cache locations publicly (SPOILERS). Return cache exactly as found. Never move a cache. Cache In Trash Out — leave the area cleaner than you found it.</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">Notable BH area caches</div></div>
+      <div style="display:flex;flex-direction:column;gap:0.5rem">
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem">
+          <div style="display:flex;justify-content:space-between;margin-bottom:0.2rem"><span style="font-weight:500;color:var(--parch)">Living Desert Sculptures</span><span class="badge b-sage">T2/D2</span></div>
+          <div style="font-size:0.78rem;color:var(--dust-light)">Scenic cache at the sculpture park. Stunning sunrise/sunset views. Memorable terrain walk.</div>
+        </div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem">
+          <div style="display:flex;justify-content:space-between;margin-bottom:0.2rem"><span style="font-weight:500;color:var(--parch)">Silverton Ghost Town</span><span class="badge b-ochre">T1/D2</span></div>
+          <div style="font-size:0.78rem;color:var(--dust-light)">Multiple caches around the historic ghost town. Great for a day trip combo.</div>
+        </div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem">
+          <div style="display:flex;justify-content:space-between;margin-bottom:0.2rem"><span style="font-weight:500;color:var(--parch)">Menindee Lakes series</span><span class="badge b-slate">T2/D2</span></div>
+          <div style="font-size:0.78rem;color:var(--dust-light)">Cache series around the lake foreshore. Some require a short boat trip. Wildlife abundant.</div>
+        </div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem">
+          <div style="display:flex;justify-content:space-between;margin-bottom:0.2rem"><span style="font-weight:500;color:var(--parch)">Mundi Mundi Lookout</span><span class="badge b-rust">T3/D2</span></div>
+          <div style="font-size:0.78rem;color:var(--dust-light)">The famous plains viewpoint. You can see the curvature of the Earth from here. Worth the find.</div>
+        </div>
+      </div>
+      <div style="margin-top:0.75rem"><a href="https://www.geocaching.com/play/map?lat=-31.95&lng=141.47&zoom=10" target="_blank" class="btn btn-ghost" style="font-size:0.68rem">View all caches on geocaching.com →</a></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-title">Cache types explained</div></div>
+    <div class="g3">
+      <div style="background:var(--ink);border-radius:6px;padding:0.8rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Traditional cache</div><div style="font-size:0.78rem;color:var(--dust-light)">A physical container at the listed coordinates. Contains a log sheet, sometimes trinkets. Most common type. Good for beginners.</div></div>
+      <div style="background:var(--ink);border-radius:6px;padding:0.8rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Multi-cache</div><div style="font-size:0.78rem;color:var(--dust-light)">Multiple stages — each gives coordinates to the next. Final stage has the log. Often takes you on a guided tour of an area.</div></div>
+      <div style="background:var(--ink);border-radius:6px;padding:0.8rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Mystery/puzzle cache</div><div style="font-size:0.78rem;color:var(--dust-light)">Solve a puzzle to find the real coordinates. Listed coordinates are not the cache location. Popular with experienced cachers.</div></div>
+    </div>
   </div>
 </section>
 
@@ -1237,5 +1880,6 @@
 </div>
 
 <script src="js/main.js"></script>
+<script src="js/adsb.js"></script>
 </body>
 </html>

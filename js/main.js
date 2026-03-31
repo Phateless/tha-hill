@@ -23,6 +23,21 @@ const SECTION_TITLES = {
   water:     ['City & Region', 'Water & Energy'],
   otd:       ['Community', 'On This Day'],
   dust:      ['City & Region', 'Dust & Air Quality'],
+  adsb:      ['Aviation', 'ADS-B & Aviation'],
+  transport: ['Transport', 'Taxis & Transport'],
+  fishing:   ['Environment', 'Fishing Guide'],
+  boating:   ['Environment', 'Boating & Jet Ski'],
+  flora:     ['Environment', 'Flora & Fauna'],
+  rates:     ['Finance', 'Council Rates'],
+  minetax:   ['Finance', 'Mine Rates & Taxes'],
+  benefits:  ['Finance', 'Government Benefits'],
+  emergency: ['Services', 'Emergency Services'],
+  welfare:   ['Services', 'Welfare & Support'],
+  schools:   ['Services', 'Schools & Kindergartens'],
+  toilets:   ['Services', 'Public Toilets & BBQs'],
+  groups:    ['Community', 'Clubs & Groups'],
+  art:       ['Culture', 'Art Scene'],
+  geocaching:['Culture', 'Geocaching'],
 };
 
 // ── NAVIGATION ───────────────────────────────────────────────
@@ -387,6 +402,7 @@ function initCharts(sectionId) {
   if (sectionId === 'realestate') { if (!drawn.has('re'))         { drawPriceChart();              drawn.add('re'); } }
   if (sectionId === 'weather')    { if (!drawn.has('weather'))    { drawWeatherChart();             drawn.add('weather'); } }
   if (sectionId === 'dust')       { if (!drawn.has('dust'))       { drawAQIChart();                 drawn.add('dust'); } }
+  if (sectionId === 'adsb')       { if (window.initADSB) window.initADSB(); }
 }
 
 window.addEventListener('resize', () => {

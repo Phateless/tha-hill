@@ -1,9 +1,9 @@
 name: Inject API keys & deploy
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
+  schedule:
+    - cron: '0 18 * * *'
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -49,5 +49,5 @@ jobs:
           git config user.email "bot@thahill.com.au"
           git add -f data/config.js
           git add data/
-          git diff --staged --quiet || git commit -m "Data refresh $(date -u '+%Y-%m-%d %H:%M UTC') [skip ci]"
+          git diff --staged --quiet || git commit -m "Data refresh $(date -u '+%Y-%m-%d %H:%M UTC')"
           git push

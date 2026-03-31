@@ -23,6 +23,14 @@ const SECTION_TITLES = {
   water:     ['City & Region', 'Water & Energy'],
   otd:       ['Community', 'On This Day'],
   dust:      ['City & Region', 'Dust & Air Quality'],
+  petrol:    ['Prices & Fuel', 'Petrol Watch'],
+  commodities:['Prices & Fuel', 'Commodities & Crypto'],
+  bustrain:  ['Transport', 'Bus & Train Times'],
+  roads:     ['Transport', 'Road Closures'],
+  rivers:    ['Environment', 'River Levels'],
+  watertheft:['Environment', 'Murray-Darling & Water Theft'],
+  lead:      ['Environment', 'Lead Levels'],
+  cinema:    ['Culture', 'Cinema Times'],
   adsb:      ['Aviation', 'ADS-B & Aviation'],
   transport: ['Transport', 'Taxis & Transport'],
   fishing:   ['Environment', 'Fishing Guide'],
@@ -403,6 +411,11 @@ function initCharts(sectionId) {
   if (sectionId === 'weather')    { if (!drawn.has('weather'))    { drawWeatherChart();             drawn.add('weather'); } }
   if (sectionId === 'dust')       { if (!drawn.has('dust'))       { drawAQIChart();                 drawn.add('dust'); } }
   if (sectionId === 'adsb')       { if (window.initADSB) window.initADSB(); }
+  if (sectionId === 'petrol')     { if (window.initPetrol) window.initPetrol(); }
+  if (sectionId === 'commodities'){ if (window.initCommodities) window.initCommodities(); }
+  if (sectionId === 'rivers')     { if (window.initRivers) window.initRivers(); }
+  if (sectionId === 'roads')      { if (window.initRoads) window.initRoads(); }
+  if (sectionId === 'cinema')     { if (window.initCinema) window.initCinema(); }
 }
 
 window.addEventListener('resize', () => {

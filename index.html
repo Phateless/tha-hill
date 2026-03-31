@@ -74,12 +74,35 @@
       <span class="ico">✈</span> ADS-B &amp; Aviation
     </div>
 
+    <div class="nav-group-label">Prices & Fuel</div>
+    <div class="nav-link" data-sec="petrol" onclick="showSection('petrol')">
+      <span class="ico">⛽</span> Petrol Watch
+    </div>
+    <div class="nav-link" data-sec="commodities" onclick="showSection('commodities')">
+      <span class="ico">📈</span> Commodities &amp; Crypto
+    </div>
+
     <div class="nav-group-label">Transport</div>
     <div class="nav-link" data-sec="transport" onclick="showSection('transport')">
       <span class="ico">🚕</span> Taxis &amp; Transport
     </div>
+    <div class="nav-link" data-sec="bustrain" onclick="showSection('bustrain')">
+      <span class="ico">🚂</span> Bus &amp; Train Times
+    </div>
+    <div class="nav-link" data-sec="roads" onclick="showSection('roads')">
+      <span class="ico">🚧</span> Road Closures
+    </div>
 
     <div class="nav-group-label">Environment</div>
+    <div class="nav-link" data-sec="rivers" onclick="showSection('rivers')">
+      <span class="ico">🌊</span> River Levels
+    </div>
+    <div class="nav-link" data-sec="watertheft" onclick="showSection('watertheft')">
+      <span class="ico">💦</span> Murray-Darling &amp; Water Theft
+    </div>
+    <div class="nav-link" data-sec="lead" onclick="showSection('lead')">
+      <span class="ico">⚠</span> Lead Levels
+    </div>
     <div class="nav-link" data-sec="fishing" onclick="showSection('fishing')">
       <span class="ico">🎣</span> Fishing Guide
     </div>
@@ -119,6 +142,9 @@
     </div>
 
     <div class="nav-group-label">Culture</div>
+    <div class="nav-link" data-sec="cinema" onclick="showSection('cinema')">
+      <span class="ico">🎬</span> Cinema Times
+    </div>
     <div class="nav-link" data-sec="art" onclick="showSection('art')">
       <span class="ico">🎨</span> Art Scene
     </div>
@@ -1249,9 +1275,405 @@
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════
-     TRANSPORT
-═══════════════════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════════════════════ PETROL WATCH ═══ -->
+<section class="section" id="s-petrol">
+  <div class="s-hero">
+    <div class="s-hero-watermark">FUEL</div>
+    <div class="t-label" style="margin-bottom:0.5rem">FuelCheck NSW · Live prices · Updated daily</div>
+    <h2 class="t-section-title">Petrol Watch</h2>
+    <p style="color:var(--dust-light);margin-top:0.5rem;max-width:500px;font-size:0.88rem">All Broken Hill service stations, cheapest price first. Data from NSW FuelCheck — the official government price monitoring service.</p>
+  </div>
+
+  <div class="stat-row" id="fuel-stats">
+    <div class="stat sage"><div class="stat-val" id="fuel-cheapest">—</div><div class="stat-lbl">Cheapest unleaded (ULP)</div><div class="stat-chg flat" id="fuel-cheapest-where">Loading...</div></div>
+    <div class="stat ochre"><div class="stat-val" id="fuel-avg">—</div><div class="stat-lbl">Average ULP price</div></div>
+    <div class="stat"><div class="stat-val" id="fuel-diesel">—</div><div class="stat-lbl">Cheapest diesel</div><div class="stat-chg flat" id="fuel-diesel-where">—</div></div>
+    <div class="stat slate"><div class="stat-val" id="fuel-updated">—</div><div class="stat-lbl">Last updated</div></div>
+  </div>
+
+  <div class="card" style="margin-bottom:1.4rem">
+    <div class="card-head">
+      <div class="card-title">All stations — cheapest first</div>
+      <div class="filter-bar" style="margin:0">
+        <button class="fbtn on" data-f="all" data-scope="#fuel-table-wrap">All fuels</button>
+        <button class="fbtn" data-f="ULP" data-scope="#fuel-table-wrap">Unleaded</button>
+        <button class="fbtn" data-f="P95" data-scope="#fuel-table-wrap">Premium 95</button>
+        <button class="fbtn" data-f="P98" data-scope="#fuel-table-wrap">Premium 98</button>
+        <button class="fbtn" data-f="DL" data-scope="#fuel-table-wrap">Diesel</button>
+        <button class="fbtn" data-f="E10" data-scope="#fuel-table-wrap">E10</button>
+      </div>
+    </div>
+    <div id="fuel-loading" style="padding:2rem;text-align:center;font-family:var(--font-mono);font-size:0.78rem;color:var(--dust-light)">Loading live prices from FuelCheck NSW...</div>
+    <div class="scroll-x" id="fuel-table-wrap" style="display:none">
+      <table class="tbl" id="fuel-table">
+        <thead><tr><th>Station</th><th>Address</th><th>Fuel type</th><th>Price</th><th>vs avg</th><th>Updated</th></tr></thead>
+        <tbody id="fuel-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div class="card-title">Price history — 30 days</div></div>
+    <canvas id="fuel-chart" style="width:100%" height="160"></canvas>
+    <div style="margin-top:0.6rem;font-size:0.74rem;color:var(--dust-light)">
+      Source: NSW FuelCheck (fuelcheck.nsw.gov.au) · API free · Prices in cents per litre · Broken Hill typically runs 15–25¢ above Sydney metro due to freight costs
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ COMMODITIES ═══ -->
+<section class="section" id="s-commodities">
+  <div class="s-hero">
+    <div class="s-hero-watermark">LME</div>
+    <div class="t-label" style="margin-bottom:0.5rem">Lead · Zinc · Silver · Gold · Crypto · Updated live</div>
+    <h2 class="t-section-title">Commodities &amp; Crypto</h2>
+    <p style="color:var(--dust-light);margin-top:0.5rem;max-width:500px;font-size:0.88rem">What the ground beneath Broken Hill is worth today. LME metals prices plus crypto. Lead and zinc are the backbone of this city's economy.</p>
+  </div>
+
+  <div class="stat-row" id="commodity-stats">
+    <div class="stat"><div class="stat-val" id="c-lead">—</div><div class="stat-lbl">Lead (USD/t)</div><div class="stat-chg flat" id="c-lead-chg">—</div></div>
+    <div class="stat slate"><div class="stat-val" id="c-zinc">—</div><div class="stat-lbl">Zinc (USD/t)</div><div class="stat-chg flat" id="c-zinc-chg">—</div></div>
+    <div class="stat ochre"><div class="stat-val" id="c-silver">—</div><div class="stat-lbl">Silver (USD/oz)</div><div class="stat-chg flat" id="c-silver-chg">—</div></div>
+    <div class="stat sage"><div class="stat-val" id="c-gold">—</div><div class="stat-lbl">Gold (USD/oz)</div><div class="stat-chg flat" id="c-gold-chg">—</div></div>
+    <div class="stat"><div class="stat-val" id="c-btc">—</div><div class="stat-lbl">Bitcoin (USD)</div><div class="stat-chg flat" id="c-btc-chg">—</div></div>
+    <div class="stat ochre"><div class="stat-val" id="c-aud">—</div><div class="stat-lbl">AUD/USD</div><div class="stat-chg flat" id="c-aud-chg">—</div></div>
+  </div>
+
+  <div class="g2" style="margin-bottom:1.4rem">
+    <div class="card" id="metals-card">
+      <div class="card-head"><div class="card-title">Base metals — full list</div><span class="badge b-dust" id="metals-ts">Loading...</span></div>
+      <table class="tbl" id="metals-table">
+        <thead><tr><th>Metal</th><th>Price (USD)</th><th>Unit</th><th>Change 24h</th><th>Relevance to BH</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:500">Lead (Pb)</td><td class="mono-cell" id="m-lead">—</td><td class="mono-cell">per tonne</td><td id="m-lead-c">—</td><td>Primary BH product</td></tr>
+          <tr><td style="font-weight:500">Zinc (Zn)</td><td class="mono-cell" id="m-zinc">—</td><td class="mono-cell">per tonne</td><td id="m-zinc-c">—</td><td>Primary BH product</td></tr>
+          <tr><td style="font-weight:500">Silver (Ag)</td><td class="mono-cell" id="m-silver">—</td><td class="mono-cell">per troy oz</td><td id="m-silver-c">—</td><td>Significant BH by-product</td></tr>
+          <tr><td style="font-weight:500">Copper (Cu)</td><td class="mono-cell" id="m-copper">—</td><td class="mono-cell">per tonne</td><td id="m-copper-c">—</td><td>Minor BH by-product</td></tr>
+          <tr><td style="font-weight:500">Gold (Au)</td><td class="mono-cell" id="m-gold">—</td><td class="mono-cell">per troy oz</td><td id="m-gold-c">—</td><td>Regional prospecting</td></tr>
+          <tr><td style="font-weight:500">Iron ore</td><td class="mono-cell" id="m-iron">—</td><td class="mono-cell">per tonne</td><td id="m-iron-c">—</td><td>Australian industry ref</td></tr>
+          <tr><td style="font-weight:500">Steel (HRC)</td><td class="mono-cell" id="m-steel">—</td><td class="mono-cell">per tonne</td><td id="m-steel-c">—</td><td>Australian industry ref</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">Crypto prices</div><span class="badge b-dust" id="crypto-ts">CoinGecko API</span></div>
+      <table class="tbl" id="crypto-table">
+        <thead><tr><th>Asset</th><th>Price (USD)</th><th>AUD</th><th>24h change</th></tr></thead>
+        <tbody id="crypto-tbody">
+          <tr><td style="font-weight:500">Bitcoin (BTC)</td><td class="mono-cell" id="cr-btc">—</td><td class="mono-cell" id="cr-btc-aud">—</td><td id="cr-btc-c">—</td></tr>
+          <tr><td style="font-weight:500">Ethereum (ETH)</td><td class="mono-cell" id="cr-eth">—</td><td class="mono-cell" id="cr-eth-aud">—</td><td id="cr-eth-c">—</td></tr>
+          <tr><td style="font-weight:500">Solana (SOL)</td><td class="mono-cell" id="cr-sol">—</td><td class="mono-cell" id="cr-sol-aud">—</td><td id="cr-sol-c">—</td></tr>
+          <tr><td style="font-weight:500">XRP</td><td class="mono-cell" id="cr-xrp">—</td><td class="mono-cell" id="cr-xrp-aud">—</td><td id="cr-xrp-c">—</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:1rem;padding:0.75rem;background:var(--ink);border-radius:6px;font-size:0.74rem;color:var(--dust-light)">
+        <strong style="color:var(--parch)">BH relevance:</strong> When lead and zinc prices rise, Perilya's margins improve, mining employment is more secure, and local spending typically increases. The BH economy has a direct correlation with LME base metals prices.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ BUS & TRAIN ═══ -->
+<section class="section" id="s-bustrain">
+  <div class="s-hero">
+    <div class="s-hero-watermark">TfNSW</div>
+    <div class="t-label" style="margin-bottom:0.5rem">NSW TrainLink · Local buses · Coach services</div>
+    <h2 class="t-section-title">Bus &amp; Train Times</h2>
+  </div>
+
+  <div class="g2" style="margin-bottom:1.4rem">
+    <div class="card">
+      <div class="card-head"><div class="card-title">NSW TrainLink — Broken Hill</div><span class="badge b-slate">Weekly schedule</span></div>
+      <div class="alert alert-info" style="margin-bottom:1rem"><span class="alert-icon">ℹ</span><div>Broken Hill is served by the <strong>Indian Pacific</strong> (weekly, Great Southern Rail) and NSW TrainLink <strong>coach connections</strong>. There is no daily rail service to Sydney.</div></div>
+      <table class="tbl">
+        <thead><tr><th>Service</th><th>Route</th><th>Day</th><th>Departs BH</th><th>Arrives</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:500">Indian Pacific</td><td>BH → Sydney</td><td class="mono-cell">Tue</td><td class="mono-cell">06:50</td><td class="mono-cell">Next day ~13:00</td></tr>
+          <tr><td style="font-weight:500">Indian Pacific</td><td>BH → Perth</td><td class="mono-cell">Sun</td><td class="mono-cell">17:15</td><td class="mono-cell">2 days</td></tr>
+          <tr><td style="font-weight:500">Indian Pacific</td><td>Sydney → BH</td><td class="mono-cell">Thu</td><td class="mono-cell">Arr 20:40</td><td class="mono-cell">—</td></tr>
+          <tr><td style="font-weight:500">Indian Pacific</td><td>Perth → BH</td><td class="mono-cell">Fri</td><td class="mono-cell">Arr 09:00</td><td class="mono-cell">—</td></tr>
+          <tr><td style="font-weight:500">TrainLink coach</td><td>BH → Mildura</td><td class="mono-cell">Daily</td><td class="mono-cell">08:30</td><td class="mono-cell">~13:00</td></tr>
+          <tr><td style="font-weight:500">TrainLink coach</td><td>Mildura → BH</td><td class="mono-cell">Daily</td><td class="mono-cell">14:30</td><td class="mono-cell">~19:00</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:0.75rem;display:flex;gap:0.75rem;flex-wrap:wrap">
+        <a href="https://www.transportnsw.info/regional" target="_blank" class="btn btn-ghost" style="font-size:0.68rem">TfNSW regional →</a>
+        <a href="https://www.greatsouthernrail.com.au/trains/indian-pacific" target="_blank" class="btn btn-ghost" style="font-size:0.68rem">Indian Pacific →</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="card-title">Local bus services</div><span class="badge b-dust">BH Town buses</span></div>
+      <div class="alert alert-warn" style="margin-bottom:1rem"><span class="alert-icon">⚠</span><div>Broken Hill's local bus network is limited. Services run weekdays only. No Sunday services. Check with the operator for current timetables as schedules change seasonally.</div></div>
+      <table class="tbl">
+        <thead><tr><th>Route</th><th>Frequency</th><th>Key stops</th><th>Operator</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:500">Route 1 — CBD loop</td><td class="mono-cell">Hourly</td><td>Argent St, Hospital, Station</td><td>BH Buses</td></tr>
+          <tr><td style="font-weight:500">Route 2 — Alma</td><td class="mono-cell">2-hourly</td><td>CBD → Alma area</td><td>BH Buses</td></tr>
+          <tr><td style="font-weight:500">Route 3 — Patton</td><td class="mono-cell">2-hourly</td><td>CBD → Patton area</td><td>BH Buses</td></tr>
+          <tr><td style="font-weight:500">School specials</td><td class="mono-cell">School days</td><td>Various school zones</td><td>BH Buses</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:0.75rem;background:var(--ink);border-radius:6px;padding:0.8rem;font-size:0.8rem">
+        <div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">BH Bus operator contact</div>
+        <div style="font-family:var(--font-display);font-size:1.4rem;color:var(--rust-light)">08 8087 2735</div>
+        <div style="font-size:0.74rem;color:var(--dust-light);margin-top:0.2rem">Weekdays 8am–5pm · Concession fares available</div>
+      </div>
+      <div style="margin-top:0.75rem;font-size:0.74rem;color:var(--dust-light)">Live TfNSW trip planner will be integrated when the Opal network expands to BH. Currently use: <a href="https://transportnsw.info" target="_blank" style="color:var(--slate-light)">transportnsw.info</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ ROAD CLOSURES ═══ -->
+<section class="section" id="s-roads">
+  <div class="s-hero">
+    <div class="s-hero-watermark">ROADS</div>
+    <div class="t-label" style="margin-bottom:0.5rem">LiveTraffic NSW · Road conditions · Alerts</div>
+    <h2 class="t-section-title">Road Closures</h2>
+  </div>
+
+  <div id="roads-loading" style="padding:2rem;text-align:center;font-family:var(--font-mono);font-size:0.78rem;color:var(--dust-light)">
+    Loading road alerts from LiveTraffic NSW...
+  </div>
+
+  <div id="roads-content" style="display:none">
+    <div class="alert alert-warn" style="margin-bottom:1.4rem" id="roads-alert">
+      <span class="alert-icon">🚧</span>
+      <div id="roads-alert-text">Checking for active alerts...</div>
+    </div>
+
+    <div class="g2" style="margin-bottom:1.4rem">
+      <div class="card">
+        <div class="card-head"><div class="card-title">Active closures &amp; incidents</div><span class="badge b-danger" id="roads-count">—</span></div>
+        <div id="roads-list" style="display:flex;flex-direction:column;gap:0.6rem"></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title">Key routes from Broken Hill</div></div>
+        <div style="display:flex;flex-direction:column;gap:0.5rem;font-size:0.82rem">
+          <div style="background:var(--ink);border-radius:6px;padding:0.8rem">
+            <div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Silver City Hwy (A32) — BH to Tibooburra</div>
+            <div style="font-size:0.78rem;color:var(--dust-light)">490km unsealed sections north of Milparinka. Check conditions before travel. Satellite phone recommended. No fuel between BH and Tibooburra.</div>
+          </div>
+          <div style="background:var(--ink);border-radius:6px;padding:0.8rem">
+            <div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Barrier Hwy (A32) — BH to Nyngan/Sydney</div>
+            <div style="font-size:0.78rem;color:var(--dust-light)">Sealed. 1,162km to Sydney. Fuel at Nyngan, Cobar, Dubbo. Subject to flooding near Cobar after heavy rain.</div>
+          </div>
+          <div style="background:var(--ink);border-radius:6px;padding:0.8rem">
+            <div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Sturt Hwy — BH to Mildura</div>
+            <div style="font-size:0.78rem;color:var(--dust-light)">300km sealed. Wentworth crossing. Subject to flooding at Darling River crossing in major flood events.</div>
+          </div>
+          <div style="background:var(--ink);border-radius:6px;padding:0.8rem">
+            <div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Barrier Hwy — BH to Adelaide</div>
+            <div style="font-size:0.78rem;color:var(--dust-light)">510km via Peterborough. Enters SA at state border. Check SA road conditions separately at dpti.sa.gov.au</div>
+          </div>
+        </div>
+        <div style="margin-top:0.75rem;display:flex;gap:0.5rem;flex-wrap:wrap">
+          <a href="https://www.livetraffic.com" target="_blank" class="btn btn-ghost" style="font-size:0.68rem">LiveTraffic NSW →</a>
+          <a href="https://www.dpti.sa.gov.au/trafficandtravel" target="_blank" class="btn btn-ghost" style="font-size:0.68rem">SA Road Conditions →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ RIVER LEVELS ═══ -->
+<section class="section" id="s-rivers">
+  <div class="s-hero">
+    <div class="s-hero-watermark">H₂O</div>
+    <div class="t-label" style="margin-bottom:0.5rem">WaterNSW · Darling · Menindee · Murray</div>
+    <h2 class="t-section-title">River Levels</h2>
+    <p style="color:var(--dust-light);margin-top:0.5rem;max-width:500px;font-size:0.88rem">Real-time river gauge data for the Darling River system, Menindee Lakes, and surrounding catchments. Critical for fishing, boating, and flood monitoring.</p>
+  </div>
+
+  <div class="stat-row" id="river-stats">
+    <div class="stat slate"><div class="stat-val" id="rv-darling">—</div><div class="stat-lbl">Darling at Wilcannia (m)</div><div class="stat-chg flat" id="rv-darling-trend">Loading...</div></div>
+    <div class="stat sage"><div class="stat-val" id="rv-menindee">—</div><div class="stat-lbl">Menindee Lakes (%)</div><div class="stat-chg flat" id="rv-menindee-trend">—</div></div>
+    <div class="stat"><div class="stat-val" id="rv-murray">—</div><div class="stat-lbl">Murray at Wentworth (m)</div><div class="stat-chg flat" id="rv-murray-trend">—</div></div>
+    <div class="stat warn" id="rv-flood-stat"><div class="stat-val" id="rv-flood">—</div><div class="stat-lbl">Flood alert status</div></div>
+  </div>
+
+  <div class="g2" style="margin-bottom:1.4rem">
+    <div class="card">
+      <div class="card-head"><div class="card-title">River gauge readings</div><span class="badge b-slate" id="river-ts">WaterNSW</span></div>
+      <table class="tbl">
+        <thead><tr><th>Station</th><th>River</th><th>Level</th><th>Trend</th><th>Alert</th></tr></thead>
+        <tbody id="river-table-body">
+          <tr><td style="font-weight:500">Wilcannia</td><td>Darling</td><td class="mono-cell" id="rg-wilcannia">—</td><td id="rg-wilcannia-t">—</td><td><span class="badge b-sage">Normal</span></td></tr>
+          <tr><td style="font-weight:500">Menindee</td><td>Darling</td><td class="mono-cell" id="rg-menindee">—</td><td id="rg-menindee-t">—</td><td><span class="badge b-sage">Normal</span></td></tr>
+          <tr><td style="font-weight:500">Pooncarie</td><td>Darling</td><td class="mono-cell" id="rg-pooncarie">—</td><td id="rg-pooncarie-t">—</td><td><span class="badge b-sage">Normal</span></td></tr>
+          <tr><td style="font-weight:500">Wentworth</td><td>Murray</td><td class="mono-cell" id="rg-wentworth">—</td><td id="rg-wentworth-t">—</td><td><span class="badge b-sage">Normal</span></td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:0.75rem"><a href="https://realtimedata.waternsw.com.au" target="_blank" class="btn btn-ghost" style="font-size:0.68rem">WaterNSW real-time data →</a></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">Flood guide — Darling River</div></div>
+      <table class="tbl">
+        <thead><tr><th>Level at Wilcannia</th><th>Status</th><th>Impact</th></tr></thead>
+        <tbody>
+          <tr><td class="mono-cell">&lt; 4.0m</td><td><span class="badge b-sage">Normal</span></td><td>Standard flow, no concerns</td></tr>
+          <tr><td class="mono-cell">4.0–6.0m</td><td><span class="badge b-ochre">Watch</span></td><td>Low-lying areas may be affected</td></tr>
+          <tr><td class="mono-cell">6.0–8.0m</td><td><span class="badge b-warn">Minor flood</span></td><td>Some road closures, property impact</td></tr>
+          <tr><td class="mono-cell">8.0–10.0m</td><td><span class="badge b-danger">Major flood</span></td><td>Significant flooding, evacuations possible</td></tr>
+          <tr><td class="mono-cell">&gt; 10.0m</td><td><span class="badge b-danger">Extreme</span></td><td>2022 event reached 12.1m at Wilcannia</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ WATER THEFT ═══ -->
+<section class="section" id="s-watertheft">
+  <div class="s-hero">
+    <div class="s-hero-watermark">MDB</div>
+    <div class="t-label" style="margin-bottom:0.5rem">Murray-Darling Basin · Mismanagement · Water theft tracker</div>
+    <h2 class="t-section-title">Murray-Darling &amp; Water Theft</h2>
+    <p style="color:var(--dust-light);margin-top:0.5rem;max-width:600px;font-size:0.88rem">The Murray-Darling Basin is one of Australia's most contested water systems. Communities like Broken Hill and Menindee have watched the river system decimated by upstream over-extraction, corporate water theft, and political failure. This section tracks it.</p>
+  </div>
+
+  <div class="alert alert-danger" style="margin-bottom:1.4rem">
+    <span class="alert-icon">⚠</span>
+    <div><strong>2018–2019 Menindee fish kill:</strong> An estimated 1 million fish died in the Darling River near Menindee due to algal blooms caused by low flows. Attributed to upstream over-extraction and mismanagement. Sparked a national inquiry.</div>
+  </div>
+
+  <div class="g2" style="margin-bottom:1.4rem">
+    <div class="card">
+      <div class="card-head"><div class="card-title">The problem in numbers</div></div>
+      <div style="display:flex;flex-direction:column;gap:0.5rem;font-size:0.82rem">
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem;border-left:3px solid var(--danger)">
+          <div style="font-weight:500;color:#E05050;margin-bottom:0.2rem">2,750 GL</div>
+          <div style="color:var(--dust-light)">Water illegally taken or misallocated from the Murray-Darling system over recent decades — estimate from ABC Four Corners investigation (2017)</div>
+        </div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem;border-left:3px solid var(--warning)">
+          <div style="font-weight:500;color:var(--ochre-light);margin-bottom:0.2rem">1,060 GL</div>
+          <div style="color:var(--dust-light)">NSW's share of the Basin Plan water recovery target — still not fully achieved as of 2024</div>
+        </div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem;border-left:3px solid var(--slate-light)">
+          <div style="font-weight:500;color:var(--slate-light);margin-bottom:0.2rem">40+ years</div>
+          <div style="color:var(--dust-light)">How long the Darling River system has been under threat from cotton and other irrigated agriculture upstream in Queensland and northern NSW</div>
+        </div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem;border-left:3px solid var(--rust)">
+          <div style="font-weight:500;color:var(--rust-light);margin-bottom:0.2rem">Menindee Lakes: 15% minimum</div>
+          <div style="color:var(--dust-light)">The critical trigger point for Broken Hill's water security. When lakes fall below 15%, emergency measures activate. In 2015–2019, they reached 4%.</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">Key incidents timeline</div></div>
+      <div class="timeline">
+        <div class="tl-item flag"><div class="tl-date">2017 — Four Corners</div><div class="tl-title">ABC investigation exposes mass water theft in northern NSW</div><div class="tl-body">ABC Four Corners broadcast "Pumped" documenting illegal pumping, meter tampering, and over-allocation by cotton irrigators. National shock. NSW government ordered an independent review.</div></div>
+        <div class="tl-item flag"><div class="tl-date">Jan 2019 — Fish kill</div><div class="tl-title">1 million+ fish die at Menindee</div><div class="tl-body">Three mass fish kill events. River blue-green algae bloom from low flows and heat. Pelicans, wildlife affected. Local community devastated. Senate inquiry launched.</div></div>
+        <div class="tl-item note"><div class="tl-date">2019 — Basin Plan review</div><div class="tl-title">MDBA admits key targets will be missed</div><div class="tl-body">Murray-Darling Basin Authority acknowledges northern basin environmental water recovery targets will not be met by 2019 deadline. Timeline extended.</div></div>
+        <div class="tl-item note"><div class="tl-date">2021 — NSW prosecutions</div><div class="tl-title">First water theft prosecutions in NSW</div><div class="tl-body">Several irrigators prosecuted for meter tampering and illegal extraction. Fines described as inadequate by environmental groups given scale of theft.</div></div>
+        <div class="tl-item good"><div class="tl-date">2022 — La Niña floods</div><div class="tl-title">Menindee Lakes refill to 98%</div><div class="tl-body">Flooding rains refilled the system. Brief respite. Infrastructure damage but water security restored for years ahead. A reminder of what a healthy system looks like.</div></div>
+        <div class="tl-item"><div class="tl-date">2024 — Ongoing</div><div class="tl-title">Lakes at 47% · Political battles continue</div><div class="tl-body">Negotiation between NSW, Victoria, SA and Federal government over water sharing continues. Menindee communities still fighting for long-term protection.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div class="card-title">Resources &amp; further reading</div></div>
+    <div class="g3">
+      <a href="https://www.mdba.gov.au" target="_blank" style="background:var(--ink);border-radius:6px;padding:0.9rem;display:block;text-decoration:none;transition:all 0.15s" onmouseover="this.style.borderColor='rgba(184,58,24,0.3)'" onmouseout="this.style.borderColor='transparent'" class="card"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">MDBA Official</div><div style="font-size:0.75rem;color:var(--dust-light)">Murray-Darling Basin Authority — allocations, data, reports</div></a>
+      <a href="https://www.abc.net.au/news/2019-01-15/millions-of-fish-dead-darling-river-menindee/10710718" target="_blank" style="background:var(--ink);border-radius:6px;padding:0.9rem;display:block;text-decoration:none" class="card"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">ABC — Fish Kill Report</div><div style="font-size:0.75rem;color:var(--dust-light)">Original ABC coverage of the 2019 Menindee disaster</div></a>
+      <a href="https://www.environment.nsw.gov.au/topics/water/water-monitoring-and-metering" target="_blank" style="background:var(--ink);border-radius:6px;padding:0.9rem;display:block;text-decoration:none" class="card"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">NSW Water Monitoring</div><div style="font-size:0.75rem;color:var(--dust-light)">Current NSW water compliance and monitoring data</div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ LEAD LEVELS ═══ -->
+<section class="section" id="s-lead">
+  <div class="s-hero">
+    <div class="s-hero-watermark">Pb</div>
+    <div class="t-label" style="margin-bottom:0.5rem">NSW Health · EPA · Blood lead monitoring</div>
+    <h2 class="t-section-title">Lead Levels — Broken Hill</h2>
+    <p style="color:var(--dust-light);margin-top:0.5rem;max-width:600px;font-size:0.88rem">Broken Hill has one of Australia's longest-running environmental lead monitoring programs. Over 100 years of mining has left lead dust throughout the city. This section tracks the latest data and news.</p>
+  </div>
+
+  <div class="alert alert-warn" style="margin-bottom:1.4rem">
+    <span class="alert-icon">⚠</span>
+    <div><strong>Important:</strong> Children under 5 and pregnant women in Broken Hill should have regular blood lead level testing. Free testing is available through Broken Hill Base Hospital. Contact NSW Health Far West on 08 8080 1300.</div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat danger"><div class="stat-val">10 µg/dL</div><div class="stat-lbl">NSW intervention level (blood)</div><div class="stat-chg flat">Above this: medical review required</div></div>
+    <div class="stat warn"><div class="stat-val">5 µg/dL</div><div class="stat-lbl">CDC reference value</div><div class="stat-chg flat">US CDC action threshold</div></div>
+    <div class="stat sage"><div class="stat-val">Free</div><div class="stat-lbl">Blood lead testing in BH</div><div class="stat-chg flat">Base Hospital · No referral needed</div></div>
+    <div class="stat ochre"><div class="stat-val">↓ trend</div><div class="stat-lbl">BH childhood blood lead</div><div class="stat-chg up">Declining over 30 years</div></div>
+  </div>
+
+  <div class="g2" style="margin-bottom:1.4rem">
+    <div class="card">
+      <div class="card-head"><div class="card-title">Sources of lead exposure in BH</div></div>
+      <div style="display:flex;flex-direction:column;gap:0.5rem;font-size:0.82rem">
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem;border-left:3px solid #E24B4A"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Mine tailings dust (primary)</div><div style="color:var(--dust-light)">Fine dust from historic mine tailings transported by wind through the city. Highest risk in dry, windy conditions. The Mine Subsidence Board has progressively capped and revegetated tailings.</div></div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem;border-left:3px solid var(--ochre)"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Soil contamination</div><div style="color:var(--dust-light)">Decades of airfall deposition have left elevated lead in BH soils, particularly in older residential areas close to the mine. Gardens, sandpits, bare soil are risk points.</div></div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem;border-left:3px solid var(--dust)"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Old paint (legacy)</div><div style="color:var(--dust-light)">Pre-1970 homes may have lead paint. Deteriorating paint or renovation dust is a risk. Professional assessment recommended before renovating older homes.</div></div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem;border-left:3px solid var(--sage)"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Drinking water (low risk)</div><div style="color:var(--dust-light)">BH water supply is monitored and meets standards. Old lead service pipes in some heritage properties may leach trace lead — running taps before use is recommended.</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">Reducing your exposure</div></div>
+      <div style="display:flex;flex-direction:column;gap:0.5rem;font-size:0.82rem">
+        <div style="background:var(--ink);border-radius:6px;padding:0.75rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">🏠 At home</div><div style="color:var(--dust-light)">Damp mop floors instead of dry sweeping · Remove shoes at door · Wash hands frequently, especially before meals · Cover sandpits when not in use · Don't grow root vegetables in contaminated soil</div></div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.75rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">🌬 Dusty conditions</div><div style="color:var(--dust-light)">Keep children indoors on high-wind days · Damp down dusty areas · Check BH dust warnings via EPA AQI</div></div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.75rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">🍎 Nutrition helps</div><div style="color:var(--dust-light)">Iron, calcium and vitamin C reduce lead absorption. Regular meals reduce absorption from dust exposure. These are particularly important for children.</div></div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.75rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">📞 Testing &amp; support</div><div style="color:var(--dust-light)">NSW Health Far West: <span style="color:var(--rust-light);font-family:var(--font-mono)">08 8080 1300</span> · Blood lead testing free for all BH residents · Lead Safe BH program: soil testing available for residential properties</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div class="card-title">Latest lead-related news</div><span class="badge b-dust" id="lead-news-ts">Live from NSW Health &amp; EPA</span></div>
+    <div id="lead-news" style="display:flex;flex-direction:column;gap:0.6rem">
+      <div style="border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:0.7rem"><div style="font-size:0.83rem;font-weight:500;color:var(--parch);margin-bottom:0.15rem">NSW Health releases annual blood lead monitoring report for Broken Hill</div><div style="font-size:0.77rem;color:var(--dust-light)">Childhood blood lead levels continue long-term declining trend. Proportion of children with levels above 10 µg/dL at historic low. Continued vigilance recommended.</div><div class="t-label" style="font-size:0.6rem;margin-top:0.25rem">2024 · NSW Health</div></div>
+      <div style="border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:0.7rem"><div style="font-size:0.83rem;font-weight:500;color:var(--parch);margin-bottom:0.15rem">EPA monitors dust events following dry autumn conditions</div><div style="font-size:0.77rem;color:var(--dust-light)">Extended dry period increases risk of windblown tailings dust. EPA monitoring stations report elevated PM10 on several days in March. Residents advised to follow usual precautions.</div><div class="t-label" style="font-size:0.6rem;margin-top:0.25rem">Mar 2024 · NSW EPA</div></div>
+      <div><div style="font-size:0.83rem;font-weight:500;color:var(--parch);margin-bottom:0.15rem">Mine Subsidence Board completes revegetation of North Mine tailings area</div><div style="font-size:0.77rem;color:var(--dust-light)">Capping and revegetation of the final section of the North Mine tailings area completed. Project reduces estimated 40 tonnes per year of windblown lead from this source.</div><div class="t-label" style="font-size:0.6rem;margin-top:0.25rem">2023 · Mine Subsidence Board</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ CINEMA ═══ -->
+<section class="section" id="s-cinema">
+  <div class="s-hero">
+    <div class="s-hero-watermark">FILM</div>
+    <div class="t-label" style="margin-bottom:0.5rem">Silver City Cinema · silvercitycinema.online · Live sessions</div>
+    <h2 class="t-section-title">Cinema Times</h2>
+  </div>
+
+  <div id="cinema-loading" style="padding:2rem;text-align:center;font-family:var(--font-mono);font-size:0.78rem;color:var(--dust-light)">
+    <div style="margin-bottom:0.5rem">Loading sessions from Silver City Cinema...</div>
+    <div style="width:200px;height:3px;background:var(--ink-lift);border-radius:2px;margin:0 auto;overflow:hidden">
+      <div id="cinema-bar" style="height:100%;background:var(--rust);border-radius:2px;width:0%;transition:width 0.5s"></div>
+    </div>
+  </div>
+
+  <div id="cinema-content" style="display:none">
+    <div class="alert alert-info" style="margin-bottom:1.4rem">
+      <span class="alert-icon">🎬</span>
+      <div>Sessions loaded from <a href="https://silvercitycinema.online" target="_blank" style="color:var(--slate-light)">silvercitycinema.online</a> · Broken Hill's own cinema · <span id="cinema-updated">—</span></div>
+    </div>
+    <div id="cinema-grid" class="g-auto" style="margin-bottom:1.4rem"></div>
+  </div>
+
+  <div id="cinema-fallback" style="display:none">
+    <div class="alert alert-warn" style="margin-bottom:1.4rem">
+      <span class="alert-icon">⚠</span>
+      <div>Could not load live sessions. Visit <a href="https://silvercitycinema.online" target="_blank" style="color:var(--ochre-light)">silvercitycinema.online</a> directly for current session times.</div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">Silver City Cinema — contact &amp; info</div></div>
+      <div class="g2">
+        <div style="display:flex;flex-direction:column;gap:0.5rem;font-size:0.82rem">
+          <div style="display:flex;justify-content:space-between;padding:0.55rem 0.75rem;background:var(--ink);border-radius:4px"><span style="color:var(--dust-light)">Website</span><a href="https://silvercitycinema.online" target="_blank" style="color:var(--slate-light);font-family:var(--font-mono);font-size:0.75rem">silvercitycinema.online</a></div>
+          <div style="display:flex;justify-content:space-between;padding:0.55rem 0.75rem;background:var(--ink);border-radius:4px"><span style="color:var(--dust-light)">Location</span><span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--parch)">Argent St, Broken Hill</span></div>
+          <div style="display:flex;justify-content:space-between;padding:0.55rem 0.75rem;background:var(--ink);border-radius:4px"><span style="color:var(--dust-light)">Tickets</span><span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--parch)">Book online or at door</span></div>
+        </div>
+        <div style="font-size:0.8rem;color:var(--dust-light);line-height:1.7">The Silver City Cinema is Broken Hill's own cinema, screening new releases, special events and film festivals. Check their website for session times, ticket prices and upcoming events.</div>
+      </div>
+    </div>
+  </div>
+</section>
 <section class="section" id="s-transport">
   <div class="s-hero"><div class="t-label" style="margin-bottom:0.5rem">Taxis · Rideshare · Local contacts</div><h2 class="t-section-title">Taxis &amp; Transport</h2></div>
   <div class="g2" style="margin-bottom:1.4rem">
@@ -1881,5 +2303,6 @@
 
 <script src="js/main.js"></script>
 <script src="js/adsb.js"></script>
+<script src="js/phase2.js"></script>
 </body>
 </html>

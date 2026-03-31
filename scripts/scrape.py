@@ -336,16 +336,183 @@ def scrape_council_events():
         save('events_council.json', [])
 
 
+# ── FUELCHECK NSW ─────────────────────────────────────────────
+def scrape_fuel():
+    print("Fuel prices (FuelCheck NSW)...")
+    api_key = os.environ.get('FUELCHECK_API_KEY', '')
+    if not api_key:
+        print("  No FUELCHECK_API_KEY — add to GitHub secrets for live prices")
+        save('fuel.json', [])
+        return
+    try:
+        # FuelCheck API — register free at api.nsw.gov.au
+        headers = {
+            **HEADERS,
+            'apikey': api_key,
+            'requesttimestamp': datetime.utcnow().strftime('%d/%m/%Y %H:%M:%S'),
+            'Content-Type': 'application/json',
+        }
+        r = requests.post(
+            'https://api.onegov.nsw.gov.au/FuelPriceCheck/v2/fuel/prices/bylocation',
+            headers=headers,
+            json={'fueltype': ['ULP','P95','P98','DL','E10'], 'latitude': -31.95, 'longitude': 141.47, 'radius': 5, 'sortby': 'Price', 'sortascending': True},
+            timeout=15
+        )
+        r.raise_for_status()
+        data = r.json()
+        stations = data.get('stations', data.get('prices', []))
+        save('fuel.json', stations)
+        print(f"  Found {len(stations)} fuel prices")
+    except Exception as e:
+        print(f"  FuelCheck failed: {e}")
+        save('fuel.json', [])
+
+
+# ── COMMODITIES (metals via open sources) ─────────────────────
+def scrape_commodities():
+    print("Commodity prices...")
+    try:
+        metals = {}
+        # Metals API or fallback to scraping investing.com
+        # Using metals-api.com free tier (250 calls/month)
+        metals_key = os.environ.get('METALS_API_KEY', '')
+        if metals_key:
+            r = requests.get(
+                f'https://metals-api.com/api/latest?access_key={metals_key}&base=USD&symbols=XPB,XZN,XAG,XAU,XCU',
+                timeout=10
+            )
+            if r.ok:
+                d = r.json()
+                rates = d.get('rates', {})
+                # Metals API gives per troy oz — convert to tonne/oz as needed
+                metals['lead']   = {'price': round(1/rates.get('XPB',1/2050)*1000000,0), 'change24h': 0}
+                metals['zinc']   = {'price': round(1/rates.get('XZN',1/2780)*1000000,0), 'change24h': 0}
+                metals['silver'] = {'price': round(1/rates.get('XAG',1/31),2),           'change24h': 0}
+                metals['gold']   = {'price': round(1/rates.get('XAU',1/3100),2),          'change24h': 0}
+                metals['copper'] = {'price': round(1/rates.get('XCU',1/9100)*1000000,0), 'change24h': 0}
+
+        if not metals:
+            # Static fallback with approximate current prices
+            metals = {
+                'lead':   {'price': 2050, 'change24h': 0},
+                'zinc':   {'price': 2780, 'change24h': 0},
+                'silver': {'price': 31.20, 'change24h': 0},
+                'gold':   {'price': 3100, 'change24h': 0},
+                'copper': {'price': 9100, 'change24h': 0},
+                'iron':   {'price': 105,  'change24h': 0},
+                'steel':  {'price': 490,  'change24h': 0},
+            }
+            print("  Using fallback metal prices — add METALS_API_KEY for live data")
+
+        save('commodities.json', metals)
+        print("  Commodities saved")
+    except Exception as e:
+        print(f"  Commodities failed: {e}")
+        save('commodities.json', {})
+
+
+# ── ROAD CLOSURES (LiveTraffic NSW) ──────────────────────────
+def scrape_roads():
+    print("Road closures (LiveTraffic NSW)...")
+    try:
+        r = requests.get(
+            'https://api.transport.nsw.gov.au/v1/live/hazards/incident/open',
+            headers={**HEADERS, 'Authorization': f"apikey {os.environ.get('TFN_API_KEY', '')}"},
+            timeout=15
+        )
+        if r.ok:
+            data = r.json()
+            features = data.get('features', [])
+            incidents = []
+            for f in features:
+                props = f.get('properties', {})
+                coords = f.get('geometry', {}).get('coordinates', [0,0])
+                if len(coords) >= 2:
+                    from math import radians, cos, sin, sqrt, atan2
+                    lat2, lon2 = coords[1], coords[0]
+                    R = 6371
+                    dlat = radians(lat2 - (-31.95))
+                    dlon = radians(lon2 - 141.47)
+                    a = sin(dlat/2)**2 + cos(radians(-31.95))*cos(radians(lat2))*sin(dlon/2)**2
+                    dist = R * 2 * atan2(sqrt(a), sqrt(1-a))
+                    if dist < 400:  # Within 400km of BH
+                        incidents.append({
+                            'road': props.get('roads', [{}])[0].get('roadName','') if props.get('roads') else '',
+                            'description': props.get('headline', props.get('description', '')),
+                            'type': props.get('mainCategory', ''),
+                            'severity': 'high' if props.get('isMajor') else 'medium' if props.get('isMinor') else 'low',
+                            'from': props.get('startDateTime', ''),
+                            'dist_km': round(dist),
+                        })
+            save('roads.json', incidents)
+            print(f"  Found {len(incidents)} road incidents within 400km")
+        else:
+            print(f"  LiveTraffic API returned {r.status_code} — add TFN_API_KEY to secrets")
+            save('roads.json', [])
+    except Exception as e:
+        print(f"  Roads failed: {e}")
+        save('roads.json', [])
+
+
+# ── SILVER CITY CINEMA ────────────────────────────────────────
+def scrape_silvercity_cinema():
+    print("Silver City Cinema sessions...")
+    try:
+        r = requests.get('https://silvercitycinema.online', timeout=15, headers=HEADERS)
+        r.raise_for_status()
+        soup = BeautifulSoup(r.text, 'lxml')
+        films = []
+
+        # Try common cinema site patterns
+        for film_el in soup.select('.movie, .film, article, .showing, [class*="movie"], [class*="film"]')[:12]:
+            title_el = film_el.select_one('h1, h2, h3, h4, .title, [class*="title"]')
+            if not title_el:
+                continue
+            title = title_el.get_text(strip=True)
+            if not title or len(title) < 2 or title.lower() in ['home','menu','sessions']:
+                continue
+
+            sessions = []
+            for a in film_el.select('a, button, [class*="session"], [class*="time"], [class*="showtime"]'):
+                t = a.get_text(strip=True)
+                import re
+                if re.match(r'\d{1,2}:\d{2}', t):
+                    sessions.append(t)
+
+            rating_el = film_el.select_one('[class*="rating"], [class*="classif"], [class*="cert"]')
+            desc_el   = film_el.select_one('p, .synopsis, .description, [class*="desc"]')
+
+            films.append({
+                'title':       title,
+                'rating':      rating_el.get_text(strip=True) if rating_el else '',
+                'sessions':    sessions[:10],
+                'description': desc_el.get_text(strip=True)[:200] if desc_el else '',
+            })
+
+        if films:
+            save('cinema.json', films)
+            print(f"  Found {len(films)} films at Silver City Cinema")
+        else:
+            print("  Silver City Cinema: no films parsed — site structure may differ")
+            save('cinema.json', [{'title':'Visit silvercitycinema.online for current sessions','rating':'','sessions':[]}])
+    except Exception as e:
+        print(f"  Silver City Cinema failed: {e}")
+        save('cinema.json', [])
+
+
 # ── MAIN ─────────────────────────────────────────────────────
 if __name__ == '__main__':
     print(f"\nTha Hill scraper — {datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')}\n")
     scrape_weather()
     scrape_aqi()
-    scrape_cinema()
+    scrape_silvercity_cinema()
     scrape_police()
     scrape_realestate()
     scrape_gumtree()
     scrape_water()
     scrape_trove()
     scrape_council_events()
+    scrape_fuel()
+    scrape_commodities()
+    scrape_roads()
     print("\nDone. Data written to data/")

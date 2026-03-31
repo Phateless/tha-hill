@@ -1,0 +1,2 @@
+window.FLIGHTAWARE_API_KEY = 'py9bLpJjmQDefKKgRyy2UgUTjiTJhqQ3';
+window.TROVE_API_KEY = 'PLACEHOLDER';

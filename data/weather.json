@@ -1,9 +1,9 @@
 {
-  "updated": "2026-03-31T10:21:41.440959Z",
+  "updated": "2026-03-31T10:23:57.792455Z",
   "data": {
     "latitude": -32.0,
     "longitude": 141.375,
-    "generationtime_ms": 0.16379356384277344,
+    "generationtime_ms": 0.17392635345458984,
     "utc_offset_seconds": 37800,
     "timezone": "Australia/Broken_Hill",
     "timezone_abbreviation": "GMT+10:30",
@@ -66,9 +66,9 @@
       "weather_code": [
         3,
         3,
+        2,
         3,
-        3,
-        3,
+        2,
         3,
         3
       ],

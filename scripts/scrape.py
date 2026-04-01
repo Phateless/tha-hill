@@ -305,6 +305,81 @@ def scrape_trove():
     print(f"  Found {len(stories)} historical stories")
 
 
+# ── TROVE HISTORIC PHOTOS ─────────────────────────────────────
+def scrape_trove_photos():
+    api_key = os.environ.get('TROVE_API_KEY', '')
+    if not api_key:
+        print("Trove photos: no API key, skipping")
+        return
+
+    print("Trove historic photos...")
+    queries = [
+        'broken hill mine',
+        'broken hill street',
+        'broken hill workers',
+        'silverton nsw',
+        'broken hill 1900',
+        'menindee nsw',
+    ]
+
+    photos = []
+    seen_ids = set()
+
+    for q in queries:
+        try:
+            url = (
+                f'https://api.trove.nla.gov.au/v3/result'
+                f'?q={requests.utils.quote(q)}'
+                f'&category=image'
+                f'&encoding=json'
+                f'&n=8'
+                f'&l-state=New+South+Wales'
+                f'&key={api_key}'
+            )
+            r = requests.get(url, timeout=15, headers={'X-API-KEY': api_key})
+            if not r.ok:
+                print(f"  Trove photos [{q}]: {r.status_code}")
+                continue
+
+            d = r.json()
+            items = d.get('category', [{}])[0].get('records', {}).get('work', [])
+
+            for item in items:
+                item_id = str(item.get('id', ''))
+                if item_id in seen_ids:
+                    continue
+                seen_ids.add(item_id)
+
+                # Get thumbnail URL from identifier list
+                identifiers = item.get('identifier', [])
+                thumb = ''
+                for ident in identifiers:
+                    if ident.get('linktype') == 'thumbnail':
+                        thumb = ident.get('value', '')
+                        break
+                    elif ident.get('linktype') == 'restricted' and 'thumbnail' in ident.get('value', ''):
+                        thumb = ident.get('value', '')
+
+                photos.append({
+                    'id': item_id,
+                    'title': item.get('title', 'Untitled'),
+                    'date': item.get('date', ''),
+                    'contributor': item.get('contributor', [''])[0] if item.get('contributor') else '',
+                    'thumb': thumb,
+                    'trove_url': f"https://trove.nla.gov.au/work/{item_id}",
+                    'description': item.get('description', [''])[0] if item.get('description') else '',
+                    'query': q,
+                })
+
+            print(f"  [{q}]: {len(items)} results")
+
+        except Exception as e:
+            print(f"  Trove photos [{q}] failed: {e}")
+
+    save('trove_photos.json', photos[:40])
+    print(f"  Saved {len(photos[:40])} photos total")
+
+
 # ── BROKEN HILL COUNCIL EVENTS ────────────────────────────────
 def scrape_council_events():
     print("Council events...")
@@ -582,6 +657,7 @@ if __name__ == '__main__':
     scrape_gumtree()
     scrape_water()
     scrape_trove()
+    scrape_trove_photos()
     scrape_council_events()
     scrape_fuel()
     scrape_commodities()

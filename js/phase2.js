@@ -751,56 +751,43 @@ window.closeLightbox = function() {
 // Close lightbox on escape key
 document.addEventListener('keydown', e => { if (e.key === 'Escape') window.closeLightbox(); });
 
-/* ── Trove live search ── */
+/* ── Trove live search — reads from scraped data file ── */
 async function searchTrovePhotos() {
-  const apiKey = window.TROVE_API_KEY || '';
-  const grid   = document.getElementById('trove-photo-grid');
+  const grid    = document.getElementById('trove-photo-grid');
   const loading = document.getElementById('trove-photo-loading');
   const error   = document.getElementById('trove-photo-error');
   const ts      = document.getElementById('trove-photo-ts');
 
-  if (!apiKey) {
-    if (loading) loading.innerHTML = '<span style="color:var(--ochre-light)">Add TROVE_API_KEY to GitHub secrets to enable live Trove search</span>';
-    return;
-  }
-
   try {
-    const r = await fetch(
-      `https://api.trove.nla.gov.au/v3/result?q=broken+hill&category=image&l-decade=190,191,192,193,194,195,196&encoding=json&n=20&key=${apiKey}`
-    );
-    if (!r.ok) throw new Error('Trove API ' + r.status);
-    const d = await r.json();
-    const items = d.category?.[0]?.records?.item || [];
+    const d = await loadJSON('trove_photos.json');
+    if (!d || !d.data || !d.data.length) throw new Error('No photos');
 
-    if (!items.length) throw new Error('No results');
-
+    const photos = d.data;
     if (loading) loading.style.display = 'none';
     if (grid) {
       grid.style.display = 'grid';
-      grid.innerHTML = items.slice(0, 12).map(item => {
-        const thumb = item.identifier?.find(i => i.linktype === 'thumbnail')?.value || '';
-        const title = item.title || 'Untitled';
-        const date  = item.date || '';
-        const troveUrl = `https://trove.nla.gov.au/work/${item.id}`;
-        return `
-          <div style="background:var(--ink);border-radius:6px;overflow:hidden;cursor:pointer" onclick="window.open('${troveUrl}','_blank')">
-            <div style="height:140px;background:var(--ink-soft);display:flex;align-items:center;justify-content:center;overflow:hidden">
-              ${thumb ? `<img src="${thumb}" alt="${title}" style="width:100%;height:100%;object-fit:cover;filter:sepia(30%)" onerror="this.style.display='none'">` : '<div style="font-size:2rem;opacity:0.2">📷</div>'}
+      grid.innerHTML = photos.slice(0, 16).map(p => `
+        <div style="background:var(--ink);border-radius:6px;overflow:hidden;cursor:pointer" onclick="window.open('${p.trove_url}','_blank')">
+          <div style="height:140px;background:var(--ink-soft);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative">
+            ${p.thumb
+              ? `<img src="${p.thumb}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;filter:sepia(30%)" onerror="this.style.display='none'">`
+              : '<div style="font-size:2rem;opacity:0.2">📷</div>'}
+            <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.7));padding:0.4rem 0.5rem">
+              <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--ochre-light)">${p.date || '—'}</div>
             </div>
-            <div style="padding:0.6rem">
-              <div style="font-size:0.78rem;font-weight:500;color:var(--parch);margin-bottom:0.2rem;line-height:1.3">${title.substring(0,60)}${title.length>60?'...':''}</div>
-              <div style="font-size:0.65rem;font-family:var(--font-mono);color:var(--dust-light)">${date} · Trove</div>
-            </div>
-          </div>`;
-      }).join('');
+          </div>
+          <div style="padding:0.6rem">
+            <div style="font-size:0.78rem;font-weight:500;color:var(--parch);margin-bottom:0.15rem;line-height:1.3">${(p.title||'Untitled').substring(0,60)}${(p.title||'').length>60?'...':''}</div>
+            <div style="font-size:0.65rem;font-family:var(--font-mono);color:var(--dust-light)">${p.contributor || 'Trove'} · View on Trove →</div>
+          </div>
+        </div>`).join('');
     }
-
-    if (ts) ts.textContent = `${items.length} results · Trove API`;
+    if (ts) ts.textContent = `${photos.length} photos · Trove · Updated ${d.updated ? new Date(d.updated).toLocaleDateString('en-AU') : 'today'}`;
 
   } catch(e) {
     if (loading) loading.style.display = 'none';
     if (error) error.style.display = 'block';
-    if (ts) ts.textContent = 'Trove offline';
+    if (ts) ts.textContent = 'Run workflow to fetch Trove photos';
     console.warn('Trove photos:', e.message);
   }
 }

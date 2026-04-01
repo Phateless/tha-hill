@@ -915,7 +915,7 @@ img { max-width: 100%; display: block; }
   height: 52px;
   background: var(--ink-mid);
   border-bottom: 1px solid rgba(255,255,255,0.07);
-  z-index: 200;
+  z-index: 300;
   align-items: center;
   justify-content: space-between;
   padding: 0 1rem;
@@ -927,27 +927,32 @@ img { max-width: 100%; display: block; }
   letter-spacing: 0.05em;
 }
 .mob-menu-btn {
-  width: 38px; height: 38px;
+  width: 44px; height: 44px;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   gap: 5px; cursor: pointer;
-  background: none; border: none; padding: 0;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+  padding: 0;
 }
 .mob-menu-btn span {
   display: block; width: 22px; height: 2px;
   background: var(--parch); border-radius: 2px;
-  transition: all 0.2s ease;
+  transition: all 0.22s ease;
 }
 .mob-menu-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.mob-menu-btn.open span:nth-child(2) { opacity: 0; }
+.mob-menu-btn.open span:nth-child(2) { opacity: 0; width: 0; }
 .mob-menu-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 .mob-overlay {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.6);
-  z-index: 150;
+  background: rgba(0,0,0,0.65);
+  z-index: 250;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 .mob-overlay.visible { display: block; }
 
@@ -959,17 +964,19 @@ img { max-width: 100%; display: block; }
   .mob-bar { display: flex; }
 
   .sidebar {
-    position: fixed;
-    top: 0; left: 0;
-    width: 280px;
-    height: 100vh;
-    z-index: 160;
-    transform: translateX(-100%);
-    transition: transform 0.28s cubic-bezier(0.4,0,0.2,1);
-    box-shadow: var(--shadow-lg);
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 280px !important;
+    height: 100vh !important;
+    z-index: 280 !important;
+    transform: translateX(-100%) !important;
+    transition: transform 0.28s cubic-bezier(0.4,0,0.2,1) !important;
+    box-shadow: 4px 0 24px rgba(0,0,0,0.6) !important;
+    overflow-y: auto !important;
   }
   .sidebar.open {
-    transform: translateX(0);
+    transform: translateX(0) !important;
   }
 
   .main { padding: 1rem; }

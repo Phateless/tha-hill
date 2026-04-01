@@ -2670,16 +2670,22 @@ function toggleMobNav() {
   const sidebar = document.querySelector('.sidebar');
   const btn     = document.getElementById('mob-menu-btn');
   const overlay = document.getElementById('mob-overlay');
-  sidebar.classList.toggle('open');
-  btn.classList.toggle('open');
-  overlay.classList.toggle('visible');
+  const isOpen  = sidebar.classList.contains('open');
+  if (isOpen) {
+    sidebar.classList.remove('open');
+    btn.classList.remove('open');
+    overlay.classList.remove('visible');
+  } else {
+    sidebar.classList.add('open');
+    btn.classList.add('open');
+    overlay.classList.add('visible');
+  }
 }
 function closeMobNav() {
   document.querySelector('.sidebar').classList.remove('open');
   document.getElementById('mob-menu-btn').classList.remove('open');
   document.getElementById('mob-overlay').classList.remove('visible');
 }
-// Close sidebar when a nav link is tapped on mobile
 document.querySelectorAll('.nav-link').forEach(el => {
   el.addEventListener('click', () => {
     if (window.innerWidth <= 860) closeMobNav();

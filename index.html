@@ -163,6 +163,9 @@
     <div class="nav-link" data-sec="oral" onclick="showSection('oral')">
       <span class="ico">🎙</span> Oral History Archive
     </div>
+    <div class="nav-link" data-sec="bizdir" onclick="showSection('bizdir')">
+      <span class="ico">📒</span> Business Directory
+    </div>
     <div class="nav-link" data-sec="bizob" onclick="showSection('bizob')">
       <span class="ico">🏪</span> Business Obituaries
     </div>
@@ -2262,6 +2265,87 @@
 <!-- ═══════════════════════════════════════════════════════
      GEOCACHING
 ═══════════════════════════════════════════════════════ -->
+<section class="section" id="s-bizdir">
+  <div class="s-hero">
+    <div class="s-hero-watermark">BIZ</div>
+    <div class="t-label" style="margin-bottom:0.5rem">Every business in Broken Hill · Search · Map · Submit</div>
+    <h2 class="t-section-title">Business Directory</h2>
+    <p style="color:var(--dust-light);margin-top:0.5rem;max-width:560px;font-size:0.88rem">The complete Broken Hill business directory. Search by name, category or service. Map view shows locations. Free to list — submit your business below.</p>
+  </div>
+
+  <!-- Search + filter bar -->
+  <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:1.2rem;align-items:center">
+    <div class="search-wrap" style="flex:1;min-width:220px">
+      <span class="search-ico">⌕</span>
+      <input type="text" id="biz-search" placeholder="Search business name or service..." oninput="bizSearch()">
+    </div>
+    <div class="filter-bar" style="margin:0" id="biz-filter-bar">
+      <button class="fbtn on" data-cat="all" onclick="bizFilter('all',this)">All</button>
+      <button class="fbtn" data-cat="food" onclick="bizFilter('food',this)">Food & Drink</button>
+      <button class="fbtn" data-cat="trades" onclick="bizFilter('trades',this)">Trades</button>
+      <button class="fbtn" data-cat="retail" onclick="bizFilter('retail',this)">Retail</button>
+      <button class="fbtn" data-cat="health" onclick="bizFilter('health',this)">Health</button>
+      <button class="fbtn" data-cat="professional" onclick="bizFilter('professional',this)">Professional</button>
+      <button class="fbtn" data-cat="mining" onclick="bizFilter('mining',this)">Mining</button>
+      <button class="fbtn" data-cat="accommodation" onclick="bizFilter('accommodation',this)">Accommodation</button>
+      <button class="fbtn" data-cat="entertainment" onclick="bizFilter('entertainment',this)">Entertainment</button>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 340px;gap:1.4rem;margin-bottom:1.4rem" id="bizdir-layout">
+
+    <!-- Card grid -->
+    <div>
+      <div style="font-family:var(--font-mono);font-size:0.68rem;color:var(--dust-light);margin-bottom:0.75rem" id="biz-count">Showing all businesses</div>
+      <div id="biz-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:0.9rem"></div>
+    </div>
+
+    <!-- Map -->
+    <div style="position:sticky;top:80px;height:calc(100vh - 120px);max-height:600px">
+      <div class="card" style="padding:0;overflow:hidden;height:100%">
+        <div style="padding:0.8rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between;align-items:center">
+          <div class="card-title" style="font-size:0.95rem">Map</div>
+          <span class="badge b-dust" id="biz-map-count">— locations</span>
+        </div>
+        <div style="position:relative;height:calc(100% - 44px)">
+          <div id="biz-map-tip" style="position:absolute;background:var(--ink-mid);border:1px solid rgba(184,58,24,0.4);border-radius:6px;padding:0.5rem 0.8rem;font-size:0.75rem;color:var(--parch);pointer-events:none;display:none;z-index:20;max-width:200px;box-shadow:0 4px 12px rgba(0,0,0,0.4)"></div>
+          <canvas id="biz-map" style="display:block;width:100%;height:100%;background:#0d1117;cursor:crosshair"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Submit form -->
+  <div class="card" style="border:1px dashed rgba(255,255,255,0.12)">
+    <div class="card-head">
+      <div class="card-title">List your business</div>
+      <span class="badge b-sage">Free · No account needed</span>
+    </div>
+    <div class="g2">
+      <div style="display:flex;flex-direction:column;gap:0.7rem">
+        <div><div class="t-label" style="font-size:0.62rem;margin-bottom:0.3rem">Business name</div><input type="text" placeholder="e.g. Silver City Plumbing" style="width:100%;background:var(--ink);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:0.55rem 0.8rem;color:var(--parch);font-size:0.86rem;outline:none"></div>
+        <div><div class="t-label" style="font-size:0.62rem;margin-bottom:0.3rem">Category</div>
+          <select style="width:100%;background:var(--ink);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:0.55rem 0.8rem;color:var(--parch);font-size:0.86rem;outline:none">
+            <option>Food & Drink</option><option>Trades & Services</option><option>Retail & Shopping</option>
+            <option>Health & Medical</option><option>Professional Services</option><option>Mining & Industry</option>
+            <option>Accommodation</option><option>Entertainment & Leisure</option>
+          </select>
+        </div>
+        <div><div class="t-label" style="font-size:0.62rem;margin-bottom:0.3rem">Address</div><input type="text" placeholder="Street address, Broken Hill" style="width:100%;background:var(--ink);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:0.55rem 0.8rem;color:var(--parch);font-size:0.86rem;outline:none"></div>
+        <div><div class="t-label" style="font-size:0.62rem;margin-bottom:0.3rem">Phone</div><input type="text" placeholder="08 8087 XXXX" style="width:100%;background:var(--ink);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:0.55rem 0.8rem;color:var(--parch);font-size:0.86rem;outline:none"></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.7rem">
+        <div><div class="t-label" style="font-size:0.62rem;margin-bottom:0.3rem">Website (optional)</div><input type="text" placeholder="https://..." style="width:100%;background:var(--ink);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:0.55rem 0.8rem;color:var(--parch);font-size:0.86rem;outline:none"></div>
+        <div><div class="t-label" style="font-size:0.62rem;margin-bottom:0.3rem">Trading hours</div><input type="text" placeholder="e.g. Mon–Fri 8am–5pm" style="width:100%;background:var(--ink);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:0.55rem 0.8rem;color:var(--parch);font-size:0.86rem;outline:none"></div>
+        <div style="flex:1"><div class="t-label" style="font-size:0.62rem;margin-bottom:0.3rem">Brief description</div><textarea placeholder="What does your business do?" style="width:100%;height:80px;background:var(--ink);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:0.55rem 0.8rem;color:var(--parch);font-size:0.86rem;outline:none;resize:vertical;font-family:var(--font-body)"></textarea></div>
+        <button class="btn btn-rust" style="align-self:flex-start">Submit listing →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="s-bizdir-placeholder"></section>
+
 <section class="section" id="s-geocaching">
   <div class="s-hero"><div class="t-label" style="margin-bottom:0.5rem">GPS treasure hunting · Broken Hill &amp; region</div><h2 class="t-section-title">Geocaching</h2><p style="color:var(--dust-light);margin-top:0.5rem;max-width:560px;font-size:0.88rem">Geocaching is a worldwide GPS treasure hunt. There are over 3 million active caches globally. Broken Hill and surrounds have a surprisingly strong geocaching community — the remote outback landscape makes for memorable finds.</p></div>
   <div class="g2" style="margin-bottom:1.4rem">

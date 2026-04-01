@@ -657,3 +657,159 @@ function initBizDir() {
 }
 
 window.initBizDir = initBizDir;
+
+/* ══════════════════════════════════════════════════════
+   HISTORIC PHOTOS
+   Curated collection + live Trove API search
+══════════════════════════════════════════════════════ */
+
+const CURATED_PHOTOS = [
+  { id:'p001', title:'North Mine headframe, Broken Hill', year:1895, era:'1880s', tags:['mining','infrastructure'], src:'https://trove.nla.gov.au/proxy?url=https://nla.gov.au/nla.pic-an23478091-v', thumb:'https://nla.gov.au/nla.pic-an23478091-v', trove:'https://trove.nla.gov.au/work/23478091', source:'National Library of Australia · nla.pic-an23478091', desc:'The iconic North Mine headframe shortly after sinking. The structure dominated the BH skyline for over 100 years until closure in 2006.' },
+  { id:'p002', title:'Argent Street looking east, 1895', year:1895, era:'1880s', tags:['streets','cbd'], src:'https://trove.nla.gov.au/proxy?url=https://nla.gov.au/nla.pic-an23300512-v', thumb:'https://nla.gov.au/nla.pic-an23300512-v', trove:'https://trove.nla.gov.au/work/23300512', source:'State Library NSW', desc:'Argent Street in its early years. Unpaved road, timber buildings and a handful of residents. The town was barely a decade old.' },
+  { id:'p003', title:'BHP mine workers, Broken Hill c.1910', year:1910, era:'1900s', tags:['mining','people','workers'], src:'', thumb:'', trove:'https://trove.nla.gov.au/search/category/images?keyword=broken+hill+mine+workers+1910', source:'National Library of Australia', desc:'A crew of BHP miners photographed at the surface. Working conditions in the early years were extremely dangerous — lead dust, heat, and no safety equipment.' },
+  { id:'p004', title:'Broken Hill from the air, 1930s', year:1935, era:'1930s', tags:['aerial','streets'], src:'', thumb:'', trove:'https://trove.nla.gov.au/search/category/images?keyword=broken+hill+aerial+1930s', source:'State Library NSW', desc:'One of the earliest aerial photographs of Broken Hill, showing the grid layout of streets and the proximity of the mine to the town centre.' },
+  { id:'p005', title:'Strike meeting at the Domain, 1919', year:1919, era:'1900s', tags:['people','history','strikes'], src:'', thumb:'', trove:'https://trove.nla.gov.au/search/category/images?keyword=broken+hill+strike+1919', source:'Barrier Miner', desc:'The famous 1919 35-hour week strike — a landmark in Australian labour history. BH miners won the 35-hour week, the first in Australia.' },
+  { id:'p006', title:'Silverton township, 1885', year:1885, era:'1880s', tags:['silverton','streets'], src:'', thumb:'', trove:'https://trove.nla.gov.au/search/category/images?keyword=silverton+nsw+1885', source:'National Library of Australia', desc:'Silverton at its peak population of over 3,000. The town pre-dates Broken Hill and was once expected to be the region\'s major centre.' },
+  { id:'p007', title:'Royal Flying Doctor Service base, 1950s', year:1955, era:'1930s', tags:['rfds','people','infrastructure'], src:'', thumb:'', trove:'https://trove.nla.gov.au/search/category/images?keyword=broken+hill+flying+doctor+1950s', source:'RFDS Archives', desc:'The Broken Hill RFDS base was established in 1936. This photograph shows the early fleet and staff who provided medical care across remote western NSW.' },
+  { id:'p008', title:'School of the Air broadcasting, 1956', year:1956, era:'1930s', tags:['education','people'], src:'', thumb:'', trove:'https://trove.nla.gov.au/search/category/images?keyword=broken+hill+school+of+the+air', source:'State Library NSW', desc:'The world\'s first School of the Air began broadcasting from Broken Hill in 1951. Children on remote stations received lessons via two-way radio.' },
+  { id:'p009', title:'Bells Milk Bar interior, 1950s', year:1952, era:'1930s', tags:['people','streets','culture'], src:'', thumb:'', trove:'https://trove.nla.gov.au/search/category/images?keyword=bells+milk+bar+broken+hill', source:'BH City Library', desc:'Bells Milk Bar on Oxide Street — preserved almost intact since it opened. A perfectly preserved piece of 1950s Australian street life.' },
+  { id:'p010', title:'Pro Hart in his studio, 1968', year:1968, era:'1960s', tags:['art','people','culture'], src:'', thumb:'', trove:'https://trove.nla.gov.au/search/category/images?keyword=pro+hart+broken+hill', source:'National Library of Australia', desc:'Kevin "Pro" Hart at work in his Wyman Street studio. By this time his reputation was growing nationally, though he never left Broken Hill.' },
+  { id:'p011', title:'Mundi Mundi Plains, 1970s', year:1972, era:'1960s', tags:['landscape','outback'], src:'', thumb:'', trove:'https://trove.nla.gov.au/search/category/images?keyword=mundi+mundi+plains', source:'State Library NSW', desc:'The vast Mundi Mundi Plains west of Broken Hill. Later made famous as a filming location for Mad Max 2 (1981) and Priscilla Queen of the Desert (1994).' },
+  { id:'p012', title:'BHP smelter stack demolition, 1972', year:1972, era:'1960s', tags:['mining','infrastructure'], src:'', thumb:'', trove:'https://trove.nla.gov.au/search/category/images?keyword=broken+hill+smelter+demolition', source:'BH Historical Society', desc:'The demolition of the old smelter stack marked the end of an era. Lead smelting had been a defining feature of Broken Hill since the 1890s.' },
+];
+
+let photoEraFilter = 'all';
+let photoSearchTerm = '';
+
+function getFilteredPhotos() {
+  return CURATED_PHOTOS.filter(p => {
+    const matchEra = photoEraFilter === 'all' || p.era === photoEraFilter || p.tags.includes(photoEraFilter);
+    const q = photoSearchTerm.toLowerCase();
+    const matchSearch = !q || p.title.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q) || p.tags.some(t => t.includes(q)) || String(p.year).includes(q);
+    return matchEra && matchSearch;
+  });
+}
+
+function renderPhotoGrid(photos) {
+  const grid = document.getElementById('photo-grid');
+  const count = document.getElementById('photo-count');
+  if (!grid) return;
+  if (count) count.textContent = `Showing ${photos.length} photos`;
+
+  grid.innerHTML = photos.map(p => `
+    <div class="card" style="padding:0;overflow:hidden;cursor:pointer" onclick="openLightbox('${p.id}')">
+      <div style="position:relative;background:var(--ink);height:160px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+        ${p.thumb ? `<img src="${p.thumb}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;filter:sepia(40%) contrast(0.9)" onerror="this.parentElement.innerHTML='<div style=\\'display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:0.5rem\\'><div style=\\'font-size:2.5rem;opacity:0.2\\'>📷</div><div style=\\'font-size:0.68rem;color:var(--dust);font-family:var(--font-mono)\\'>${p.year}</div></div>'">`
+        : `<div style="display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:0.5rem">
+             <div style="font-size:2.5rem;opacity:0.2">📷</div>
+             <div style="font-size:0.68rem;color:var(--dust);font-family:var(--font-mono)">${p.year}</div>
+           </div>`}
+        <div style="position:absolute;top:0.5rem;left:0.5rem;background:rgba(0,0,0,0.65);color:var(--ochre-light);font-family:var(--font-mono);font-size:0.62rem;padding:2px 7px;border-radius:3px">${p.year}</div>
+      </div>
+      <div style="padding:0.75rem">
+        <div style="font-weight:500;color:var(--parch);font-size:0.85rem;margin-bottom:0.2rem;line-height:1.3">${p.title}</div>
+        <div style="font-size:0.72rem;color:var(--dust-light);line-height:1.5;margin-bottom:0.5rem">${p.desc.substring(0,80)}${p.desc.length>80?'...':''}</div>
+        <div style="font-size:0.65rem;font-family:var(--font-mono);color:var(--dust)">${p.source}</div>
+      </div>
+    </div>`).join('');
+}
+
+window.photoEra = function(era, btn) {
+  photoEraFilter = era;
+  document.querySelectorAll('[data-era]').forEach(b => b.classList.remove('on'));
+  if (btn) btn.classList.add('on');
+  renderPhotoGrid(getFilteredPhotos());
+};
+
+window.filterPhotos = function() {
+  photoSearchTerm = document.getElementById('photo-search')?.value || '';
+  renderPhotoGrid(getFilteredPhotos());
+};
+
+window.openLightbox = function(id) {
+  const p = CURATED_PHOTOS.find(x => x.id === id);
+  if (!p) return;
+  const lb = document.getElementById('photo-lightbox');
+  const img = document.getElementById('lightbox-img');
+  const cap = document.getElementById('lightbox-caption');
+  const src = document.getElementById('lightbox-source');
+  if (!lb) return;
+  img.src = p.thumb || p.src || '';
+  img.alt = p.title;
+  cap.innerHTML = `<strong style="color:var(--parch)">${p.title}</strong> · ${p.year}<br>${p.desc}`;
+  src.innerHTML = `Source: ${p.source}${p.trove ? ` · <a href="${p.trove}" target="_blank" style="color:var(--slate-light)">View on Trove →</a>` : ''}`;
+  lb.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+};
+
+window.closeLightbox = function() {
+  const lb = document.getElementById('photo-lightbox');
+  if (lb) lb.style.display = 'none';
+  document.body.style.overflow = '';
+};
+
+// Close lightbox on escape key
+document.addEventListener('keydown', e => { if (e.key === 'Escape') window.closeLightbox(); });
+
+/* ── Trove live search ── */
+async function searchTrovePhotos() {
+  const apiKey = window.TROVE_API_KEY || '';
+  const grid   = document.getElementById('trove-photo-grid');
+  const loading = document.getElementById('trove-photo-loading');
+  const error   = document.getElementById('trove-photo-error');
+  const ts      = document.getElementById('trove-photo-ts');
+
+  if (!apiKey) {
+    if (loading) loading.innerHTML = '<span style="color:var(--ochre-light)">Add TROVE_API_KEY to GitHub secrets to enable live Trove search</span>';
+    return;
+  }
+
+  try {
+    const r = await fetch(
+      `https://api.trove.nla.gov.au/v3/result?q=broken+hill&category=image&l-decade=190,191,192,193,194,195,196&encoding=json&n=20&key=${apiKey}`
+    );
+    if (!r.ok) throw new Error('Trove API ' + r.status);
+    const d = await r.json();
+    const items = d.category?.[0]?.records?.item || [];
+
+    if (!items.length) throw new Error('No results');
+
+    if (loading) loading.style.display = 'none';
+    if (grid) {
+      grid.style.display = 'grid';
+      grid.innerHTML = items.slice(0, 12).map(item => {
+        const thumb = item.identifier?.find(i => i.linktype === 'thumbnail')?.value || '';
+        const title = item.title || 'Untitled';
+        const date  = item.date || '';
+        const troveUrl = `https://trove.nla.gov.au/work/${item.id}`;
+        return `
+          <div style="background:var(--ink);border-radius:6px;overflow:hidden;cursor:pointer" onclick="window.open('${troveUrl}','_blank')">
+            <div style="height:140px;background:var(--ink-soft);display:flex;align-items:center;justify-content:center;overflow:hidden">
+              ${thumb ? `<img src="${thumb}" alt="${title}" style="width:100%;height:100%;object-fit:cover;filter:sepia(30%)" onerror="this.style.display='none'">` : '<div style="font-size:2rem;opacity:0.2">📷</div>'}
+            </div>
+            <div style="padding:0.6rem">
+              <div style="font-size:0.78rem;font-weight:500;color:var(--parch);margin-bottom:0.2rem;line-height:1.3">${title.substring(0,60)}${title.length>60?'...':''}</div>
+              <div style="font-size:0.65rem;font-family:var(--font-mono);color:var(--dust-light)">${date} · Trove</div>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    if (ts) ts.textContent = `${items.length} results · Trove API`;
+
+  } catch(e) {
+    if (loading) loading.style.display = 'none';
+    if (error) error.style.display = 'block';
+    if (ts) ts.textContent = 'Trove offline';
+    console.warn('Trove photos:', e.message);
+  }
+}
+
+function initPhotos() {
+  if (window._photosInited) return;
+  window._photosInited = true;
+  renderPhotoGrid(CURATED_PHOTOS);
+  searchTrovePhotos();
+}
+
+window.initPhotos = initPhotos;

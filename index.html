@@ -12,7 +12,7 @@
 <!-- Mobile top bar -->
 <div class="mob-bar">
   <div class="mob-brand">THA HILL</div>
-  <button class="mob-menu-btn" id="mob-menu-btn" onclick="toggleMobNav()" aria-label="Menu">
+  <button class="mob-menu-btn" id="mob-menu-btn" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
 </div>
@@ -170,6 +170,9 @@
     </div>
     <div class="nav-link" data-sec="geocaching" onclick="showSection('geocaching')">
       <span class="ico">📍</span> Geocaching
+    </div>
+    <div class="nav-link" data-sec="photos" onclick="showSection('photos')">
+      <span class="ico">📸</span> Historic Photos
     </div>
     <div class="nav-link" data-sec="oral" onclick="showSection('oral')">
       <span class="ico">🎙</span> Oral History Archive
@@ -2659,6 +2662,80 @@
   </div>
 </section>
 
+<!-- ═══════════════════════════════════════════════════════ HISTORIC PHOTOS ═══ -->
+<section class="section" id="s-photos">
+  <div class="s-hero">
+    <div class="s-hero-watermark">1800s</div>
+    <div class="t-label" style="margin-bottom:0.5rem">Trove · State Library NSW · National Library · Community</div>
+    <h2 class="t-section-title">Historic Photos</h2>
+    <p style="color:var(--dust-light);margin-top:0.5rem;max-width:600px;font-size:0.88rem">Digitised photographs of Broken Hill from the 1880s onward. Sourced from Trove (National Library of Australia), the State Library of NSW, and community collections. A visual record of the world's oldest mining city.</p>
+  </div>
+
+  <!-- Search & filter -->
+  <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:1.2rem;align-items:center">
+    <div class="search-wrap" style="flex:1;min-width:200px">
+      <span class="search-ico">⌕</span>
+      <input type="text" id="photo-search" placeholder="Search by era, subject or keyword..." oninput="filterPhotos()">
+    </div>
+    <div class="filter-bar" style="margin:0">
+      <button class="fbtn on" data-era="all"     onclick="photoEra('all',this)">All eras</button>
+      <button class="fbtn" data-era="1880s"      onclick="photoEra('1880s',this)">1880s</button>
+      <button class="fbtn" data-era="1900s"      onclick="photoEra('1900s',this)">1900–1920s</button>
+      <button class="fbtn" data-era="1930s"      onclick="photoEra('1930s',this)">1930–1950s</button>
+      <button class="fbtn" data-era="1960s"      onclick="photoEra('1960s',this)">1960–1980s</button>
+      <button class="fbtn" data-era="mining"     onclick="photoEra('mining',this)">Mining</button>
+      <button class="fbtn" data-era="streets"    onclick="photoEra('streets',this)">Streets</button>
+      <button class="fbtn" data-era="people"     onclick="photoEra('people',this)">People</button>
+    </div>
+  </div>
+
+  <!-- Trove live results -->
+  <div class="card" style="margin-bottom:1.4rem">
+    <div class="card-head">
+      <div class="card-title">From Trove — National Library of Australia</div>
+      <span class="badge b-slate" id="trove-photo-ts">Loading...</span>
+    </div>
+    <div id="trove-photo-loading" style="padding:1.5rem;text-align:center;font-family:var(--font-mono);font-size:0.78rem;color:var(--dust-light)">
+      Searching Trove for Broken Hill photographs...
+    </div>
+    <div id="trove-photo-grid" style="display:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;padding:0.5rem 0"></div>
+    <div id="trove-photo-error" style="display:none;padding:1rem;font-size:0.82rem;color:var(--dust-light)">
+      Could not load Trove results. <a href="https://trove.nla.gov.au/search/category/images?keyword=broken+hill+mining" target="_blank" style="color:var(--slate-light)">Search Trove directly →</a>
+    </div>
+  </div>
+
+  <!-- Curated gallery -->
+  <div style="margin-bottom:0.75rem;display:flex;justify-content:space-between;align-items:center">
+    <div class="card-title">Curated collection</div>
+    <span class="badge b-dust" id="photo-count">Showing all photos</span>
+  </div>
+
+  <div id="photo-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;margin-bottom:1.4rem"></div>
+
+  <!-- Lightbox -->
+  <div id="photo-lightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:500;align-items:center;justify-content:center;padding:1rem" onclick="closeLightbox()">
+    <div style="max-width:900px;width:100%;position:relative" onclick="event.stopPropagation()">
+      <button onclick="closeLightbox()" style="position:absolute;top:-40px;right:0;background:none;border:none;color:var(--parch);font-size:1.4rem;cursor:pointer;font-family:var(--font-mono)">✕ close</button>
+      <img id="lightbox-img" src="" alt="" style="width:100%;border-radius:8px;max-height:70vh;object-fit:contain;background:var(--ink)">
+      <div id="lightbox-caption" style="margin-top:0.75rem;font-size:0.84rem;color:var(--dust-light);line-height:1.6"></div>
+      <div id="lightbox-source" style="margin-top:0.4rem;font-size:0.72rem;font-family:var(--font-mono);color:var(--dust)"></div>
+    </div>
+  </div>
+
+  <!-- Contribute -->
+  <div class="card" style="border:1px dashed rgba(255,255,255,0.12)">
+    <div class="card-head">
+      <div class="card-title">Contribute a photo</div>
+      <span class="badge b-sage">Community sourced</span>
+    </div>
+    <p style="font-size:0.82rem;color:var(--dust-light);margin-bottom:0.75rem;line-height:1.7">Have an old photo of Broken Hill? Family photos, mine sites, street scenes, events — all welcome. High resolution scans preferred. Photos will be credited to the contributor and donated to the community record.</p>
+    <div style="display:flex;gap:0.75rem;flex-wrap:wrap">
+      <a href="https://trove.nla.gov.au/contribute" target="_blank" class="btn btn-ghost" style="font-size:0.74rem">Contribute to Trove →</a>
+      <a href="https://www.sl.nsw.gov.au/research-and-collections/digitisation-requests" target="_blank" class="btn btn-ghost" style="font-size:0.74rem">State Library NSW →</a>
+    </div>
+  </div>
+</section>
+
 </main>
 </div>
 
@@ -2666,31 +2743,34 @@
 <script src="js/adsb.js"></script>
 <script src="js/phase2.js"></script>
 <script>
-function toggleMobNav() {
-  const sidebar = document.querySelector('.sidebar');
-  const btn     = document.getElementById('mob-menu-btn');
-  const overlay = document.getElementById('mob-overlay');
-  const isOpen  = sidebar.classList.contains('open');
-  if (isOpen) {
-    sidebar.classList.remove('open');
-    btn.classList.remove('open');
-    overlay.classList.remove('visible');
-  } else {
+(function() {
+  var sidebar = document.querySelector('.sidebar');
+  var btn     = document.getElementById('mob-menu-btn');
+  var overlay = document.getElementById('mob-overlay');
+
+  function openNav() {
     sidebar.classList.add('open');
     btn.classList.add('open');
     overlay.classList.add('visible');
   }
-}
-function closeMobNav() {
-  document.querySelector('.sidebar').classList.remove('open');
-  document.getElementById('mob-menu-btn').classList.remove('open');
-  document.getElementById('mob-overlay').classList.remove('visible');
-}
-document.querySelectorAll('.nav-link').forEach(el => {
-  el.addEventListener('click', () => {
-    if (window.innerWidth <= 860) closeMobNav();
+  function closeNav() {
+    sidebar.classList.remove('open');
+    btn.classList.remove('open');
+    overlay.classList.remove('visible');
+  }
+
+  btn.addEventListener('click',        function(e) { e.stopPropagation(); sidebar.classList.contains('open') ? closeNav() : openNav(); });
+  btn.addEventListener('touchend',     function(e) { e.preventDefault(); e.stopPropagation(); sidebar.classList.contains('open') ? closeNav() : openNav(); });
+  overlay.addEventListener('click',    closeNav);
+  overlay.addEventListener('touchend', function(e) { e.preventDefault(); closeNav(); });
+
+  document.querySelectorAll('.nav-link').forEach(function(el) {
+    el.addEventListener('click', function() { if (window.innerWidth <= 860) closeNav(); });
   });
-});
+
+  window.toggleMobNav = function() { sidebar.classList.contains('open') ? closeNav() : openNav(); };
+  window.closeMobNav  = closeNav;
+})();
 </script>
 </body>
 </html>

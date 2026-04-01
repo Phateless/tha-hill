@@ -33,7 +33,7 @@ const SECTION_TITLES = {
   cinema:    ['Culture', 'Cinema Times'],
   sport:     ['Culture', 'Local Sports'],
   food:      ['Community', 'Food Menus'],
-  bizdir:    ['Community', 'Business Directory'],
+  photos:    ['Culture', 'Historic Photos'],
   adsb:      ['Aviation', 'ADS-B & Aviation'],
   transport: ['Transport', 'Taxis & Transport'],
   fishing:   ['Environment', 'Fishing Guide'],
@@ -420,6 +420,7 @@ function initCharts(sectionId) {
   if (sectionId === 'roads')       { if (window.initRoads) window.initRoads(); }
   if (sectionId === 'cinema')      { if (window.initCinema) window.initCinema(); }
   if (sectionId === 'bizdir')      { if (window.initBizDir) window.initBizDir(); }
+  if (sectionId === 'photos')      { if (window.initPhotos) window.initPhotos(); }
 }
 
 window.addEventListener('resize', () => {

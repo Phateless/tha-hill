@@ -33,7 +33,16 @@ const SECTION_TITLES = {
   cinema:    ['Culture', 'Cinema Times'],
   sport:     ['Culture', 'Local Sports'],
   food:      ['Community', 'Food Menus'],
-  photos:    ['Culture', 'Historic Photos'],
+  racing:       ['Sport & Leisure', 'Horse Racing'],
+  bottleshop:   ['Prices & Deals', 'Bottle Shop Specials'],
+  shopspecials: ['Prices & Deals', 'Shop Specials'],
+  solar:        ['Prices & Deals', 'Solar Deals'],
+  accommodation:['Prices & Deals', 'Accommodation Rates'],
+  caryards:     ['Prices & Deals', 'Car Yards'],
+  crimemap:     ['Services', 'Crime Report Map'],
+  amateurradio: ['Services', 'Amateur Radio'],
+  namesearch:   ['Research', 'Name & Place Search'],
+  grokipedia:   ['Research', 'Grokipedia'],
   adsb:      ['Aviation', 'ADS-B & Aviation'],
   transport: ['Transport', 'Taxis & Transport'],
   fishing:   ['Environment', 'Fishing Guide'],
@@ -421,6 +430,9 @@ function initCharts(sectionId) {
   if (sectionId === 'cinema')      { if (window.initCinema) window.initCinema(); }
   if (sectionId === 'bizdir')      { if (window.initBizDir) window.initBizDir(); }
   if (sectionId === 'photos')      { if (window.initPhotos) window.initPhotos(); }
+  if (sectionId === 'crimemap')    { if (window.initCrimeMap) window.initCrimeMap(); }
+  if (sectionId === 'grokipedia')  { if (window.initGrokipedia) window.initGrokipedia(); }
+  if (sectionId === 'namesearch')  { if (window.initNameSearch) window.initNameSearch(); }
 }
 
 window.addEventListener('resize', () => {

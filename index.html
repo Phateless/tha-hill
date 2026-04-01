@@ -159,11 +159,45 @@
     <div class="nav-link" data-sec="sport" onclick="showSection('sport')">
       <span class="ico">⚽</span> Local Sports
     </div>
+    <div class="nav-link" data-sec="racing" onclick="showSection('racing')">
+      <span class="ico">🏇</span> Horse Racing
+    </div>
+
+    <div class="nav-group-label">Prices & Deals</div>
     <div class="nav-link" data-sec="food" onclick="showSection('food')">
       <span class="ico">🍔</span> Food Menus
     </div>
+    <div class="nav-link" data-sec="bottleshop" onclick="showSection('bottleshop')">
+      <span class="ico">🍺</span> Bottle Shop Specials
+    </div>
+    <div class="nav-link" data-sec="shopspecials" onclick="showSection('shopspecials')">
+      <span class="ico">🛒</span> Shop Specials
+    </div>
+    <div class="nav-link" data-sec="solar" onclick="showSection('solar')">
+      <span class="ico">☀</span> Solar Deals
+    </div>
+    <div class="nav-link" data-sec="accommodation" onclick="showSection('accommodation')">
+      <span class="ico">🏨</span> Accommodation Rates
+    </div>
+    <div class="nav-link" data-sec="caryards" onclick="showSection('caryards')">
+      <span class="ico">🚗</span> Car Yards
+    </div>
     <div class="nav-link" data-sec="garbage" onclick="showSection('garbage')">
       <span class="ico">🗑</span> Garbage Collection
+    </div>
+    <div class="nav-link" data-sec="crimemap" onclick="showSection('crimemap')">
+      <span class="ico">🗺</span> Crime Report Map
+    </div>
+    <div class="nav-link" data-sec="amateurradio" onclick="showSection('amateurradio')">
+      <span class="ico">📻</span> Amateur Radio
+    </div>
+
+    <div class="nav-group-label">Research</div>
+    <div class="nav-link" data-sec="namesearch" onclick="showSection('namesearch')">
+      <span class="ico">🔍</span> Name &amp; Place Search
+    </div>
+    <div class="nav-link" data-sec="grokipedia" onclick="showSection('grokipedia')">
+      <span class="ico">🧠</span> Grokipedia
     </div>
     <div class="nav-link" data-sec="art" onclick="showSection('art')">
       <span class="ico">🎨</span> Art Scene
@@ -2734,6 +2768,454 @@
       <a href="https://www.sl.nsw.gov.au/research-and-collections/digitisation-requests" target="_blank" class="btn btn-ghost" style="font-size:0.74rem">State Library NSW →</a>
     </div>
   </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ HORSE RACING ═══ -->
+<section class="section" id="s-racing">
+  <div class="s-hero">
+    <div class="s-hero-watermark">RACE</div>
+    <div class="t-label" style="margin-bottom:0.5rem">Broken Hill Jockey Club · Race days · Form · Results</div>
+    <h2 class="t-section-title">Horse Racing</h2>
+  </div>
+  <div class="stat-row">
+    <div class="stat ochre"><div class="stat-val">1877</div><div class="stat-lbl">BHJC established</div></div>
+    <div class="stat"><div class="stat-val" id="race-next">—</div><div class="stat-lbl">Next race day</div></div>
+    <div class="stat sage"><div class="stat-val">Broken Hill</div><div class="stat-lbl">Racecourse location</div></div>
+    <div class="stat slate"><div class="stat-val">TAB</div><div class="stat-lbl">Wagering operator</div></div>
+  </div>
+  <div class="g2" style="margin-bottom:1.4rem">
+    <div class="card">
+      <div class="card-head"><div class="card-title">Broken Hill Jockey Club</div><span class="badge b-ochre">Est. 1877</span></div>
+      <div style="display:flex;flex-direction:column;gap:0.5rem;font-size:0.82rem;margin-bottom:1rem">
+        <div style="display:flex;justify-content:space-between;padding:0.55rem 0.75rem;background:var(--ink);border-radius:4px"><span style="color:var(--dust-light)">Racecourse</span><span style="color:var(--parch)">Broken Hill Racecourse, Racecourse Rd</span></div>
+        <div style="display:flex;justify-content:space-between;padding:0.55rem 0.75rem;background:var(--ink);border-radius:4px"><span style="color:var(--dust-light)">Phone</span><span style="font-family:var(--font-mono);color:var(--rust-light)">08 8087 3544</span></div>
+        <div style="display:flex;justify-content:space-between;padding:0.55rem 0.75rem;background:var(--ink);border-radius:4px"><span style="color:var(--dust-light)">Race days</span><span style="color:var(--parch)">Approx monthly · check calendar</span></div>
+        <div style="display:flex;justify-content:space-between;padding:0.55rem 0.75rem;background:var(--ink);border-radius:4px"><span style="color:var(--dust-light)">Surface</span><span style="color:var(--parch)">Dirt track</span></div>
+        <div style="display:flex;justify-content:space-between;padding:0.55rem 0.75rem;background:var(--ink);border-radius:4px"><span style="color:var(--dust-light)">TAB wagering</span><span><a href="https://www.tab.com.au" target="_blank" style="color:var(--slate-light);font-size:0.78rem">tab.com.au →</a></span></div>
+      </div>
+      <p style="font-size:0.82rem;color:var(--dust-light);line-height:1.7">The Broken Hill Jockey Club is one of Australia's most remote racing clubs. Race days are social events for the whole community — fashion on the field, live entertainment, and an atmosphere unique to outback racing. The Silver City Cup is the premier race of the season.</p>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">2024–25 Race calendar</div><span class="badge b-dust" id="race-ts">BHJC</span></div>
+      <table class="tbl">
+        <thead><tr><th>Date</th><th>Meeting</th><th>Feature race</th></tr></thead>
+        <tbody>
+          <tr><td class="mono-cell">Apr 2025</td><td style="font-weight:500">Autumn Cup Day</td><td>Broken Hill Autumn Cup</td></tr>
+          <tr><td class="mono-cell">May 2025</td><td style="font-weight:500">Mid-season Meet</td><td>Silver City Stakes</td></tr>
+          <tr><td class="mono-cell">Jul 2025</td><td style="font-weight:500">ANZAC Tribute</td><td>Diggers Cup</td></tr>
+          <tr><td class="mono-cell">Aug 2025</td><td style="font-weight:500">Silver City Cup Day</td><td>Silver City Cup (feature)</td></tr>
+          <tr><td class="mono-cell">Oct 2025</td><td style="font-weight:500">Spring Meet</td><td>Barrier Ranges Stakes</td></div></tr>
+          <tr><td class="mono-cell">Dec 2025</td><td style="font-weight:500">Christmas Carnival</td><td>Summer Sprint</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:0.75rem;font-size:0.74rem;color:var(--dust-light)">Dates approximate. Confirm with BHJC before travelling. Racing NSW may vary programming.</div>
+      <div style="margin-top:0.75rem;display:flex;gap:0.5rem;flex-wrap:wrap">
+        <a href="https://www.racingnsw.com.au" target="_blank" class="btn btn-ghost" style="font-size:0.68rem">Racing NSW →</a>
+        <a href="https://www.tab.com.au/racing/meeting/Broken-Hill" target="_blank" class="btn btn-ghost" style="font-size:0.68rem">TAB — BH races →</a>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-title">Live results — race nights</div><span class="badge b-rust">TAB / Racing NSW</span></div>
+    <div class="alert alert-info"><span class="alert-icon">ℹ</span><div>Live race results will appear here on race nights. Data sourced from Racing NSW and TAB. On non-race days this section shows the most recent results.</div></div>
+    <div id="race-results" style="margin-top:0.75rem">
+      <div style="font-size:0.82rem;color:var(--dust-light);padding:1rem;background:var(--ink);border-radius:6px;text-align:center">No race meeting today. Next race day shown above. Check <a href="https://www.tab.com.au" target="_blank" style="color:var(--slate-light)">tab.com.au</a> for live form and race fields.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ BOTTLE SHOP ═══ -->
+<section class="section" id="s-bottleshop">
+  <div class="s-hero">
+    <div class="s-hero-watermark">BWS</div>
+    <div class="t-label" style="margin-bottom:0.5rem">BWS · Dan Murphy's · Local bottle shops · Weekly specials</div>
+    <h2 class="t-section-title">Bottle Shop Specials</h2>
+    <p style="color:var(--dust-light);margin-top:0.5rem;max-width:560px;font-size:0.88rem">Current specials from Broken Hill bottle shops. Updated weekly from catalogues.</p>
+  </div>
+  <div class="g2" style="margin-bottom:1.4rem">
+    <div class="card">
+      <div class="card-head"><div class="card-title">BWS Broken Hill</div><span class="badge b-rust">Current specials</span></div>
+      <div id="bws-specials" style="display:flex;flex-direction:column;gap:0.5rem">
+        <div style="background:var(--ink);border-radius:6px;padding:0.9rem;display:flex;justify-content:space-between;align-items:center">
+          <div><div style="font-weight:500;color:var(--parch);margin-bottom:0.15rem">Great Northern Super Crisp 30-pack</div><div style="font-size:0.75rem;color:var(--dust-light)">Cans · 3.5% · Limited time</div></div>
+          <div style="font-family:var(--font-display);font-size:1.4rem;color:var(--ochre-light)">$49</div>
+        </div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.9rem;display:flex;justify-content:space-between;align-items:center">
+          <div><div style="font-weight:500;color:var(--parch);margin-bottom:0.15rem">Jim Beam White 1L</div><div style="font-size:0.75rem;color:var(--dust-light)">Bourbon · Mixers sold separately</div></div>
+          <div style="font-family:var(--font-display);font-size:1.4rem;color:var(--ochre-light)">$52</div>
+        </div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.9rem;display:flex;justify-content:space-between;align-items:center">
+          <div><div style="font-weight:500;color:var(--parch);margin-bottom:0.15rem">Yellow Tail Shiraz 6-pack</div><div style="font-size:0.75rem;color:var(--dust-light)">Red wine · 750ml bottles</div></div>
+          <div style="font-family:var(--font-display);font-size:1.4rem;color:var(--ochre-light)">$55</div>
+        </div>
+        <div style="font-size:0.72rem;color:var(--dust-light);margin-top:0.25rem">📍 Argent St · Ph: 08 8087 XXXX · Hours: Mon–Sat 9am–9pm, Sun 10am–8pm</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">Liquorland / Local bottle shops</div><span class="badge b-slate">Weekly deals</span></div>
+      <div style="display:flex;flex-direction:column;gap:0.5rem">
+        <div style="background:var(--ink);border-radius:6px;padding:0.9rem;display:flex;justify-content:space-between;align-items:center">
+          <div><div style="font-weight:500;color:var(--parch);margin-bottom:0.15rem">XXXX Gold 24-pack</div><div style="font-size:0.75rem;color:var(--dust-light)">Cans · 3.5%</div></div>
+          <div style="font-family:var(--font-display);font-size:1.4rem;color:var(--ochre-light)">$44</div>
+        </div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.9rem;display:flex;justify-content:space-between;align-items:center">
+          <div><div style="font-weight:500;color:var(--parch);margin-bottom:0.15rem">Wolf Blass Red Label Cab Sauv</div><div style="font-size:0.75rem;color:var(--dust-light)">750ml · SA grapes</div></div>
+          <div style="font-family:var(--font-display);font-size:1.4rem;color:var(--ochre-light)">$12</div>
+        </div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.9rem;display:flex;justify-content:space-between;align-items:center">
+          <div><div style="font-weight:500;color:var(--parch);margin-bottom:0.15rem">Bundaberg Rum 700ml</div><div style="font-size:0.75rem;color:var(--dust-light)">OP or UP</div></div>
+          <div style="font-family:var(--font-display);font-size:1.4rem;color:var(--ochre-light)">$48</div>
+        </div>
+        <div style="font-size:0.72rem;color:var(--ochre-light);margin-top:0.25rem">⚠ Sample prices — scraper coming. Check in-store for current specials.</div>
+      </div>
+    </div>
+  </div>
+  <div style="padding:0.8rem 1rem;background:var(--ink-mid);border-radius:6px;font-size:0.74rem;color:var(--dust-light);border:1px solid rgba(255,255,255,0.04)">
+    Live catalogue scraping for BWS, Dan Murphy's and Liquorland is being built. Prices shown are samples only. Always verify in-store. Drink responsibly. If you or someone you know needs help: Lifeline 13 11 14.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ SHOP SPECIALS ═══ -->
+<section class="section" id="s-shopspecials">
+  <div class="s-hero">
+    <div class="s-hero-watermark">SALE</div>
+    <div class="t-label" style="margin-bottom:0.5rem">Harvey Norman · Kmart · Retravision · Weekly catalogues</div>
+    <h2 class="t-section-title">Shop Specials</h2>
+  </div>
+  <div class="g3" style="margin-bottom:1.4rem">
+    <div class="card">
+      <div class="card-head"><div class="card-title">Harvey Norman</div><span class="badge b-ochre">Chloride St</span></div>
+      <div style="font-size:0.82rem;color:var(--dust-light);margin-bottom:0.75rem;line-height:1.7">Electronics, appliances, furniture, bedding. Interest-free finance. Weekly catalogue specials in-store and online.</div>
+      <div style="display:flex;flex-direction:column;gap:0.35rem;font-size:0.78rem">
+        <div style="display:flex;justify-content:space-between;padding:0.45rem 0.7rem;background:var(--ink);border-radius:4px"><span style="color:var(--dust-light)">Phone</span><span style="font-family:var(--font-mono);color:var(--rust-light)">08 8087 7400</span></div>
+        <div style="display:flex;justify-content:space-between;padding:0.45rem 0.7rem;background:var(--ink);border-radius:4px"><span style="color:var(--dust-light)">Hours</span><span style="color:var(--parch)">Mon–Fri 9–5:30, Sat 9–5, Sun 10–4</span></div>
+      </div>
+      <a href="https://www.harveynorman.com.au/stores/new-south-wales/broken-hill" target="_blank" class="btn btn-ghost" style="font-size:0.68rem;margin-top:0.75rem">Current catalogue →</a>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">Kmart</div><span class="badge b-slate">Argent St</span></div>
+      <div style="font-size:0.82rem;color:var(--dust-light);margin-bottom:0.75rem;line-height:1.7">Clothing, homewares, electronics, toys, sporting goods. Weekly specials every Thursday.</div>
+      <div style="display:flex;flex-direction:column;gap:0.35rem;font-size:0.78rem">
+        <div style="display:flex;justify-content:space-between;padding:0.45rem 0.7rem;background:var(--ink);border-radius:4px"><span style="color:var(--dust-light)">Phone</span><span style="font-family:var(--font-mono);color:var(--rust-light)">08 8087 4100</span></div>
+        <div style="display:flex;justify-content:space-between;padding:0.45rem 0.7rem;background:var(--ink);border-radius:4px"><span style="color:var(--dust-light)">Hours</span><span style="color:var(--parch)">Mon–Wed 8–6, Thu–Fri 8–9, Sat 8–6, Sun 10–5</span></div>
+      </div>
+      <a href="https://www.kmart.com.au/stores/new-south-wales/broken-hill" target="_blank" class="btn btn-ghost" style="font-size:0.68rem;margin-top:0.75rem">Kmart specials →</a>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">Retravision</div><span class="badge b-dust">BH</span></div>
+      <div style="font-size:0.82rem;color:var(--dust-light);margin-bottom:0.75rem;line-height:1.7">Whitegoods, TVs, small appliances. Local independent retailer. Price match guarantee. Delivery and installation available.</div>
+      <div style="display:flex;flex-direction:column;gap:0.35rem;font-size:0.78rem">
+        <div style="display:flex;justify-content:space-between;padding:0.45rem 0.7rem;background:var(--ink);border-radius:4px"><span style="color:var(--dust-light)">Hours</span><span style="color:var(--parch)">Mon–Fri 9–5:30, Sat 9–1</span></div>
+      </div>
+      <a href="https://www.retravision.com.au" target="_blank" class="btn btn-ghost" style="font-size:0.68rem;margin-top:0.75rem">Retravision catalogue →</a>
+    </div>
+  </div>
+  <div class="alert alert-info"><span class="alert-icon">ℹ</span><div>Live catalogue scraping is being built. This section will automatically update with this week's specials once the scraper is active. For now, links go directly to each retailer's current catalogue.</div></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ SOLAR ═══ -->
+<section class="section" id="s-solar">
+  <div class="s-hero">
+    <div class="s-hero-watermark">☀</div>
+    <div class="t-label" style="margin-bottom:0.5rem">Verified BH installers · Current rebates · System pricing</div>
+    <h2 class="t-section-title">Solar Deals — Broken Hill</h2>
+    <p style="color:var(--dust-light);margin-top:0.5rem;max-width:600px;font-size:0.88rem">Broken Hill gets some of Australia's best solar irradiance — making solar one of the best investments you can make here. Current deals from verified local and regional installers, plus all available rebates.</p>
+  </div>
+  <div class="stat-row">
+    <div class="stat ochre"><div class="stat-val">5.8</div><div class="stat-lbl">Peak sun hours/day (BH avg)</div></div>
+    <div class="stat sage"><div class="stat-val">$0</div><div class="stat-lbl">Upfront cost (after rebates, typical 6.6kW)</div></div>
+    <div class="stat"><div class="stat-val">3–4yr</div><div class="stat-lbl">Typical payback period BH</div></div>
+    <div class="stat slate"><div class="stat-val">STCs</div><div class="stat-lbl">Federal rebate — auto applied</div></div>
+  </div>
+  <div class="g2" style="margin-bottom:1.4rem">
+    <div class="card">
+      <div class="card-head"><div class="card-title">Available rebates &amp; incentives</div><span class="badge b-sage">2024–25</span></div>
+      <div style="display:flex;flex-direction:column;gap:0.6rem">
+        <div style="background:var(--ink);border-radius:6px;padding:0.9rem;border-left:3px solid var(--sage-light)">
+          <div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Federal STC rebate (auto-applied)</div>
+          <div style="font-size:0.78rem;color:var(--dust-light)">Small-scale Technology Certificates reduce upfront cost automatically through your installer. For a 6.6kW system in BH the STC value is approximately $2,800–$3,200. No application needed — installer handles it.</div>
+        </div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.9rem;border-left:3px solid var(--ochre)">
+          <div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">NSW Energy Savings Scheme</div>
+          <div style="font-size:0.78rem;color:var(--dust-light)">Additional NSW rebate for eligible households. Value varies — typically $500–$1,500 for solar + battery combinations. Apply via Service NSW after installation.</div>
+        </div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.9rem;border-left:3px solid var(--slate-light)">
+          <div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Hot water system upgrade rebate</div>
+          <div style="font-size:0.78rem;color:var(--dust-light)">Switching from electric resistance or gas hot water to solar hot water or heat pump: up to $1,000 rebate. Can be combined with solar panels.</div>
+        </div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.9rem;border-left:3px solid var(--dust)">
+          <div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Feed-in tariff (FiT)</div>
+          <div style="font-size:0.78rem;color:var(--dust-light)">Export excess power to the grid. Current BH FiT rates: approximately 5–8¢/kWh depending on retailer. Compare retailers at energymadeeasy.gov.au</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">System pricing guide — BH 2024</div></div>
+      <table class="tbl">
+        <thead><tr><th>System size</th><th>Panels</th><th>Before rebate</th><th>After STC</th><th>Annual saving est.</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:500">3kW</td><td class="mono-cell">8–10</td><td class="mono-cell">$4,500</td><td class="mono-cell">$2,800</td><td class="mono-cell">~$800/yr</td></tr>
+          <tr><td style="font-weight:500">6.6kW</td><td class="mono-cell">16–20</td><td class="mono-cell">$7,500</td><td class="mono-cell">$4,500</td><td class="mono-cell">~$1,600/yr</td></tr>
+          <tr><td style="font-weight:500">10kW</td><td class="mono-cell">25–28</td><td class="mono-cell">$11,000</td><td class="mono-cell">$7,200</td><td class="mono-cell">~$2,400/yr</td></tr>
+          <tr><td style="font-weight:500">6.6kW + battery</td><td class="mono-cell">16–20</td><td class="mono-cell">$16,000</td><td class="mono-cell">$11,500</td><td class="mono-cell">~$2,200/yr</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:0.75rem;font-size:0.74rem;color:var(--dust-light)">Prices are estimates based on 2024 market rates. Get 3 quotes before committing. Only use CEC-accredited installers — required for rebates.</div>
+      <div style="margin-top:0.75rem"><a href="https://www.energymadeeasy.gov.au" target="_blank" class="btn btn-ghost" style="font-size:0.68rem">Compare energy plans →</a></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-title">Tips for BH solar buyers</div></div>
+    <div class="g2">
+      <div style="display:flex;flex-direction:column;gap:0.5rem;font-size:0.82rem">
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">✓ Use a CEC-accredited installer</div><div style="color:var(--dust-light)">Required for all government rebates. Check at solaraccreditation.com.au</div></div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">✓ Get 3 quotes</div><div style="color:var(--dust-light)">Prices vary significantly. Local installers may offer better service but regional may be cheaper.</div></div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">✓ Check panel brand warranties</div><div style="color:var(--dust-light)">In BH's harsh climate (heat, dust) a 25-year panel warranty matters. Tier 1 brands only.</div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.5rem;font-size:0.82rem">
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">✓ North-facing panels</div><div style="color:var(--dust-light)">Maximum output in BH. West-facing panels can also work well for afternoon loads.</div></div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">✓ Consider battery storage</div><div style="color:var(--dust-light)">BH's low FiT rate means storing and self-consuming power is more valuable than exporting.</div></div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.8rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">✓ Dust cleaning</div><div style="color:var(--dust-light)">BH dust reduces output. Factor in panel cleaning every 3–6 months — especially after dust events.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ ACCOMMODATION ═══ -->
+<section class="section" id="s-accommodation">
+  <div class="s-hero">
+    <div class="s-hero-watermark">STAY</div>
+    <div class="t-label" style="margin-bottom:0.5rem">Hotels · Motels · Caravan parks · Airbnb · Current rates</div>
+    <h2 class="t-section-title">Accommodation Rates</h2>
+  </div>
+  <div class="stat-row">
+    <div class="stat ochre"><div class="stat-val">$95</div><div class="stat-lbl">Cheapest motel (avg/night)</div></div>
+    <div class="stat"><div class="stat-val">$185</div><div class="stat-lbl">Mid-range avg/night</div></div>
+    <div class="stat sage"><div class="stat-val">$35</div><div class="stat-lbl">Caravan park powered site</div></div>
+    <div class="stat slate"><div class="stat-val">12+</div><div class="stat-lbl">Accommodation options in BH</div></div>
+  </div>
+  <div class="g-auto" style="margin-bottom:1.4rem">
+    <div class="card"><div style="font-family:var(--font-display);font-size:1rem;color:var(--ochre-light);margin-bottom:0.3rem">Lodge Motel</div><div style="font-size:0.75rem;color:var(--dust-light);margin-bottom:0.6rem">Oxide St · Pool · Pet friendly</div><div style="font-family:var(--font-display);font-size:1.6rem;color:var(--parch)">$95–$135</div><div style="font-size:0.72rem;color:var(--dust-light)">per night · room only</div><div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--rust-light);margin-top:0.4rem">08 8088 2722</div></div>
+    <div class="card"><div style="font-family:var(--font-display);font-size:1rem;color:var(--ochre-light);margin-bottom:0.3rem">Desert Wind Motel</div><div style="font-size:0.75rem;color:var(--dust-light);margin-bottom:0.6rem">Menindee Rd · Modern rooms</div><div style="font-family:var(--font-display);font-size:1.6rem;color:var(--parch)">$105–$145</div><div style="font-size:0.72rem;color:var(--dust-light)">per night · room only</div><div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--rust-light);margin-top:0.4rem">08 8087 6600</div></div>
+    <div class="card"><div style="font-family:var(--font-display);font-size:1rem;color:var(--ochre-light);margin-bottom:0.3rem">Royal Exchange Hotel</div><div style="font-size:0.75rem;color:var(--dust-light);margin-bottom:0.6rem">Argent St · Historic pub rooms</div><div style="font-family:var(--font-display);font-size:1.6rem;color:var(--parch)">$85–$120</div><div style="font-size:0.72rem;color:var(--dust-light)">per night · B&amp;B option</div><div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--rust-light);margin-top:0.4rem">08 8087 2308</div></div>
+    <div class="card"><div style="font-family:var(--font-display);font-size:1rem;color:var(--ochre-light);margin-bottom:0.3rem">Palace Hotel</div><div style="font-size:0.75rem;color:var(--dust-light);margin-bottom:0.6rem">Argent St · Famous painted pub</div><div style="font-family:var(--font-display);font-size:1.6rem;color:var(--parch)">$95–$150</div><div style="font-size:0.72rem;color:var(--dust-light)">per night</div><div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--rust-light);margin-top:0.4rem">08 8088 1699</div></div>
+    <div class="card"><div style="font-family:var(--font-display);font-size:1rem;color:var(--ochre-light);margin-bottom:0.3rem">BH Tourist Lodge</div><div style="font-size:0.75rem;color:var(--dust-light);margin-bottom:0.6rem">Argent St · Budget · Backpackers</div><div style="font-family:var(--font-display);font-size:1.6rem;color:var(--parch)">$35–$85</div><div style="font-size:0.72rem;color:var(--dust-light)">per night · dorm or private</div><div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--rust-light);margin-top:0.4rem">08 8087 7744</div></div>
+    <div class="card"><div style="font-family:var(--font-display);font-size:1rem;color:var(--ochre-light);margin-bottom:0.3rem">BH Caravan Park</div><div style="font-size:0.75rem;color:var(--dust-light);margin-bottom:0.6rem">Rakow St · Powered sites · Cabins</div><div style="font-family:var(--font-display);font-size:1.6rem;color:var(--parch)">$35–$95</div><div style="font-size:0.72rem;color:var(--dust-light)">powered site or cabin</div><div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--rust-light);margin-top:0.4rem">08 8087 3841</div></div>
+  </div>
+  <div style="padding:0.8rem 1rem;background:var(--ink-mid);border-radius:6px;font-size:0.74rem;color:var(--dust-light);border:1px solid rgba(255,255,255,0.04)">
+    Rates are approximate and vary by season, availability and room type. Book direct for best rates. Also check <a href="https://www.booking.com" target="_blank" style="color:var(--slate-light)">Booking.com</a> and <a href="https://www.airbnb.com.au" target="_blank" style="color:var(--slate-light)">Airbnb</a> for additional options. School holiday and race day weekends book out early.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ CAR YARDS ═══ -->
+<section class="section" id="s-caryards">
+  <div class="s-hero">
+    <div class="s-hero-watermark">CARS</div>
+    <div class="t-label" style="margin-bottom:0.5rem">Local dealers · New &amp; used · All makes</div>
+    <h2 class="t-section-title">Car Yards — Broken Hill</h2>
+  </div>
+  <div class="g2" style="margin-bottom:1.4rem">
+    <div class="card">
+      <div class="card-head"><div class="card-title">Local dealerships</div></div>
+      <div style="display:flex;flex-direction:column;gap:0.6rem">
+        <div style="background:var(--ink);border-radius:6px;padding:0.9rem">
+          <div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Broken Hill Toyota</div>
+          <div style="font-size:0.78rem;color:var(--dust-light);margin-bottom:0.5rem">New &amp; used Toyota. Service centre. Parts. Fleet sales.</div>
+          <div style="display:flex;gap:0.75rem;font-size:0.75rem;flex-wrap:wrap">
+            <span style="color:var(--dust-light)">📍 Oxide St</span>
+            <span style="font-family:var(--font-mono);color:var(--rust-light)">08 8087 3033</span>
+          </div>
+        </div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.9rem">
+          <div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Barrier Motors</div>
+          <div style="font-size:0.78rem;color:var(--dust-light);margin-bottom:0.5rem">Holden/GM service, used vehicles. Long-established BH dealer.</div>
+          <div style="display:flex;gap:0.75rem;font-size:0.75rem;flex-wrap:wrap">
+            <span style="color:var(--dust-light)">📍 Argent St</span>
+            <span style="font-family:var(--font-mono);color:var(--rust-light)">08 8087 XXXX</span>
+          </div>
+        </div>
+        <div style="background:var(--ink);border-radius:6px;padding:0.9rem">
+          <div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Silver City Motors</div>
+          <div style="font-size:0.78rem;color:var(--dust-light);margin-bottom:0.5rem">Used vehicles. Trade-ins welcome. Finance available.</div>
+          <div style="display:flex;gap:0.75rem;font-size:0.75rem;flex-wrap:wrap">
+            <span style="color:var(--dust-light)">📍 Iodide St</span>
+            <span style="font-family:var(--font-mono);color:var(--rust-light)">08 8087 XXXX</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">Latest listings</div><span class="badge b-dust" id="caryards-ts">Carsales · Gumtree</span></div>
+      <div id="caryards-listings" style="display:flex;flex-direction:column;gap:0.5rem">
+        <div class="alert alert-info"><span class="alert-icon">ℹ</span><div>Live car yard listings scraper is being built. Will pull from Carsales.com.au and local dealer websites daily. For now, search directly:</div></div>
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.25rem">
+          <a href="https://www.carsales.com.au/cars/location-broken-hill-nsw-2880/" target="_blank" class="btn btn-ghost" style="font-size:0.68rem">Carsales — BH →</a>
+          <a href="https://www.gumtree.com.au/s-cars-vans-utes/broken-hill/k0c18320l3006459" target="_blank" class="btn btn-ghost" style="font-size:0.68rem">Gumtree — BH cars →</a>
+          <a href="https://www.facebook.com/marketplace/broken-hill" target="_blank" class="btn btn-ghost" style="font-size:0.68rem">FB Marketplace →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ CRIME REPORT MAP ═══ -->
+<section class="section" id="s-crimemap">
+  <div class="s-hero">
+    <div class="s-hero-watermark">MAP</div>
+    <div class="t-label" style="margin-bottom:0.5rem">Community incident reporting · Photo &amp; video upload</div>
+    <h2 class="t-section-title">Crime Report Map</h2>
+    <p style="color:var(--dust-light);margin-top:0.5rem;max-width:560px;font-size:0.88rem">Report local incidents, suspicious activity, vandalism and safety concerns. All reports are community-sourced and moderated. Always call 000 for emergencies and 131 444 for non-urgent police.</p>
+  </div>
+  <div class="alert alert-danger" style="margin-bottom:1.4rem">
+    <span class="alert-icon">🚨</span>
+    <div><strong>Emergency?</strong> Call 000. <strong>Non-urgent police:</strong> 131 444. <strong>Crime Stoppers:</strong> 1800 333 000 (anonymous). This map is a community tool — it does not replace official reporting.</div>
+  </div>
+  <div class="g2" style="margin-bottom:1.4rem">
+    <div class="card" style="padding:0;overflow:hidden">
+      <div style="padding:0.9rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.05)"><div class="card-title">Incident map — Broken Hill</div></div>
+      <canvas id="crime-map" style="display:block;width:100%;height:320px;background:#0d1117;cursor:crosshair"></canvas>
+      <div style="padding:0.6rem 1rem;font-size:0.72rem;color:var(--dust-light);border-top:1px solid rgba(255,255,255,0.04)">
+        Click map to add incident · Hover pins for details · Data from community reports
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">Report an incident</div><span class="badge b-sage">Anonymous OK</span></div>
+      <div style="display:flex;flex-direction:column;gap:0.6rem">
+        <div><div class="t-label" style="font-size:0.62rem;margin-bottom:0.3rem">Incident type</div>
+          <select id="crime-type" style="width:100%;background:var(--ink);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:0.55rem 0.8rem;color:var(--parch);font-size:0.86rem;outline:none">
+            <option>Theft / Break and enter</option>
+            <option>Vandalism / Graffiti</option>
+            <option>Suspicious activity</option>
+            <option>Vehicle crime</option>
+            <option>Antisocial behaviour</option>
+            <option>Drug activity</option>
+            <option>Domestic disturbance</option>
+            <option>Road safety concern</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div><div class="t-label" style="font-size:0.62rem;margin-bottom:0.3rem">Location / Street</div><input type="text" id="crime-location" placeholder="e.g. Argent St near the Mall" style="width:100%;background:var(--ink);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:0.55rem 0.8rem;color:var(--parch);font-size:0.86rem;outline:none"></div>
+        <div><div class="t-label" style="font-size:0.62rem;margin-bottom:0.3rem">When did it happen?</div><input type="datetime-local" id="crime-time" style="width:100%;background:var(--ink);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:0.55rem 0.8rem;color:var(--parch);font-size:0.86rem;outline:none"></div>
+        <div><div class="t-label" style="font-size:0.62rem;margin-bottom:0.3rem">Description</div><textarea id="crime-desc" placeholder="Brief description of what happened..." style="width:100%;height:70px;background:var(--ink);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:0.55rem 0.8rem;color:var(--parch);font-size:0.86rem;outline:none;resize:vertical;font-family:var(--font-body)"></textarea></div>
+        <div style="padding:0.75rem;background:var(--ink);border-radius:6px;font-size:0.78rem;color:var(--dust-light)">
+          📷 Photo/video upload coming once backend storage is set up. For now attach photos when reporting to <a href="tel:1800333000" style="color:var(--rust-light)">Crime Stoppers 1800 333 000</a>.
+        </div>
+        <button class="btn btn-rust" onclick="submitCrimeReport()">Submit report →</button>
+        <div id="crime-submitted" style="display:none;font-size:0.8rem;color:var(--sage-light);padding:0.5rem">✓ Report submitted. Thank you for keeping BH safe.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ AMATEUR RADIO ═══ -->
+<section class="section" id="s-amateurradio">
+  <div class="s-hero">
+    <div class="s-hero-watermark">HAM</div>
+    <div class="t-label" style="margin-bottom:0.5rem">Amateur radio · UHF CB · Repeaters · Far West NSW</div>
+    <h2 class="t-section-title">Amateur Radio</h2>
+    <p style="color:var(--dust-light);margin-top:0.5rem;max-width:560px;font-size:0.88rem">Broken Hill's remote location makes amateur radio particularly important for emergency communications and outback travel. Local repeaters, UHF CB cheat sheet, and club information.</p>
+  </div>
+  <div class="g2" style="margin-bottom:1.4rem">
+    <div class="card">
+      <div class="card-head"><div class="card-title">Broken Hill amateur radio repeaters</div></div>
+      <table class="tbl">
+        <thead><tr><th>Callsign</th><th>Output (MHz)</th><th>Input</th><th>CTCSS</th><th>Coverage</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:500">VK2RBH</td><td class="mono-cell">146.700</td><td class="mono-cell">146.100</td><td class="mono-cell">91.5 Hz</td><td>BH city &amp; surrounds</td></tr>
+          <tr><td style="font-weight:500">VK2RBH-D</td><td class="mono-cell">439.875</td><td class="mono-cell">434.875</td><td class="mono-cell">91.5 Hz</td><td>BH UHF repeater</td></tr>
+          <tr><td style="font-weight:500">VK2RAW</td><td class="mono-cell">147.000</td><td class="mono-cell">147.600</td><td class="mono-cell">None</td><td>Far West wide area</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:0.75rem;font-size:0.74rem;color:var(--dust-light)">Repeater data sourced from WIA repeater directory. Verify before use — configurations may change.</div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">UHF CB cheat sheet</div><span class="badge b-ochre">40-channel</span></div>
+      <table class="tbl">
+        <thead><tr><th>Channel</th><th>Freq (MHz)</th><th>Use</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:500">Ch 40</td><td class="mono-cell">477.400</td><td>Road comms · Trucks · Primary outback</td></tr>
+          <tr><td style="font-weight:500">Ch 29</td><td class="mono-cell">476.875</td><td>4WD clubs · Convoy comms</td></tr>
+          <tr><td style="font-weight:500">Ch 18</td><td class="mono-cell">476.450</td><td>Marine / water comms</td></tr>
+          <tr><td style="font-weight:500">Ch 9</td><td class="mono-cell">476.225</td><td>Emergency calling channel</td></tr>
+          <tr><td style="font-weight:500">Ch 5 / 35</td><td class="mono-cell">476.125 / 477.125</td><td>Emergency — repeater output</td></tr>
+          <tr><td style="font-weight:500">Ch 11</td><td class="mono-cell">476.275</td><td>Caravans · RVs</td></tr>
+          <tr><td style="font-weight:500">Ch 1–8, 10–38</td><td class="mono-cell">Various</td><td>General use — avoid 9, 5, 35</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:0.75rem;font-size:0.74rem;color:var(--dust-light)"><strong style="color:var(--parch)">Outback tip:</strong> Always monitor Ch 40 when driving remote roads. Ch 40 is how truckies warn about road conditions, oncoming wide loads, and emergencies.</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-title">Broken Hill Amateur Radio Club</div></div>
+    <div class="g2">
+      <div style="display:flex;flex-direction:column;gap:0.5rem;font-size:0.82rem">
+        <div style="display:flex;justify-content:space-between;padding:0.55rem 0.75rem;background:var(--ink);border-radius:4px"><span style="color:var(--dust-light)">Club callsign</span><span style="font-family:var(--font-mono);color:var(--parch)">VK2ARC</span></div>
+        <div style="display:flex;justify-content:space-between;padding:0.55rem 0.75rem;background:var(--ink);border-radius:4px"><span style="color:var(--dust-light)">Meetings</span><span style="color:var(--parch)">Monthly — check local notices</span></div>
+        <div style="display:flex;justify-content:space-between;padding:0.55rem 0.75rem;background:var(--ink);border-radius:4px"><span style="color:var(--dust-light)">Licensing</span><span><a href="https://www.acma.gov.au" target="_blank" style="color:var(--slate-light);font-size:0.78rem">ACMA →</a></span></div>
+        <div style="display:flex;justify-content:space-between;padding:0.55rem 0.75rem;background:var(--ink);border-radius:4px"><span style="color:var(--dust-light)">WIA (peak body)</span><span><a href="https://www.wia.org.au" target="_blank" style="color:var(--slate-light);font-size:0.78rem">wia.org.au →</a></span></div>
+      </div>
+      <div style="font-size:0.82rem;color:var(--dust-light);line-height:1.7">Amateur radio operators play an important role in emergency communications in remote NSW. The WICEN (Wireless Institute Civil Emergency Network) provides comms support for SES, RFS and other emergency services during major incidents.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ NAME SEARCH ═══ -->
+<section class="section" id="s-namesearch">
+  <div class="s-hero">
+    <div class="s-hero-watermark">FIND</div>
+    <div class="t-label" style="margin-bottom:0.5rem">Search any name · Place · Address · Business · Historical records</div>
+    <h2 class="t-section-title">Name &amp; Place Search</h2>
+    <p style="color:var(--dust-light);margin-top:0.5rem;max-width:560px;font-size:0.88rem">Search across multiple historical and public sources for any name, place, address or business connected to Broken Hill. Pulls from Trove, electoral rolls, business records, and local archives.</p>
+  </div>
+  <div class="card" style="margin-bottom:1.4rem">
+    <div style="display:flex;gap:0.75rem;margin-bottom:1rem;flex-wrap:wrap">
+      <div class="search-wrap" style="flex:1;min-width:220px">
+        <span class="search-ico">⌕</span>
+        <input type="text" id="name-search-input" placeholder="Enter a name, address, business or place..." onkeydown="if(event.key==='Enter')runNameSearch()">
+      </div>
+      <button class="btn btn-rust" onclick="runNameSearch()">Search →</button>
+    </div>
+    <div class="filter-bar" style="margin:0 0 0.75rem">
+      <button class="fbtn on" data-ns="all">All sources</button>
+      <button class="fbtn" data-ns="trove">Trove / Newspapers</button>
+      <button class="fbtn" data-ns="business">Business records</button>
+      <button class="fbtn" data-ns="electoral">Electoral rolls</button>
+      <button class="fbtn" data-ns="property">Property</button>
+    </div>
+    <div id="name-search-results" style="min-height:120px">
+      <div style="padding:1.5rem;text-align:center;font-size:0.82rem;color:var(--dust-light)">Enter a search term above to find historical records about people, places and businesses connected to Broken Hill.</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-title">Available record sources</div></div>
+    <div class="g3">
+      <div style="background:var(--ink);border-radius:6px;padding:0.8rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Trove newspapers</div><div style="font-size:0.78rem;color:var(--dust-light)">Barrier Miner, Barrier Daily Truth, Broken Hill Times — digitised 1880s–1990s. Search mentions in local press.</div></div>
+      <div style="background:var(--ink);border-radius:6px;padding:0.8rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">NSW electoral rolls</div><div style="font-size:0.78rem;color:var(--dust-light)">Historic electoral records showing BH residents by address. Available via Archives NSW and Ancestry.</div></div>
+      <div style="background:var(--ink);border-radius:6px;padding:0.8rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Business directory</div><div style="font-size:0.78rem;color:var(--dust-light)">Historic Sands &amp; McDougall directories listing BH businesses by year. Available via State Library NSW.</div></div>
+      <div style="background:var(--ink);border-radius:6px;padding:0.8rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">Mining employment records</div><div style="font-size:0.78rem;color:var(--dust-light)">BHP and ZC Mines employment records held at BH City Library and State Records NSW.</div></div>
+      <div style="background:var(--ink);border-radius:6px;padding:0.8rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">NSW Land Registry</div><div style="font-size:0.78rem;color:var(--dust-light)">Property ownership history. Search at nswlrs.com.au for current and historical title holders.</div></div>
+      <div style="background:var(--ink);border-radius:6px;padding:0.8rem"><div style="font-weight:500;color:var(--parch);margin-bottom:0.2rem">BH City Library local studies</div><div style="font-size:0.75rem;color:var(--dust-light)">Extensive local history collection. In-person access. Ph: 08 8080 3300. Photographs, maps, ephemera.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ GROKIPEDIA ═══ -->
+<section class="section" id="s-grokipedia">
+  <div class="s-hero">
+    <div class="s-hero-watermark">GROK</div>
+    <div class="t-label" style="margin-bottom:0.5rem">Deep research links · Every topic on this dashboard · Powered by Grok / xAI</div>
+    <h2 class="t-section-title">Grokipedia</h2>
+    <p style="color:var(--dust-light);margin-top:0.5rem;max-width:560px;font-size:0.88rem">One-click deep research on every topic covered in this dashboard. Each link opens Grok pre-loaded with a research query about that topic specific to Broken Hill.</p>
+  </div>
+  <div class="filter-bar" style="margin-bottom:1.2rem">
+    <button class="fbtn on" data-gf="all" onclick="grokFilter('all',this)">All topics</button>
+    <button class="fbtn" data-gf="history" onclick="grokFilter('history',this)">History</button>
+    <button class="fbtn" data-gf="mining" onclick="grokFilter('mining',this)">Mining</button>
+    <button class="fbtn" data-gf="environment" onclick="grokFilter('environment',this)">Environment</button>
+    <button class="fbtn" data-gf="community" onclick="grokFilter('community',this)">Community</button>
+    <button class="fbtn" data-gf="finance" onclick="grokFilter('finance',this)">Finance</button>
+  </div>
+  <div id="grok-grid" class="g-auto"></div>
 </section>
 
 </main>

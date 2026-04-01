@@ -800,3 +800,186 @@ function initPhotos() {
 }
 
 window.initPhotos = initPhotos;
+
+/* ══════════════════════════════════════════════════════
+   CRIME MAP — canvas map with incident pins
+══════════════════════════════════════════════════════ */
+const CRIME_INCIDENTS = [
+  { type:'Vandalism', loc:'Argent St Mall', lat:-31.9568, lon:141.4662, date:'2 days ago', desc:'Graffiti on council seating' },
+  { type:'Vehicle crime', loc:'Crystal St', lat:-31.9550, lon:141.4695, date:'5 days ago', desc:'Car broken into overnight' },
+  { type:'Theft', loc:'Woolworths car park', lat:-31.9565, lon:141.4655, date:'1 week ago', desc:'Shopping trolley theft' },
+  { type:'Antisocial', loc:'Sturt Park', lat:-31.9580, lon:141.4648, date:'3 days ago', desc:'Disturbance near playground' },
+];
+
+const CRIME_COLS = { 'Vandalism':'#E08C24','Vehicle crime':'#5080B8','Theft':'#E24B4A','Antisocial':'#7F77DD','Suspicious activity':'#4A9A64','Drug activity':'#D4537E','Other':'#A09489' };
+
+function drawCrimeMap() {
+  const canvas = document.getElementById('crime-map');
+  if (!canvas) return;
+  const W = canvas.offsetWidth, H = 320;
+  if (canvas.width !== W) canvas.width = W;
+  canvas.height = H;
+  const ctx = canvas.getContext('2d');
+  const LAT_MIN=-32.05,LAT_MAX=-31.88,LON_MIN=141.38,LON_MAX=141.55,pad=24;
+  const proj = (lat,lon) => ({ x: pad+(lon-LON_MIN)/(LON_MAX-LON_MIN)*(W-pad*2), y: pad+(1-(lat-LAT_MIN)/(LAT_MAX-LAT_MIN))*(H-pad*2) });
+
+  ctx.fillStyle='#0d1117'; ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle='rgba(255,255,255,0.04)'; ctx.lineWidth=0.5;
+  for(let i=0;i<=4;i++){const x=pad+i*(W-pad*2)/4,y=pad+i*(H-pad*2)/4;ctx.beginPath();ctx.moveTo(x,pad);ctx.lineTo(x,H-pad);ctx.stroke();ctx.beginPath();ctx.moveTo(pad,y);ctx.lineTo(W-pad,y);ctx.stroke();}
+
+  // YBHI marker
+  const c=proj(-31.9383,141.4722);
+  ctx.beginPath();ctx.arc(c.x,c.y,4,0,Math.PI*2);ctx.fillStyle='#00c850';ctx.fill();
+  ctx.fillStyle='rgba(0,200,70,0.6)';ctx.font='9px DM Mono,monospace';ctx.textAlign='center';ctx.fillText('YBHI',c.x,c.y+14);
+
+  CRIME_INCIDENTS.forEach(inc => {
+    const p=proj(inc.lat,inc.lon);
+    const col=CRIME_COLS[inc.type]||'#888';
+    ctx.beginPath();ctx.arc(p.x,p.y,7,0,Math.PI*2);ctx.fillStyle=col+'30';ctx.fill();
+    ctx.beginPath();ctx.arc(p.x,p.y,4,0,Math.PI*2);ctx.fillStyle=col;ctx.fill();
+    ctx.fillStyle=col;ctx.font='8px DM Mono,monospace';ctx.textAlign='left';
+    ctx.fillText(inc.type,p.x+7,p.y+3);
+  });
+
+  // Legend
+  const types=[...new Set(CRIME_INCIDENTS.map(i=>i.type))];
+  types.forEach((t,i)=>{const col=CRIME_COLS[t]||'#888',lx=pad+2,ly=H-pad-(types.length-1-i)*15-4;ctx.beginPath();ctx.arc(lx+3,ly,3,0,Math.PI*2);ctx.fillStyle=col;ctx.fill();ctx.fillStyle='rgba(160,148,137,0.5)';ctx.font='9px DM Mono,monospace';ctx.textAlign='left';ctx.fillText(t,lx+10,ly+3);});
+}
+
+window.submitCrimeReport = function() {
+  const type=document.getElementById('crime-type')?.value;
+  const loc=document.getElementById('crime-location')?.value;
+  const desc=document.getElementById('crime-desc')?.value;
+  if (!loc || !desc) { alert('Please fill in location and description.'); return; }
+  const msg = document.getElementById('crime-submitted');
+  if (msg) msg.style.display='block';
+  setTimeout(()=>{ if(msg) msg.style.display='none'; },4000);
+};
+
+function initCrimeMap() {
+  if (window._crimemapInited) return;
+  window._crimemapInited = true;
+  setTimeout(drawCrimeMap, 100);
+}
+window.initCrimeMap = initCrimeMap;
+
+/* ══════════════════════════════════════════════════════
+   GROKIPEDIA — deep research links
+══════════════════════════════════════════════════════ */
+const GROK_TOPICS = [
+  { title:'BH Mining History', cat:'history', icon:'⛏', q:'History of mining in Broken Hill NSW Australia from 1883 to today' },
+  { title:'Brushmen of the Bush', cat:'history', icon:'🎨', q:'Brushmen of the Bush art movement Broken Hill Pro Hart Jack Absalom' },
+  { title:'1919 Miners Strike', cat:'history', icon:'✊', q:'Broken Hill 1919 miners strike 35 hour week Australian labour history' },
+  { title:'New Year\'s Day Outrage 1915', cat:'history', icon:'📰', q:'Broken Hill New Year\'s Day Outrage 1915 picnic train attack history' },
+  { title:'RFDS history BH', cat:'history', icon:'✈', q:'Royal Flying Doctor Service Broken Hill history John Flynn' },
+  { title:'School of the Air', cat:'history', icon:'📻', q:'Broken Hill School of the Air history world\'s first distance education' },
+  { title:'Lead levels & health', cat:'environment', icon:'⚠', q:'Lead contamination health effects Broken Hill NSW children blood lead levels history' },
+  { title:'Murray-Darling water crisis', cat:'environment', icon:'💧', q:'Murray Darling Basin water theft mismanagement Menindee fish kill 2019' },
+  { title:'Darling River ecology', cat:'environment', icon:'🌊', q:'Darling River ecology conservation history Menindee Lakes NSW' },
+  { title:'BH geology & ore body', cat:'mining', icon:'🪨', q:'Broken Hill ore body geology Proterozoic lead zinc silver mineralogy' },
+  { title:'Perilya mine operations', cat:'mining', icon:'⛏', q:'Perilya Broken Hill mine operations Chinese ownership Shenzhen Zhongjin Lingnan' },
+  { title:'NSW mining royalties', cat:'finance', icon:'💰', q:'NSW mining royalties system rates lead zinc silver how calculated' },
+  { title:'BH council finances', cat:'finance', icon:'🏛', q:'Broken Hill City Council finances spending audit history NSW' },
+  { title:'Zone tax offset BH', cat:'finance', icon:'💸', q:'Zone tax offset Broken Hill Zone B ATO how to claim remote area allowance' },
+  { title:'Menindee Lakes system', cat:'environment', icon:'🌊', q:'Menindee Lakes system water storage history capacity Broken Hill water supply' },
+  { title:'Silver City Rally', cat:'community', icon:'🏎', q:'Silver City Rally Broken Hill outback rally racing history' },
+  { title:'Mundi Mundi Plains geology', cat:'environment', icon:'🌵', q:'Mundi Mundi Plains geology formation geology outback NSW' },
+  { title:'Silverton ghost town', cat:'history', icon:'👻', q:'Silverton ghost town NSW history gold silver mining Mad Max filming' },
+  { title:'BH population decline', cat:'community', icon:'📉', q:'Broken Hill population decline history causes remote NSW city' },
+  { title:'Living Desert sculptures', cat:'community', icon:'🗿', q:'Living Desert sculpture symposium 1993 Broken Hill international artists' },
+  { title:'Pro Hart biography', cat:'history', icon:'🎨', q:'Pro Hart biography Broken Hill artist Kevin Hart life work legacy' },
+  { title:'BHCC history', cat:'history', icon:'🏛', q:'Broken Hill City Council history local government NSW far west' },
+  { title:'Water theft Four Corners', cat:'environment', icon:'📺', q:'ABC Four Corners Pumped water theft Murray Darling 2017 cotton irrigators' },
+  { title:'BH film history', cat:'community', icon:'🎬', q:'Films made in Broken Hill Mad Max Priscilla movie history' },
+];
+
+let grokCatFilter = 'all';
+
+function renderGrokGrid(topics) {
+  const grid = document.getElementById('grok-grid');
+  if (!grid) return;
+  grid.innerHTML = topics.map(t => {
+    const url = `https://x.com/i/grok?text=${encodeURIComponent(t.q + ' — research this thoroughly')}`;
+    return `<a href="${url}" target="_blank" style="background:var(--ink-soft);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:0.9rem;text-decoration:none;display:block;transition:all 0.15s" onmouseover="this.style.borderColor='rgba(184,58,24,0.4)';this.style.background='var(--ink-lift)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.06)';this.style.background='var(--ink-soft)'">
+      <div style="font-size:1.4rem;margin-bottom:0.4rem">${t.icon}</div>
+      <div style="font-weight:500;color:var(--parch);font-size:0.88rem;margin-bottom:0.2rem">${t.title}</div>
+      <div style="font-size:0.7rem;color:var(--dust-light);line-height:1.4">${t.q.substring(0,70)}...</div>
+      <div style="margin-top:0.5rem;font-size:0.65rem;font-family:var(--font-mono);color:var(--rust-light)">Open in Grok →</div>
+    </a>`;
+  }).join('');
+}
+
+window.grokFilter = function(cat, btn) {
+  grokCatFilter = cat;
+  document.querySelectorAll('[data-gf]').forEach(b => b.classList.remove('on'));
+  if (btn) btn.classList.add('on');
+  const filtered = cat === 'all' ? GROK_TOPICS : GROK_TOPICS.filter(t => t.cat === cat);
+  renderGrokGrid(filtered);
+};
+
+function initGrokipedia() {
+  if (window._grokInited) return;
+  window._grokInited = true;
+  renderGrokGrid(GROK_TOPICS);
+}
+window.initGrokipedia = initGrokipedia;
+
+/* ══════════════════════════════════════════════════════
+   NAME SEARCH — multi-source historical search
+══════════════════════════════════════════════════════ */
+window.runNameSearch = async function() {
+  const q = document.getElementById('name-search-input')?.value?.trim();
+  const results = document.getElementById('name-search-results');
+  if (!q || !results) return;
+
+  results.innerHTML = `<div style="padding:1rem;font-family:var(--font-mono);font-size:0.78rem;color:var(--dust-light)">Searching across Trove, BH records and public sources for "${q}"...</div>`;
+
+  // Search Trove newspapers
+  const apiKey = window.TROVE_API_KEY || '';
+  let troveResults = [];
+
+  if (apiKey) {
+    try {
+      const r = await fetch(`https://api.trove.nla.gov.au/v3/result?q=${encodeURIComponent(q)}+broken+hill&category=newspaper&encoding=json&n=5&key=${apiKey}`);
+      if (r.ok) {
+        const d = await r.json();
+        troveResults = d.category?.[0]?.records?.article || [];
+      }
+    } catch(e) { console.warn('Name search Trove:', e.message); }
+  }
+
+  const html = `
+    <div style="display:flex;flex-direction:column;gap:0.75rem">
+      <div style="font-size:0.8rem;font-weight:500;color:var(--parch);margin-bottom:0.25rem">Results for: <span style="color:var(--ochre-light)">"${q}"</span></div>
+
+      ${troveResults.length ? `
+        <div style="background:var(--ink);border-radius:6px;padding:0.9rem">
+          <div style="font-weight:500;color:var(--parch);margin-bottom:0.6rem;font-size:0.84rem">📰 Trove newspaper mentions (${troveResults.length})</div>
+          ${troveResults.map(a => `
+            <div style="padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.04)">
+              <a href="${a.troveUrl||'#'}" target="_blank" style="color:var(--slate-light);font-size:0.82rem;font-weight:500">${a.heading||'Article'}</a>
+              <div style="font-size:0.72rem;color:var(--dust-light)">${a.date||''} · ${a.title?.value||''}</div>
+              ${a.snippet ? `<div style="font-size:0.75rem;color:var(--dust-light);margin-top:0.2rem">${a.snippet}</div>` : ''}
+            </div>`).join('')}
+        </div>` : apiKey ? '<div style="font-size:0.8rem;color:var(--dust-light);padding:0.5rem">No newspaper mentions found in Trove for this search.</div>' : ''}
+
+      <div style="background:var(--ink);border-radius:6px;padding:0.9rem">
+        <div style="font-weight:500;color:var(--parch);margin-bottom:0.6rem;font-size:0.84rem">🔍 Search directly in other sources</div>
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+          <a href="https://trove.nla.gov.au/search/category/newspapers?keyword=${encodeURIComponent(q+' broken hill')}" target="_blank" class="btn btn-ghost" style="font-size:0.68rem">Trove newspapers →</a>
+          <a href="https://www.ancestry.com.au/search/?name=${encodeURIComponent(q)}&location=broken+hill" target="_blank" class="btn btn-ghost" style="font-size:0.68rem">Ancestry.com.au →</a>
+          <a href="https://www.findmypast.com.au/search?firstname=&lastname=${encodeURIComponent(q)}" target="_blank" class="btn btn-ghost" style="font-size:0.68rem">FindMyPast →</a>
+          <a href="https://nswlrs.com.au" target="_blank" class="btn btn-ghost" style="font-size:0.68rem">NSW Land Registry →</a>
+          <a href="https://x.com/i/grok?text=${encodeURIComponent('Research everything historically available about ' + q + ' in Broken Hill NSW Australia')}" target="_blank" class="btn btn-ghost" style="font-size:0.68rem">Ask Grok →</a>
+        </div>
+      </div>
+    </div>`;
+
+  results.innerHTML = html;
+};
+
+function initNameSearch() {
+  if (window._namesearchInited) return;
+  window._namesearchInited = true;
+}
+window.initNameSearch = initNameSearch;

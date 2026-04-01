@@ -982,10 +982,77 @@ img { max-width: 100%; display: block; }
   .main { padding: 1rem; }
   .topbar { display: none; }
   .g2, .g3, .g4, .g-auto { grid-template-columns: 1fr; }
-  .stat-row { grid-template-columns: 1fr 1fr; }
+  .g-auto-sm { grid-template-columns: 1fr; }
+  .stat-row { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
   #bizdir-layout { grid-template-columns: 1fr; }
   .s-hero-watermark { font-size: 4rem; }
-  .scroll-x { overflow-x: auto; }
+  .scroll-x { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  /* Tables — make them scroll horizontally */
+  .tbl { font-size: 0.72rem; }
+  .tbl th, .tbl td { padding: 0.4rem 0.5rem; white-space: nowrap; }
+  .card > .scroll-x, .card .tbl { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; width: 100%; }
+
+  /* Charts — full width */
+  canvas { width: 100% !important; max-width: 100%; }
+
+  /* Commodities section — stack everything */
+  #s-commodities .g2 { grid-template-columns: 1fr; }
+  #commodity-stats { grid-template-columns: 1fr 1fr; gap: 0.4rem; }
+  #commodity-stats .stat { padding: 0.6rem; }
+  #commodity-stats .stat-val { font-size: 1.2rem; }
+
+  /* ADSB radar — shorter on mobile */
+  #adsb-radar { max-height: 280px; }
+  #adsb-main { grid-template-columns: 1fr !important; }
+  #adsb-lower { grid-template-columns: 1fr !important; }
+
+  /* Stat row small fixes */
+  .stat { padding: 0.7rem 0.6rem; }
+  .stat-val { font-size: 1.4rem; }
+  .stat-lbl { font-size: 0.62rem; }
+
+  /* Cards */
+  .card { padding: 0.9rem; }
+  .card-head { flex-wrap: wrap; gap: 0.4rem; }
+
+  /* Filter bar — scroll horizontally */
+  .filter-bar { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 0.25rem; }
+  .fbtn { white-space: nowrap; flex-shrink: 0; }
+
+  /* Hero section */
+  .s-hero { padding: 1.2rem 0 1rem; }
+  .t-section-title { font-size: 2.2rem; }
+
+  /* Business directory map — hide on mobile, show cards only */
+  #bizdir-layout > div:last-child { display: none; }
+
+  /* Timeline */
+  .timeline { padding-left: 0.5rem; }
+  .tl-item { padding-left: 1rem; }
+
+  /* Petrol chart */
+  #fuel-chart { height: 120px !important; }
+
+  /* Biz directory grid */
+  #biz-grid { grid-template-columns: 1fr; }
+
+  /* Sport section */
+  #s-sport .g-auto { grid-template-columns: 1fr; }
+
+  /* Food menus */
+  #s-food .g-auto { grid-template-columns: 1fr; }
+
+  /* Welfare cards */
+  #s-welfare .g-auto { grid-template-columns: 1fr 1fr; }
+
+  /* Emergency cards */
+  #s-emergency .g-auto { grid-template-columns: 1fr 1fr; }
+
+  /* Garbage bins grid */
+  #s-garbage .g2 { grid-template-columns: 1fr; }
+  #s-garbage .g3 { grid-template-columns: 1fr; }
 }
 
 /* ═══════════════════════════════════════

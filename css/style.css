@@ -909,7 +909,7 @@ img { max-width: 100%; display: block; }
    MOBILE NAV
 ═══════════════════════════════════════ */
 .mob-bar {
-  display: none;
+  display: none !important;
   position: fixed;
   top: 0; left: 0; right: 0;
   height: 52px;
@@ -961,7 +961,7 @@ img { max-width: 100%; display: block; }
     grid-template-columns: 1fr;
     padding-top: 52px;
   }
-  .mob-bar { display: flex; }
+  .mob-bar { display: flex !important; }
 
   .sidebar {
     position: fixed !important;

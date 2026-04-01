@@ -905,10 +905,80 @@ img { max-width: 100%; display: block; }
 /* ═══════════════════════════════════════
    RESPONSIVE
 ═══════════════════════════════════════ */
+/* ═══════════════════════════════════════
+   MOBILE NAV
+═══════════════════════════════════════ */
+.mob-bar {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 52px;
+  background: var(--ink-mid);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  z-index: 200;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+.mob-brand {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--rust-light);
+  letter-spacing: 0.05em;
+}
+.mob-menu-btn {
+  width: 38px; height: 38px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 5px; cursor: pointer;
+  background: none; border: none; padding: 0;
+}
+.mob-menu-btn span {
+  display: block; width: 22px; height: 2px;
+  background: var(--parch); border-radius: 2px;
+  transition: all 0.2s ease;
+}
+.mob-menu-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.mob-menu-btn.open span:nth-child(2) { opacity: 0; }
+.mob-menu-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.mob-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 150;
+}
+.mob-overlay.visible { display: block; }
+
 @media (max-width: 860px) {
-  .app { grid-template-columns: 1fr; }
-  .sidebar { display: none; }
-  .g2, .g3, .g4 { grid-template-columns: 1fr; }
+  .app {
+    grid-template-columns: 1fr;
+    padding-top: 52px;
+  }
+  .mob-bar { display: flex; }
+
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    width: 280px;
+    height: 100vh;
+    z-index: 160;
+    transform: translateX(-100%);
+    transition: transform 0.28s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: var(--shadow-lg);
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .main { padding: 1rem; }
+  .topbar { display: none; }
+  .g2, .g3, .g4, .g-auto { grid-template-columns: 1fr; }
+  .stat-row { grid-template-columns: 1fr 1fr; }
+  #bizdir-layout { grid-template-columns: 1fr; }
+  .s-hero-watermark { font-size: 4rem; }
+  .scroll-x { overflow-x: auto; }
 }
 
 /* ═══════════════════════════════════════

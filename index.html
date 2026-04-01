@@ -9,6 +9,17 @@
 </head>
 <body>
 
+<!-- Mobile top bar -->
+<div class="mob-bar">
+  <div class="mob-brand">THA HILL</div>
+  <button class="mob-menu-btn" id="mob-menu-btn" onclick="toggleMobNav()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<!-- Mobile overlay -->
+<div class="mob-overlay" id="mob-overlay" onclick="closeMobNav()"></div>
+
 <div class="app">
 
 <!-- ═══════════════════════════════════════════════════════
@@ -2654,5 +2665,26 @@
 <script src="js/main.js"></script>
 <script src="js/adsb.js"></script>
 <script src="js/phase2.js"></script>
+<script>
+function toggleMobNav() {
+  const sidebar = document.querySelector('.sidebar');
+  const btn     = document.getElementById('mob-menu-btn');
+  const overlay = document.getElementById('mob-overlay');
+  sidebar.classList.toggle('open');
+  btn.classList.toggle('open');
+  overlay.classList.toggle('visible');
+}
+function closeMobNav() {
+  document.querySelector('.sidebar').classList.remove('open');
+  document.getElementById('mob-menu-btn').classList.remove('open');
+  document.getElementById('mob-overlay').classList.remove('visible');
+}
+// Close sidebar when a nav link is tapped on mobile
+document.querySelectorAll('.nav-link').forEach(el => {
+  el.addEventListener('click', () => {
+    if (window.innerWidth <= 860) closeMobNav();
+  });
+});
+</script>
 </body>
 </html>

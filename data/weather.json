@@ -1,9 +1,9 @@
 {
-  "updated": "2026-05-09T19:13:22.648649Z",
+  "updated": "2026-05-10T18:50:48.985011Z",
   "data": {
     "latitude": -31.95079,
     "longitude": 141.3976,
-    "generationtime_ms": 3.581881523132324,
+    "generationtime_ms": 5.112767219543457,
     "utc_offset_seconds": 34200,
     "timezone": "Australia/Broken_Hill",
     "timezone_abbreviation": "GMT+9:30",
@@ -19,14 +19,14 @@
       "relative_humidity_2m": "%"
     },
     "current": {
-      "time": "2026-05-10T04:30",
+      "time": "2026-05-11T04:15",
       "interval": 900,
-      "temperature_2m": 8.6,
-      "apparent_temperature": 6.8,
+      "temperature_2m": 9.1,
+      "apparent_temperature": 6.9,
       "weather_code": 0,
-      "wind_speed_10m": 8.8,
-      "wind_direction_10m": 149,
-      "relative_humidity_2m": 95
+      "wind_speed_10m": 9.9,
+      "wind_direction_10m": 122,
+      "relative_humidity_2m": 88
     },
     "daily_units": {
       "time": "iso8601",
@@ -37,49 +37,49 @@
     },
     "daily": {
       "time": [
-        "2026-05-10",
         "2026-05-11",
         "2026-05-12",
         "2026-05-13",
         "2026-05-14",
         "2026-05-15",
-        "2026-05-16"
+        "2026-05-16",
+        "2026-05-17"
       ],
       "temperature_2m_max": [
-        17.9,
-        20.5,
-        22.2,
-        19.0,
-        21.7,
-        21.6,
-        15.6
+        20.8,
+        22.0,
+        21.8,
+        21.5,
+        23.3,
+        17.5,
+        16.5
       ],
       "temperature_2m_min": [
-        7.9,
         8.4,
-        11.4,
-        13.6,
+        12.2,
         14.1,
-        14.8,
-        11.9
+        13.2,
+        14.3,
+        13.4,
+        10.8
       ],
       "weather_code": [
         3,
         3,
         3,
-        63,
         3,
-        51,
-        61
+        3,
+        61,
+        51
       ],
       "precipitation_sum": [
         0.0,
         0.0,
         0.0,
-        8.0,
         0.0,
-        0.2,
-        16.8
+        0.0,
+        12.6,
+        0.6
       ]
     }
   }

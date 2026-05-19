@@ -1,9 +1,9 @@
 {
-  "updated": "2026-05-18T19:53:43.088039Z",
+  "updated": "2026-05-19T19:44:45.768954Z",
   "data": {
     "latitude": -31.95079,
     "longitude": 141.3976,
-    "generationtime_ms": 2.4091005325317383,
+    "generationtime_ms": 1.7505884170532227,
     "utc_offset_seconds": 34200,
     "timezone": "Australia/Broken_Hill",
     "timezone_abbreviation": "GMT+9:30",
@@ -19,14 +19,14 @@
       "relative_humidity_2m": "%"
     },
     "current": {
-      "time": "2026-05-19T05:15",
+      "time": "2026-05-20T05:00",
       "interval": 900,
-      "temperature_2m": 9.9,
-      "apparent_temperature": 7.1,
+      "temperature_2m": 8.1,
+      "apparent_temperature": 5.8,
       "weather_code": 0,
-      "wind_speed_10m": 17.4,
-      "wind_direction_10m": 208,
-      "relative_humidity_2m": 97
+      "wind_speed_10m": 11.0,
+      "wind_direction_10m": 190,
+      "relative_humidity_2m": 95
     },
     "daily_units": {
       "time": "iso8601",
@@ -37,49 +37,49 @@
     },
     "daily": {
       "time": [
-        "2026-05-19",
         "2026-05-20",
         "2026-05-21",
         "2026-05-22",
         "2026-05-23",
         "2026-05-24",
-        "2026-05-25"
+        "2026-05-25",
+        "2026-05-26"
       ],
       "temperature_2m_max": [
-        17.2,
-        15.7,
-        16.2,
-        16.1,
         16.5,
-        16.0,
-        13.4
+        16.5,
+        16.2,
+        18.0,
+        16.2,
+        14.5,
+        11.5
       ],
       "temperature_2m_min": [
-        9.4,
         7.7,
-        7.7,
-        6.8,
-        7.9,
-        9.6,
-        8.2
+        9.2,
+        7.2,
+        9.9,
+        10.8,
+        8.3,
+        6.6
       ],
       "weather_code": [
+        3,
+        3,
+        3,
+        3,
         51,
-        3,
-        3,
-        3,
-        3,
-        3,
-        2
+        51,
+        53
       ],
       "precipitation_sum": [
-        0.2,
         0.0,
         0.0,
         0.0,
         0.0,
-        0.0,
-        0.0
+        0.9,
+        0.3,
+        4.0
       ]
     }
   }

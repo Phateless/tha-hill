@@ -1,9 +1,9 @@
 {
-  "updated": "2026-06-02T21:17:04.235642Z",
+  "updated": "2026-06-03T20:48:37.994093Z",
   "data": {
     "latitude": -31.95079,
     "longitude": 141.3976,
-    "generationtime_ms": 1.516580581665039,
+    "generationtime_ms": 4.655241966247559,
     "utc_offset_seconds": 34200,
     "timezone": "Australia/Broken_Hill",
     "timezone_abbreviation": "GMT+9:30",
@@ -19,14 +19,14 @@
       "relative_humidity_2m": "%"
     },
     "current": {
-      "time": "2026-06-03T06:45",
+      "time": "2026-06-04T06:15",
       "interval": 900,
-      "temperature_2m": 9.4,
-      "apparent_temperature": 5.6,
-      "weather_code": 0,
-      "wind_speed_10m": 23.4,
-      "wind_direction_10m": 280,
-      "relative_humidity_2m": 92
+      "temperature_2m": 9.8,
+      "apparent_temperature": 5.0,
+      "weather_code": 2,
+      "wind_speed_10m": 29.7,
+      "wind_direction_10m": 287,
+      "relative_humidity_2m": 89
     },
     "daily_units": {
       "time": "iso8601",
@@ -37,44 +37,44 @@
     },
     "daily": {
       "time": [
-        "2026-06-03",
         "2026-06-04",
         "2026-06-05",
         "2026-06-06",
         "2026-06-07",
         "2026-06-08",
-        "2026-06-09"
+        "2026-06-09",
+        "2026-06-10"
       ],
       "temperature_2m_max": [
-        15.6,
-        14.1,
-        12.8,
-        16.0,
-        16.5,
-        17.3,
-        18.6
+        13.6,
+        12.5,
+        15.2,
+        15.9,
+        16.7,
+        18.6,
+        18.0
       ],
       "temperature_2m_min": [
-        9.5,
-        8.1,
-        5.4,
-        5.6,
-        7.5,
-        6.4,
-        10.9
+        8.2,
+        5.3,
+        5.7,
+        7.2,
+        6.7,
+        9.9,
+        12.1
       ],
       "weather_code": [
-        51,
-        51,
+        61,
+        3,
+        3,
         3,
         1,
-        1,
-        2,
+        3,
         3
       ],
       "precipitation_sum": [
-        0.2,
-        0.3,
+        3.4,
+        0.0,
         0.0,
         0.0,
         0.0,

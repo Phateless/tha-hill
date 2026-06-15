@@ -1,9 +1,9 @@
 {
-  "updated": "2026-06-14T19:46:04.675108Z",
+  "updated": "2026-06-15T20:47:33.084012Z",
   "data": {
     "latitude": -31.95079,
     "longitude": 141.3976,
-    "generationtime_ms": 1.7963647842407227,
+    "generationtime_ms": 6.497383117675781,
     "utc_offset_seconds": 34200,
     "timezone": "Australia/Broken_Hill",
     "timezone_abbreviation": "GMT+9:30",
@@ -19,14 +19,14 @@
       "relative_humidity_2m": "%"
     },
     "current": {
-      "time": "2026-06-15T05:15",
+      "time": "2026-06-16T06:15",
       "interval": 900,
-      "temperature_2m": 13.4,
-      "apparent_temperature": 12.0,
-      "weather_code": 2,
-      "wind_speed_10m": 14.9,
-      "wind_direction_10m": 60,
-      "relative_humidity_2m": 95
+      "temperature_2m": 15.1,
+      "apparent_temperature": 12.4,
+      "weather_code": 3,
+      "wind_speed_10m": 20.9,
+      "wind_direction_10m": 25,
+      "relative_humidity_2m": 79
     },
     "daily_units": {
       "time": "iso8601",
@@ -37,47 +37,47 @@
     },
     "daily": {
       "time": [
-        "2026-06-15",
         "2026-06-16",
         "2026-06-17",
         "2026-06-18",
         "2026-06-19",
         "2026-06-20",
-        "2026-06-21"
+        "2026-06-21",
+        "2026-06-22"
       ],
       "temperature_2m_max": [
-        20.4,
-        18.6,
-        21.3,
-        15.9,
-        12.6,
+        20.3,
+        20.9,
+        16.3,
+        13.6,
         13.1,
-        14.1
+        13.1,
+        12.9
       ],
       "temperature_2m_min": [
-        12.6,
-        14.0,
-        14.2,
-        9.2,
-        8.3,
-        5.9,
-        6.5
+        14.5,
+        14.9,
+        9.3,
+        8.5,
+        6.1,
+        6.0,
+        5.2
       ],
       "weather_code": [
-        3,
-        3,
-        51,
-        63,
         51,
         3,
+        81,
+        51,
+        3,
+        1,
         3
       ],
       "precipitation_sum": [
-        0.0,
-        0.0,
-        0.1,
-        13.8,
         0.3,
+        0.0,
+        7.2,
+        0.4,
+        0.0,
         0.0,
         0.0
       ]

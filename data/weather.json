@@ -1,9 +1,9 @@
 {
-  "updated": "2026-07-02T19:12:45.858664Z",
+  "updated": "2026-07-02T19:41:27.102373Z",
   "data": {
     "latitude": -31.95079,
     "longitude": 141.3976,
-    "generationtime_ms": 8.07332992553711,
+    "generationtime_ms": 2.9153823852539062,
     "utc_offset_seconds": 34200,
     "timezone": "Australia/Broken_Hill",
     "timezone_abbreviation": "GMT+9:30",
@@ -19,13 +19,13 @@
       "relative_humidity_2m": "%"
     },
     "current": {
-      "time": "2026-07-03T04:30",
+      "time": "2026-07-03T05:00",
       "interval": 900,
-      "temperature_2m": 8.7,
-      "apparent_temperature": 5.7,
+      "temperature_2m": 8.3,
+      "apparent_temperature": 5.4,
       "weather_code": 0,
-      "wind_speed_10m": 16.7,
-      "wind_direction_10m": 271,
+      "wind_speed_10m": 15.8,
+      "wind_direction_10m": 270,
       "relative_humidity_2m": 95
     },
     "daily_units": {

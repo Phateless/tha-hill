@@ -1,9 +1,9 @@
 {
-  "updated": "2026-07-29T19:26:16.389004Z",
+  "updated": "2026-07-30T19:12:48.756693Z",
   "data": {
     "latitude": -31.95079,
     "longitude": 141.3976,
-    "generationtime_ms": 0.3104209899902344,
+    "generationtime_ms": 6.448030471801758,
     "utc_offset_seconds": 34200,
     "timezone": "Australia/Broken_Hill",
     "timezone_abbreviation": "GMT+9:30",
@@ -19,14 +19,14 @@
       "relative_humidity_2m": "%"
     },
     "current": {
-      "time": "2026-07-30T04:45",
+      "time": "2026-07-31T04:30",
       "interval": 900,
-      "temperature_2m": 6.4,
-      "apparent_temperature": 3.3,
-      "weather_code": 3,
-      "wind_speed_10m": 10.4,
-      "wind_direction_10m": 190,
-      "relative_humidity_2m": 81
+      "temperature_2m": 3.8,
+      "apparent_temperature": 0.5,
+      "weather_code": 2,
+      "wind_speed_10m": 9.8,
+      "wind_direction_10m": 122,
+      "relative_humidity_2m": 86
     },
     "daily_units": {
       "time": "iso8601",
@@ -37,40 +37,40 @@
     },
     "daily": {
       "time": [
-        "2026-07-30",
         "2026-07-31",
         "2026-08-01",
         "2026-08-02",
         "2026-08-03",
         "2026-08-04",
-        "2026-08-05"
+        "2026-08-05",
+        "2026-08-06"
       ],
       "temperature_2m_max": [
-        12.1,
-        11.5,
-        13.9,
+        11.9,
+        14.3,
+        16.4,
         15.5,
-        15.1,
-        13.4,
-        12.2
+        14.3,
+        13.6,
+        17.2
       ],
       "temperature_2m_min": [
-        5.0,
-        4.6,
-        2.3,
-        4.9,
-        5.8,
-        3.0,
-        3.9
+        3.1,
+        2.0,
+        5.4,
+        5.7,
+        4.2,
+        3.5,
+        8.5
       ],
       "weather_code": [
+        2,
+        0,
+        0,
+        0,
+        2,
         3,
-        3,
-        0,
-        0,
-        0,
-        1,
-        1
+        51
       ],
       "precipitation_sum": [
         0.0,
@@ -79,7 +79,7 @@
         0.0,
         0.0,
         0.0,
-        0.0
+        0.6
       ]
     }
   }

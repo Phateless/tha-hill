@@ -1,9 +1,9 @@
 {
-  "updated": "2026-10-13T22:30:40.076809Z",
+  "updated": "2026-10-14T21:08:34.863334Z",
   "data": {
     "latitude": -31.95079,
     "longitude": 141.3976,
-    "generationtime_ms": 20.442485809326172,
+    "generationtime_ms": 8.775591850280762,
     "utc_offset_seconds": 37800,
     "timezone": "Australia/Broken_Hill",
     "timezone_abbreviation": "GMT+10:30",
@@ -19,14 +19,14 @@
       "relative_humidity_2m": "%"
     },
     "current": {
-      "time": "2026-10-14T09:00",
+      "time": "2026-10-15T07:30",
       "interval": 900,
       "temperature_2m": 11.5,
-      "apparent_temperature": 7.3,
-      "weather_code": 0,
-      "wind_speed_10m": 19.4,
-      "wind_direction_10m": 146,
-      "relative_humidity_2m": 61
+      "apparent_temperature": 8.0,
+      "weather_code": 1,
+      "wind_speed_10m": 13.0,
+      "wind_direction_10m": 151,
+      "relative_humidity_2m": 57
     },
     "daily_units": {
       "time": "iso8601",
@@ -37,49 +37,49 @@
     },
     "daily": {
       "time": [
-        "2026-10-14",
         "2026-10-15",
         "2026-10-16",
         "2026-10-17",
         "2026-10-18",
         "2026-10-19",
-        "2026-10-20"
+        "2026-10-20",
+        "2026-10-21"
       ],
       "temperature_2m_max": [
-        19.1,
-        22.5,
-        23.1,
-        22.9,
         23.3,
-        25.1,
-        29.0
+        24.0,
+        25.7,
+        25.7,
+        24.7,
+        29.8,
+        24.9
       ],
       "temperature_2m_min": [
-        7.6,
-        10.7,
         10.3,
-        12.7,
-        14.1,
-        15.5,
-        14.8
+        10.7,
+        13.6,
+        15.4,
+        14.7,
+        15.2,
+        14.4
       ],
       "weather_code": [
         3,
         3,
-        3,
         51,
         51,
         51,
-        3
+        53,
+        53
       ],
       "precipitation_sum": [
         0.0,
         0.0,
-        0.0,
-        0.4,
-        0.9,
-        0.9,
-        0.0
+        0.1,
+        1.0,
+        0.3,
+        1.6,
+        3.2
       ]
     }
   }

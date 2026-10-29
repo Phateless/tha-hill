@@ -1,9 +1,9 @@
 {
-  "updated": "2026-10-28T22:25:47.915975Z",
+  "updated": "2026-10-29T22:13:56.277493Z",
   "data": {
     "latitude": -31.95079,
     "longitude": 141.3976,
-    "generationtime_ms": 0.4793405532836914,
+    "generationtime_ms": 0.21517276763916016,
     "utc_offset_seconds": 37800,
     "timezone": "Australia/Broken_Hill",
     "timezone_abbreviation": "GMT+10:30",
@@ -19,14 +19,14 @@
       "relative_humidity_2m": "%"
     },
     "current": {
-      "time": "2026-10-29T08:45",
+      "time": "2026-10-30T08:30",
       "interval": 900,
-      "temperature_2m": 16.1,
-      "apparent_temperature": 12.3,
-      "weather_code": 0,
-      "wind_speed_10m": 17.3,
-      "wind_direction_10m": 113,
-      "relative_humidity_2m": 48
+      "temperature_2m": 20.7,
+      "apparent_temperature": 16.2,
+      "weather_code": 3,
+      "wind_speed_10m": 16.3,
+      "wind_direction_10m": 52,
+      "relative_humidity_2m": 26
     },
     "daily_units": {
       "time": "iso8601",
@@ -37,49 +37,49 @@
     },
     "daily": {
       "time": [
-        "2026-10-29",
         "2026-10-30",
         "2026-10-31",
         "2026-11-01",
         "2026-11-02",
         "2026-11-03",
-        "2026-11-04"
+        "2026-11-04",
+        "2026-11-05"
       ],
       "temperature_2m_max": [
-        25.2,
-        30.0,
-        29.8,
-        31.5,
-        34.9,
-        27.2,
-        30.9
+        28.6,
+        28.9,
+        31.8,
+        34.3,
+        26.9,
+        27.0,
+        22.6
       ],
       "temperature_2m_min": [
-        10.8,
-        15.3,
-        19.1,
-        14.8,
-        18.1,
-        14.3,
-        9.7
+        16.0,
+        18.5,
+        15.2,
+        18.7,
+        14.5,
+        12.2,
+        10.9
       ],
       "weather_code": [
-        3,
-        3,
-        53,
-        2,
         51,
         0,
-        51
+        1,
+        53,
+        0,
+        1,
+        0
       ],
       "precipitation_sum": [
+        0.1,
         0.0,
         0.0,
-        0.7,
+        0.5,
         0.0,
-        0.3,
         0.0,
-        2.4
+        0.0
       ]
     }
   }

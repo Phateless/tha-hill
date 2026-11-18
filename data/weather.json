@@ -1,9 +1,9 @@
 {
-  "updated": "2026-11-17T01:47:10.759061Z",
+  "updated": "2026-11-18T00:17:13.872418Z",
   "data": {
     "latitude": -31.95079,
     "longitude": 141.3976,
-    "generationtime_ms": 0.24807453155517578,
+    "generationtime_ms": 0.3737211227416992,
     "utc_offset_seconds": 37800,
     "timezone": "Australia/Broken_Hill",
     "timezone_abbreviation": "GMT+10:30",
@@ -19,14 +19,14 @@
       "relative_humidity_2m": "%"
     },
     "current": {
-      "time": "2026-11-17T12:15",
+      "time": "2026-11-18T10:45",
       "interval": 900,
-      "temperature_2m": 23.7,
-      "apparent_temperature": 22.7,
-      "weather_code": 3,
-      "wind_speed_10m": 12.0,
-      "wind_direction_10m": 152,
-      "relative_humidity_2m": 20
+      "temperature_2m": 27.6,
+      "apparent_temperature": 25.8,
+      "weather_code": 0,
+      "wind_speed_10m": 11.7,
+      "wind_direction_10m": 90,
+      "relative_humidity_2m": 16
     },
     "daily_units": {
       "time": "iso8601",
@@ -37,49 +37,49 @@
     },
     "daily": {
       "time": [
-        "2026-11-17",
         "2026-11-18",
         "2026-11-19",
         "2026-11-20",
         "2026-11-21",
         "2026-11-22",
-        "2026-11-23"
+        "2026-11-23",
+        "2026-11-24"
       ],
       "temperature_2m_max": [
-        26.0,
-        31.5,
-        33.7,
-        28.5,
-        28.3,
-        35.4,
-        24.6
+        32.3,
+        32.5,
+        32.0,
+        32.3,
+        38.5,
+        30.2,
+        24.3
       ],
       "temperature_2m_min": [
-        11.0,
-        15.4,
-        21.0,
-        19.1,
-        16.8,
-        20.1,
-        12.2
+        16.3,
+        21.2,
+        19.4,
+        18.2,
+        21.9,
+        16.9,
+        11.9
       ],
       "weather_code": [
         3,
+        81,
+        51,
         3,
-        53,
-        95,
         3,
-        53,
-        51
+        3,
+        1
       ],
       "precipitation_sum": [
         0.0,
+        5.3,
+        0.4,
         0.0,
-        1.5,
-        18.1,
         0.0,
-        1.8,
-        0.6
+        0.0,
+        0.0
       ]
     }
   }
